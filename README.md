@@ -6,5 +6,5 @@
 <sup>1</sup> *Geographic Data Science Lab, University of Liverpool, Liverpool, United Kingdom*
 
 <sup>*</sup> *Correspondence*:
-Francisco Rowe (F.Rowe-Gonzalez@liverpool.ac.uk)
+Francisco Rowe (F.Rowe-Gonzalez@liverpool.ac.uk),
 Carmen Cabrera-Arnau (C.Cabrera-Arnau@liverpool.ac.uk)

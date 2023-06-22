@@ -8,9 +8,10 @@ book:
   chapters:
     - index.qmd
     - overview.qmd
-    - exploring-temporal-data.qmd
-    - exploring-spatial-data.qmd
-    - references.qmd
+    # - data-description.qmd
+    # - exploring-temporal-data.qmd
+    # - exploring-spatial-data.qmd
+    # - references.qmd
 
 bibliography: references.bib
 

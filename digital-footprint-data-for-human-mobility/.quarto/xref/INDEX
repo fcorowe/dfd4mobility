@@ -28,5 +28,13 @@
   "data-description.qmd": {
     "data-description.html": "13ab1ca8",
     "data-description.tex": "49873b8b"
+  },
+  "spatial-patterns.qmd": {
+    "spatial-patterns.html": "438edc8b",
+    "spatial-patterns.tex": "e89d826b"
+  },
+  "temporal-trends.qmd": {
+    "temporal-trends.html": "3f430390",
+    "temporal-trends.tex": "f8639f64"
   }
 }

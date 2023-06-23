@@ -5,7 +5,7 @@ project:
 book:
   title: "Using Digital Footprint Data to Measure and Monitor Human Mobility"
   author: "Prof. Francisco Rowe, Dr. Carmen Cabrera-Arnau, Dr. Miguel Gonzalez-Leonardo, Ruth Neville and Andrea Nasuto"
-  date: "6/20/2023"
+  date: "`r Sys.Date()`"
   chapters:
     - index.qmd
     - overview.qmd

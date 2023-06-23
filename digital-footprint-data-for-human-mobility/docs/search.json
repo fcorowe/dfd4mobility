@@ -1,44 +1,37 @@
 [
   {
-    "objectID": "overview.html",
-    "href": "overview.html",
-    "title": "",
-    "section": "",
-    "text": "This workshop offers an introduction to the access and use of digital footprint data to analyse internal population movements. We will cover how to download and develop data products for the analysis of this type of data. The workshop will use an applied, hands-on approach in R via computational notebooks.\n\n\n\n\n9.00-9.30: Registration and welcome coffee\n9.30-10.30: Digital Footprints Data overview\n10.30-10.40: Comfort break\n10.40-11.40: Facebook data introduction\n11.40-12.15: Software installation and preparation for practical session\n12.15-13.15: Lunch break\n13.15-14.30: Exploring temporal patterns of internal mobility\n14.30-15.00: Coffee break\n15.00-16.30: Exploring spatial patterns of internal mobility\n16.30-17.00: Q&A\n\n\n\n\nYou need to download the most recent version of R prior to the workshop. You can download it from here [Fr, check link]. Make sure to download the appropriate version for your Operating System. For example, if you use a macOS laptop with an M1 processor, click on ‘Download R for macOS’ and then, click the link to download the installer file (.pkg extension for macOS) under the header ‘For Apple silicon (M1/M2) Macs’. You can then open the installer and follow the instructions that you will be prompted with.\nYou will also need to download RStudio, which is an integrated development environment to help you write code in R more easily. To download RStudio, follow this link [Fr, check link] and scroll down to the section titled ‘All Installers and Tarballs’. Download the appropriate installer file according to your Operating System. Then, open the installer and follow the installation instructions that you will be prompted with.\nOnce you have installed R, you will need to install some R extensions, known as packages, that will be useful for the applications explored in this workshop. The packages you need to install are:\n\ntidyverse\nviridis\ntmap\nsf\nstringr\nggplot2\n\nTo do this, open RStudio. On the console window (normally at the bottom left, write the following command: install.packages(\"name of package\"). Make sure you replace name of package by the actual name of the package that you want to install. Then press enter and repeat this process until you have installed all the packages in the list.\nNote: we might ask you to install more packages on the day that this workshop is taking place.\n\n\n\nAll the workshop material will be made available on this website [Fr, create link for workshop website], which is currently under construction. Instructions on how to download the material will be given during the workshop."
-  },
-  {
-    "objectID": "spatial-patterns.html",
-    "href": "spatial-patterns.html",
-    "title": "",
-    "section": "",
-    "text": "Exploring spatial data"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "",
+    "title": "Using Digital Footprint Data to Measure and Monitor Human Mobility",
     "section": "",
     "text": "Welcome\nThis is the website for “Using Digital Footprint Data to Measure and Monitor Human Mobility”. This is a training workshop designed and delivered by Prof. Francisco Rowe, Dr. Carmen Cabrera-Arnau, Dr. Miguel Gonzalez-Leonardo, Ruth Neville and Andrea Nasuto.\nThe website is free to use and is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International. \n\n\n\n\n\n\nContact\n\nProf Francisco Rowe, Professor in Population Data Science\nf.rowe-gonzalez [at] liverpool.ac.uk\nDepartment of Geography and Planning, University of Liverpool, Liverpool, UK\n\n\nDr Carmen Cabrera-Arnau, Lecturer in Geographic Data Science\nc.cabrera-arnau [at] liverpool.ac.uk\nDepartment of Geography and Planning, University of Liverpool, Liverpool, UK\n\n\nDr Miguel Gonzalez-Leonardo, Assistant Professor\nmiguel.gonzalez [at] colmex.mx\nCenter for Demographic, Urban and Environmental Studies, El Colegio de Mexico, Mexico City, Mexico\n\n\nRuth Neville, PhD candidate\nruth.neville [at] liverpool.ac.uk\nDepartment of Geography and Planning, University of Liverpool, Liverpool, UK\n\n\nAndrea Nasuto, PhD candidate\nandrea.nasuto [at] liverpool.ac.uk\nDepartment of Geography and Planning, University of Liverpool, Liverpool, UK"
   },
   {
-    "objectID": "temporal-trends.html",
-    "href": "temporal-trends.html",
-    "title": "",
-    "section": "",
-    "text": "Exploring temporal data"
+    "objectID": "overview.html#description",
+    "href": "overview.html#description",
+    "title": "Overview",
+    "section": "Description",
+    "text": "Description\nThis workshop offers an introduction to the access and use of digital footprint data to analyse internal population movements. We will cover how to download and develop data products for the analysis of this type of data. The workshop will use an applied, hands-on approach in R via computational notebooks."
   },
   {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "",
-    "section": "",
-    "text": "References"
+    "objectID": "overview.html#structure",
+    "href": "overview.html#structure",
+    "title": "Overview",
+    "section": "Structure",
+    "text": "Structure\n\n9.00-9.30: Registration and welcome coffee\n9.30-10.30: Digital Footprints Data overview\n10.30-10.40: Comfort break\n10.40-11.40: Facebook data introduction\n11.40-12.15: Software installation and preparation for practical session\n12.15-13.15: Lunch break\n13.15-14.30: Exploring temporal patterns of internal mobility\n14.30-15.00: Coffee break\n15.00-16.30: Exploring spatial patterns of internal mobility\n16.30-17.00: Q&A"
   },
   {
-    "objectID": "data-description.html",
-    "href": "data-description.html",
-    "title": "",
-    "section": "",
-    "text": "Data import and description\n[We can use this section to teach how to import the data and describe the data sets]"
+    "objectID": "overview.html#before-the-workshop",
+    "href": "overview.html#before-the-workshop",
+    "title": "Overview",
+    "section": "Before the workshop",
+    "text": "Before the workshop\nYou need to download the most recent version of R prior to the workshop. You can download it from here [Fr, check link]. Make sure to download the appropriate version for your Operating System. For example, if you use a macOS laptop with an M1 processor, click on ‘Download R for macOS’ and then, click the link to download the installer file (.pkg extension for macOS) under the header ‘For Apple silicon (M1/M2) Macs’. You can then open the installer and follow the instructions that you will be prompted with.\nYou will also need to download RStudio, which is an integrated development environment to help you write code in R more easily. To download RStudio, follow this link [Fr, check link] and scroll down to the section titled ‘All Installers and Tarballs’. Download the appropriate installer file according to your Operating System. Then, open the installer and follow the installation instructions that you will be prompted with.\nOnce you have installed R, you will need to install some R extensions, known as packages, that will be useful for the applications explored in this workshop. The packages you need to install are:\n\ntidyverse\nviridis\ntmap\nsf\nstringr\nggplot2\n\nTo do this, open RStudio. On the console window (normally at the bottom left, write the following command: install.packages(\"name of package\"). Make sure you replace name of package by the actual name of the package that you want to install. Then press enter and repeat this process until you have installed all the packages in the list.\nNote: we might ask you to install more packages on the day that this workshop is taking place."
+  },
+  {
+    "objectID": "overview.html#during-the-workshop",
+    "href": "overview.html#during-the-workshop",
+    "title": "Overview",
+    "section": "During the workshop",
+    "text": "During the workshop\nAll the workshop material will be made available on this website [Fr, create link for workshop website], which is currently under construction. Instructions on how to download the material will be given during the workshop."
   }
 ]

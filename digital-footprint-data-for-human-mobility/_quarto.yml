@@ -1,5 +1,5 @@
 project:
-  type: website
+  type: book
   output-dir: docs
 
 book:
@@ -10,8 +10,8 @@ book:
     - index.qmd
     - overview.qmd
     # - data-description.qmd
-    # - exploring-temporal-data.qmd
-    # - exploring-spatial-data.qmd
+    # - temporal-trends.qmd
+    # - spatial-patterns.qmd
     # - references.qmd
 
 bibliography: references.bib

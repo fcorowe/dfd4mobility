@@ -1,5 +1,6 @@
 project:
-  type: book
+  type: website
+  output-dir: docs
 
 book:
   title: "Using Digital Footprint Data to Measure and Monitor Human Mobility"

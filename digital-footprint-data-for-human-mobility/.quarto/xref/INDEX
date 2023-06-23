@@ -1,6 +1,7 @@
 {
   "index.qmd": {
-    "index.html": "4225c178"
+    "index.html": "4225c178",
+    "index.tex": "d031b51d"
   },
   "intro.qmd": {
     "intro.html": "19179c87"
@@ -9,18 +10,23 @@
     "summary.html": "0767405c"
   },
   "references.qmd": {
-    "references.html": "0c1d335e"
+    "references.html": "0c1d335e",
+    "references.tex": "da09163e"
   },
   "overview.qmd": {
-    "overview.html": "463de44d"
+    "overview.html": "463de44d",
+    "overview.tex": "df733416"
   },
   "exploring-spatial-data.qmd": {
-    "exploring-spatial-data.html": "9d89a928"
+    "exploring-spatial-data.html": "9d89a928",
+    "exploring-spatial-data.tex": "e67f3c27"
   },
   "exploring-temporal-data.qmd": {
-    "exploring-temporal-data.html": "f3f66f29"
+    "exploring-temporal-data.html": "f3f66f29",
+    "exploring-temporal-data.tex": "7acff423"
   },
   "data-description.qmd": {
-    "data-description.html": "13ab1ca8"
+    "data-description.html": "13ab1ca8",
+    "data-description.tex": "49873b8b"
   }
 }

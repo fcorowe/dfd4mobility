@@ -83,6 +83,9 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Using Digital Footprint Data to Measure and Monitor Human Mobility</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/fcorowe/uol-celade_workshop" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -140,42 +143,130 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="description" class="level2">
 <h2 class="anchored" data-anchor-id="description">Description</h2>
-<p>This workshop offers an introduction to the access and use of digital footprint data to analyse internal population movements. We will cover how to download and develop data products for the analysis of this type of data. The workshop will use an applied, hands-on approach in R via computational notebooks.</p>
+<p>This workshop offers an introduction to the use of digital footprint data from Meta-Facebook to analyse internal population movements. We will cover how to location data collected via digital technology are used to develop data products to analyse human mobility. We will also illustrate how these data can be used to create statistical indicators and geographic data visualisations to extract insightful information, monitor mobility trends and identify key areas of origin and destination. The workshop will use an applied, hands-on approach in R via computational notebooks.</p>
 </section>
 <section id="structure" class="level2">
 <h2 class="anchored" data-anchor-id="structure">Structure</h2>
-<ul>
-<li>9.00-9.30: Registration and welcome coffee</li>
-<li>9.30-10.30: Digital Footprints Data overview</li>
-<li>10.30-10.40: Comfort break</li>
-<li>10.40-11.40: Facebook data introduction</li>
-<li>11.40-12.15: Software installation and preparation for practical session</li>
-<li>12.15-13.15: Lunch break</li>
-<li>13.15-14.30: Exploring temporal patterns of internal mobility</li>
-<li>14.30-15.00: Coffee break</li>
-<li>15.00-16.30: Exploring spatial patterns of internal mobility</li>
-<li>16.30-17.00: Q&amp;A</li>
-</ul>
+<table class="table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 79%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Time</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>9.00-9.30</td>
+<td>Registration and welcome coffee</td>
+</tr>
+<tr class="even">
+<td>9.30-10.30</td>
+<td>Digital Footprint Data overview</td>
+</tr>
+<tr class="odd">
+<td>10.30-10.40</td>
+<td>Comfort break</td>
+</tr>
+<tr class="even">
+<td>10.40-11.40</td>
+<td>Meta-Facebook data introduction</td>
+</tr>
+<tr class="odd">
+<td>11.40-12.15</td>
+<td>Software installation and preparation for practical session</td>
+</tr>
+<tr class="even">
+<td>12.15-13.15</td>
+<td>Lunch break</td>
+</tr>
+<tr class="odd">
+<td>13.15-14.30</td>
+<td>Exploring temporal patterns of human mobility</td>
+</tr>
+<tr class="even">
+<td>14.30-15.00</td>
+<td>Coffee break</td>
+</tr>
+<tr class="odd">
+<td>15.00-16.30</td>
+<td>Exploring spatial patterns of human mobility</td>
+</tr>
+<tr class="even">
+<td>16.30-17.00</td>
+<td>Q&amp;A</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="before-the-workshop" class="level2">
 <h2 class="anchored" data-anchor-id="before-the-workshop">Before the workshop</h2>
-<p>You need to download the most recent version of R prior to the workshop. You can download it from <a href="https://cran.r-project.org/">here</a> [Fr, check link]. Make sure to download the appropriate version for your Operating System. For example, if you use a macOS laptop with an M1 processor, click on ‘Download R for macOS’ and then, click the link to download the installer file (.pkg extension for macOS) under the header ‘For Apple silicon (M1/M2) Macs’. You can then open the installer and follow the instructions that you will be prompted with.</p>
-<p>You will also need to download RStudio, which is an integrated development environment to help you write code in R more easily. To download RStudio, follow this <a href="https://posit.co/download/rstudio-desktop/">link</a> [Fr, check link] and scroll down to the section titled ‘All Installers and Tarballs’. Download the appropriate installer file according to your Operating System. Then, open the installer and follow the installation instructions that you will be prompted with.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Please ensure to download and install the most recent version of R, RStudio and Quarto on the computer that you will be using during the workshop, and install the indicated libraries - see detailed instructions below.</p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All three software packages are open and free to use.</p>
+</div>
+</div>
+<p><strong>R</strong></p>
+<p>You can download R from <a href="https://cran.r-project.org/">here</a>. Make sure you select the appropriate version for your Operating System: Windows, MacOS (Apple silicon M1/M2 or older intel Macs). For example, if you use a macOS laptop with an M1 processor, click on 'Download R for macOS' and then, click the link to download the installer file (.pkg extension for macOS) under the header 'For Apple silicon (M1/M2) Macs'. You can then open the installer and follow the instructions that you will be prompted with. For Windows users, click on "<a href="https://cran.r-project.org/bin/windows/base/">install R for the first time</a>" and follow the prompts.</p>
+<p><strong>RStudio</strong></p>
+<p>You will also need to download RStudio Desktop, which is an integrated development environment to help you write code in R more easily. To download RStudio, follow this <a href="https://posit.co/download/rstudio-desktop/">link</a> and scroll down to the section titled 'All Installers and Tarballs'. Download the appropriate installer file according to your Operating System. Then, open the installer and follow the installation instructions that you will be prompted with.</p>
+<p><strong>Quarto</strong></p>
+<p>Download Quarto from this <a href="https://quarto.org/docs/get-started/">website</a>. On "Step 1" on the website, download the version of Quarto that matches your Operating System. Open the installer file, run it and follow the prompts.</p>
+<p><strong>R libraries</strong></p>
 <p>Once you have installed R, you will need to install some R extensions, known as packages, that will be useful for the applications explored in this workshop. The packages you need to install are:</p>
 <ul>
 <li><code>tidyverse</code></li>
+<li><code>ggthemes</code></li>
+<li><code>patchwork</code></li>
 <li><code>viridis</code></li>
 <li><code>tmap</code></li>
 <li><code>sf</code></li>
+<li><code>sp</code></li>
 <li><code>stringr</code></li>
-<li><code>ggplot2</code></li>
+<li><code>RColorBrewer</code></li>
 </ul>
-<p>To do this, open RStudio. On the console window (normally at the bottom left, write the following command: <code>install.packages("name of package")</code>. Make sure you replace <code>name of package</code> by the actual name of the package that you want to install. Then press enter and repeat this process until you have installed all the packages in the list.</p>
-<p><strong>Note:</strong> we might ask you to install more packages on the day that this workshop is taking place.</p>
+<p>To install packages, open RStudio. On the console window (normally at the bottom left), write the following command: <code>install.packages(“name of package”)</code>. Make sure you replace <code>“name of package”</code> by the actual name of the package that you want to install e.g.&nbsp;<code>install.packages(“tidyverse”)</code>. Then, press enter and repeat this process until you have installed all the packages in the list. Please note that we might ask you to install more packages on the day that this workshop is taking place.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We might ask you to install more packages on the day that this workshop is taking place.</p>
+</div>
+</div>
 </section>
 <section id="during-the-workshop" class="level2">
 <h2 class="anchored" data-anchor-id="during-the-workshop">During the workshop</h2>
-<p>All the workshop material will be made available on this website [Fr, create link for workshop website], which is currently under construction. Instructions on how to download the material will be given during the workshop.</p>
+<p>All the workshop material will be made available on this <a href="https://fcorowe.github.io/uol-celade_workshop/">website</a> which is currently under construction. Instructions on how to download the material will be given during the workshop.</p>
 
 
 </section>

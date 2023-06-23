@@ -5,7 +5,7 @@ project:
 book:
   title: "Using Digital Footprint Data to Measure and Monitor Human Mobility"
   author: "Prof. Francisco Rowe, Dr. Carmen Cabrera-Arnau, Dr. Miguel Gonzalez-Leonardo, Ruth Neville and Andrea Nasuto"
-  date: "`r Sys.Date()`"
+  date: today
   chapters:
     - index.qmd
     - overview.qmd
@@ -13,6 +13,10 @@ book:
     # - temporal-trends.qmd
     # - spatial-patterns.qmd
     # - references.qmd
+
+  search: true
+  site-url: https://fcorowe.github.io/uol-celade_workshop/
+  repo-url: https://github.com/fcorowe/uol-celade_workshop
 
 bibliography: references.bib
 

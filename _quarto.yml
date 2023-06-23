@@ -15,8 +15,8 @@ book:
     # - references.qmd
 
   search: true
-  site-url: https://fcorowe.github.io/uol-celade_workshop/
-  repo-url: https://github.com/fcorowe/uol-celade_workshop
+  site-url: https://fcorowe.github.io/dfd4mobility/
+  repo-url: https://github.com/fcorowe/dfd4mobility
 
 bibliography: references.bib
 

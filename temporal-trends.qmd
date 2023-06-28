@@ -1,1 +1,10 @@
-# Exploring temporal data
+# Exploring temporal patterns of human mobility
+
+
+## Loading the data
+
+Por area administrative (comunas pertenecientes a area metropolitana)
+
+```{r}
+df_mov <- readRDS("./data/chile/movements/2020_03_mov.rds")
+```

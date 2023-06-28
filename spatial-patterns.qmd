@@ -1,1 +1,9 @@
-# Exploring spatial data
+# Exploring spatial patterns of human mobility data
+
+## Common concepts
+
+There are several concepts relevant to understanding the data sets. First of all, we construct maps using two different methods of identifying locations: tiles and administrative polygons.
+
+The Bing Maps Tile System defines a series of grids at different resolution levels over a rectangular projection of the world (Schwartz 2018). Each level is constructed by dividing the previous level into fourths. We typically use Bing tile levels 13 through 16, where level 13 results in tiles that are about 4.9 x 4.9 km at the Equator. The other method we use for identifying a location is administrative polygons, which define the political and geographic boundaries of countries, states, provinces, counties, cities, and more.
+
+When generating a map for a crisis event, we specify a rectangular bounding box around the most directly affected area. The different map calculations, described in the following sections, are done relative to this region, and, for most of the maps, only data within this region is included. Most of the map types are based on counting events that occur within a time interval, which is frequently 8 or 24 hours. The time interval determines what data is included in a calculation as well as the minimum frequency with which new maps are generated.

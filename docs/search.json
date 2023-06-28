@@ -33,5 +33,47 @@
     "title": "Overview",
     "section": "During the workshop",
     "text": "During the workshop\nAll the workshop material will be made available on this website which is currently under construction. Further instructions on how to download the material will be given during the workshop."
+  },
+  {
+    "objectID": "data-description.html#introduction-to-digital-footprint-data",
+    "href": "data-description.html#introduction-to-digital-footprint-data",
+    "title": "1  Meta-Facebook data introduction",
+    "section": "1.1 Introduction to digital footprint data",
+    "text": "1.1 Introduction to digital footprint data\nA digital footprint refers to the trail of digital activities and information left by individuals as they interact with digital platforms and services. It encompasses data generated through online activities such as browsing history, social media interactions, location tracking, and other digital transactions. The cumulative collection of data forms a digital profile that provides insights into an individual’s online behavior, preferences, and activities. This data can also be aggregated to shed light into macro structural processes and trends, such as urban mobility, consumer demand, transport usage, population ageing and decline.\nIn particular, digital footprint data can be harnessed to analyse human mobility patterns, including patterns of internal mobility within a specific geographical area. By leveraging data from sources such as mobile devices, transportation apps, and geolocation services, we can gain a deeper understanding of how individuals move within a region. For example, digital footprint data can reveal the spatiotemporal patterns of commuting behaviour, the popularity of a certain route connecting two locations, the likelihood that a certain location experiences congestion at a certain time of the day, and even the impact of external factors such as weather conditions, public events or COVID-19 on mobility. Understanding human mobility patterns is therefore key to support fundamental human activities, including urban planning, transportation, service delivery, public health and sustainability."
+  },
+  {
+    "objectID": "data-description.html#meta-facebook-as-a-source-of-digital-footprint-data",
+    "href": "data-description.html#meta-facebook-as-a-source-of-digital-footprint-data",
+    "title": "1  Meta-Facebook data introduction",
+    "section": "1.2 Meta-Facebook as a source of digital footprint data",
+    "text": "1.2 Meta-Facebook as a source of digital footprint data\nThe social media platform Facebook, with its vast user base, offers unique advantages for analysing human mobility. In the course of providing services to their users, many smartphones and smartphone apps regularly collect precise location information. In the case of Facebook, people have an option of whether or not to provide this information to Facebook (“Learn about Your Location Privacy | Privacy Center | Manage Your Privacy on Facebook, Instagram and Messenger | Facebook Privacy”). Location data is used to provide a variety of services, including helping people find nearby friends, information about nearby Wi-Fi hotspots, and location-relevant ads. This data also enables targeting of AMBER alerts and prompts to check-in as “safe” after a hazard event. In addition to powering Facebook product features, this location data can provide insights about how populations are affected by hazard events as they happen (Maas et al. 2019).\nThrough Meta’s Data for Good programme, Facebook’s parent company, Meta Platforms Inc., provides tools built from privacy-protected data on the Facebook platform, as well as tools developed using commercially and publicly available sources like satellite imagery and census data. In particular, Data for Good has created two data sets, Facebook Population During Crisis and Facebook Movement During Crisis, that will be of use for this workshop.\nThese data sets make use of anonymised and aggregated data, including current and historical location data. While the raw data used for the creation of the data sets remains available only to the data owners, the aggregated data, with privacy and security protections is shared with non-profit organisations and researchers on an ongoing basis in the days and weeks following a hazard event (Maas et al. 2019)."
+  },
+  {
+    "objectID": "data-description.html#datasets-description",
+    "href": "data-description.html#datasets-description",
+    "title": "1  Meta-Facebook data introduction",
+    "section": "1.3 Datasets description",
+    "text": "1.3 Datasets description\nBoth data sets Facebook Population and Facebook Movements contain data corresponding to a 24-month time period, from the end of March 2020 to March 2022, and to four Latin American countries, Argentina, Chile, Colombia and Mexico.\nThe data in both data sets is temporally aggregated into three 8-hour windows (00:00–08:00, 08:00–16:00 and 16:00–00:00) for every day in the aforementioned X-month time period.\nIt is spatially aggregated into tiles according to the Bing Maps Tile System. This geospatial indexing system was developed by Microsoft and it partitions the world into square cells at various levels of resolution.\nThe Facebook Population data set provides information on the number of active Facebook users in each tile.\nThe data set Facebook Movements captures the total number of Facebook users moving between pairs of origin and destination Bing tiles.\nWe note here that due to the aggregate nature of the Facebook Movement data, we cannot distinguish between different types of movements, for example, daily commutes to work or permanent changes of address. However, we are still able to detect the evolution of movements between origin-destination pairs of Bing tiles and hence, we are able to capture the impact that COVID-19 has on mobility patterns.\nOn top of the data for the 24-month period, both Facebook Population and Facebook Movements include data for a 45-day baseline period ending on the 10th of March 2020.\n\n\n\n\n\n\n1.3.1 Methodology for data set desing\nPrior to releasing the above-mentioned data sets, Meta applies three techniques to ensure privacy and anonymisation. First, a small undisclosed amount of random noise is added to ensure that precise location cannot be identified for small population counts in sparsely populated areas. While removing small counts may lead to an underrepresentation of the population in these places, the geographic distribution of population is still reflected in the data. Second, spatial smoothing is applied to produce a smooth population count surface using inverse distance-weighted averaging. Third, any remaining population counts of less than 10 are removed from the final data set (see Maas et al. (Maas et al. 2019) for details)."
+  },
+  {
+    "objectID": "data-description.html#metodology-for-datasets-design",
+    "href": "data-description.html#metodology-for-datasets-design",
+    "title": "1  Meta-Facebook data introduction",
+    "section": "1.4 Metodology for datasets design",
+    "text": "1.4 Metodology for datasets design"
+  },
+  {
+    "objectID": "data-description.html#challenges-of-digital-footprint-data",
+    "href": "data-description.html#challenges-of-digital-footprint-data",
+    "title": "1  Meta-Facebook data introduction",
+    "section": "1.4 Challenges of digital footprint data",
+    "text": "1.4 Challenges of digital footprint data\nDespite the numerous advantages of using DFD to study the patterns of human mobility, the presence of biases in this type of data is usually regarded as a problematic issue. The biases in DFD usually stem from the fact that certain population groups may be more likely to use location-tracking technologies than others, for example, younger people or people living in urban areas. Therefore, DFD may not be representative of the entire population and as a result, the accuracy of analyses involving DFD may be hindered, especially when biases are not accounted for.\n\n\n\n\n“Learn about Your Location Privacy | Privacy Center | Manage Your Privacy on Facebook, Instagram and Messenger | Facebook Privacy.” https://www.facebook.com/privacy/guide/location/.\n\n\nMaas, Paige, Shankar Iyer, Andreas Gros, Wonhee Park, Laura McGorman, Chaya Nayak, and P. Alex Dow. 2019. “Facebook Disaster Maps: Aggregate Insights for Crisis Response & Recovery.” In Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining, 3173. KDD ’19. New York, NY, USA: Association for Computing Machinery. https://doi.org/10.1145/3292500.3340412."
+  },
+  {
+    "objectID": "temporal-trends.html#loading-the-data",
+    "href": "temporal-trends.html#loading-the-data",
+    "title": "2  Exploring temporal patterns of human mobility",
+    "section": "2.1 Loading the data",
+    "text": "2.1 Loading the data\n\ndf_mov &lt;- readRDS(\"./data/chile/movements/2020_03_mov.rds\")"
   }
 ]

@@ -14,12 +14,11 @@ Through Meta's Data for Good programme, Facebook's parent company, Meta Platform
 
 These data sets make use of anonymised and aggregated data, including current and historical location data. While the raw data used for the creation of the data sets remains available only to the data owners, the aggregated data, with privacy and security protections is shared with non-profit organisations and researchers on an ongoing basis in the days and weeks following a hazard event [@Maas19].
 
-
 ## Datasets description
 
-Both data sets Facebook Population and Facebook Movements contain data corresponding to a 24-month time period, from the end of March 2020 to March 2022, and to four Latin American countries, Argentina, Chile, Colombia and Mexico.
+Both data sets Facebook Population and Facebook Movements contain data corresponding to a two-year period, starting in March 2020, and to four Latin American countries, Argentina, Chile, Colombia and Mexico.
 
-The data in both data sets is temporally aggregated into three 8-hour windows (00:00--08:00, 08:00--16:00 and 16:00--00:00) for every day in the aforementioned X-month time period.
+The data in both data sets is temporally aggregated into three 8-hour windows (00:00--08:00, 08:00--16:00 and 16:00--00:00) for every day in the aforementioned two-year time period.
 
 It is spatially aggregated into tiles according to the Bing Maps Tile System. This geospatial indexing system was developed by Microsoft and it partitions the world into square cells at various levels of resolution.
 
@@ -27,24 +26,23 @@ The Facebook Population data set provides information on the number of active Fa
 
 The data set Facebook Movements captures the total number of Facebook users moving between pairs of origin and destination Bing tiles.
 
-We note here that due to the aggregate nature of the Facebook Movement data, we cannot distinguish between different types of movements, for example, daily commutes to work or permanent changes of address. However, we are still able to detect the evolution of movements between origin-destination pairs of Bing tiles and hence, we are able to capture the impact that COVID-19 has on mobility patterns.
+We note here that due to the nature of the Facebook Movement data, we cannot distinguish between different types of movements, for example, daily commutes to work or permanent changes of address. However, we are still able to detect the evolution of movements between origin-destination pairs of Bing tiles and hence, we are able to capture the impact that COVID-19 has on mobility patterns.
 
-On top of the data for the 24-month period, both Facebook Population and Facebook Movements include data for a 45-day baseline period ending on the 10th of March 2020.
+On top of the data for the two-year period, each entry in the Facebook Population and Facebook Movements datasets include data for baseline levels before COVID-19. The baseline values are computed based on a 45-day period ending on the 10th of March of 2020.
 
-<!-- The data sets also include a 'quality' score indicating the number of standard deviations by which the observed data at specific locations and time windows differ from the baseline values, hence highlighting statistically significant changes. -->
+The data sets also include a 'quality' score indicating the number of standard deviations by which the observed data at specific locations and time windows differ from the baseline values, hence highlighting statistically significant changes.
 
 <!-- An additional data set from WorldPop was used to capture the spatial distribution of population density in the different countries analysed here. -->
-<!-- The dataset contains gridded population data at 1 sqkm resolution for the year X. -->
-<!-- We aggregated the WorldPop population data into the Bing tiles in order to match the level of aggregation of the mobility data provided by Meta, and used it to estimate the population density of the Bing tiles. -->
-<!-- Then, we classified the Bing tiles into 10 discrete categories of population density, hence obtaining a categorisation of Bing tiles a lot more detailed than the traditional binary rural/urban classification (Fielding, 1989). -->
 
+<!-- The dataset contains gridded population data at 1 sqkm resolution for the year X. -->
+
+<!-- We aggregated the WorldPop population data into the Bing tiles in order to match the level of aggregation of the mobility data provided by Meta, and used it to estimate the population density of the Bing tiles. -->
+
+<!-- Then, we classified the Bing tiles into 10 discrete categories of population density, hence obtaining a categorisation of Bing tiles a lot more detailed than the traditional binary rural/urban classification (Fielding, 1989). -->
 
 ### Methodology for data set desing
 
-Prior to releasing the above-mentioned data sets, Meta applies three techniques to ensure privacy and anonymisation.
-First, a small undisclosed amount of random noise is added to ensure that precise location cannot be identified for small population counts in sparsely populated areas. While removing small counts may lead to an underrepresentation of the population in these places, the geographic distribution of population is still reflected in the data. Second, spatial smoothing is applied to produce a smooth population count surface using inverse distance-weighted averaging. Third, any remaining population counts of less than 10 are removed from the final data set (see Maas et al. [@Maas19] for details).
-
-
+Prior to releasing the above-mentioned data sets, Meta applies three techniques to ensure privacy and anonymisation. First, a small undisclosed amount of random noise is added to ensure that precise location cannot be identified for small population counts in sparsely populated areas. While removing small counts may lead to an underrepresentation of the population in these places, the geographic distribution of population is still reflected in the data. Second, spatial smoothing is applied to produce a smooth population count surface using inverse distance-weighted averaging. Third, any remaining population counts of less than 10 are removed from the final data set (see Maas et al. [@Maas19] for details).
 
 ## Challenges of digital footprint data
 

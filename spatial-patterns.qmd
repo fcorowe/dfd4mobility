@@ -32,10 +32,13 @@ library(gganimate)
 
 Read and describe Meta-Facebook mobility data
 
+Data for April 2020
+
 ```{r}
+# read
 df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>% 
   dplyr::filter(country == "CL")
-str(df20)
+glimpse(df20)
 ```
 
 ```{r}
@@ -46,6 +49,8 @@ unique_destinations <- unique(df20$end_polygon_name)
 ### Bing tiles
 
 Read and describe Bing tile grids and how they can be created - reference to our work.
+
+R spatial ecosystem to handle spatial data frames.
 
 ```{r}
 bing_grid <- read_sf("./data/shp/grid/chile_grid.shp") %>% 
@@ -100,7 +105,12 @@ shp_adm
 ```
 
 ```{r}
-plot(shp_adm$geometry)
+#| echo: false
+ggplot(data = shp_adm) + 
+  geom_sf(color = "gray60", 
+          size = 0.1) +
+  theme_void() +
+  ggtitle('Administrative areas')
 ```
 
 ## Spatial indicators of human mobility
@@ -111,12 +121,13 @@ This measure is in relation to a baseline - percentage change and flow
 
 ```{r}
 origin_df <- df20 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
   group_by(start_polygon_name) %>% 
   dplyr::summarise(
     mean_perchange = mean(percent_change, na.rm = T),
-    mean_flows = mean(n_difference, na.rm = T),
+    mean_diff_flow = mean(n_difference, na.rm = T),
+    sum_diff_flow = sum(n_difference, na.rm = T),
     mean_outflow = mean(n_crisis, na.rm = T),
-    sum_flows = sum(n_difference, na.rm = T),
     sum_outflow = sum(n_crisis, na.rm = T)
     ) %>% 
   ungroup()
@@ -128,24 +139,121 @@ tail(origin_df, 10)
 
 ```{r}
 destination_df <- df20 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
   group_by(end_polygon_name) %>% 
   dplyr::summarise(
     mean_perchange = mean(percent_change, na.rm = T),
-    mean_flows = mean(n_difference, na.rm = T),
-    mean_outflow = mean(n_crisis, na.rm = T),
-    sum_flows = sum(n_difference, na.rm = T),
-    sum_outflow = sum(n_crisis, na.rm = T)
+    mean_diff_flow = mean(n_difference, na.rm = T),
+    sum_diff_flow = sum(n_difference, na.rm = T),
+    mean_inflow = mean(n_crisis, na.rm = T),
+    sum_inflow = sum(n_crisis, na.rm = T)
     ) %>% 
   ungroup()
 
 tail(destination_df, 10)
 ```
 
+### Intraflows
+
+```{r}
+origin_df <- df20 %>% 
+  filter(start_polygon_name == end_polygon_name) %>% 
+  group_by(start_polygon_name) %>% 
+  dplyr::summarise(
+    mean_perchange = mean(percent_change, na.rm = T),
+    mean_diff_flow = mean(n_difference, na.rm = T),
+    sum_diff_flow = sum(n_difference, na.rm = T),
+    mean_intraflow = mean(n_crisis, na.rm = T),
+    sum_intraflow = sum(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+tail(origin_df, 10)
+```
+
 ### Netflows
+
+```{r}
+# mean outflow by area
+outflows_df <- df20 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
+  group_by(start_polygon_name) %>% 
+  dplyr::summarise(
+    mean_outflow = mean(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+# mean inflow by area
+inflows_df <- df20 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
+  group_by(end_polygon_name) %>% 
+  dplyr::summarise(
+    mean_inflow = mean(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+# combine data frames
+netflow_df <- cbind(inflows_df, outflows_df)
+
+# mean netflow by area
+netflow_df <- netflow_df %>% 
+  mutate(
+    mean_netflow = mean_inflow - mean_outflow
+  ) %>% 
+  select(start_polygon_name, end_polygon_name, mean_inflow, mean_outflow, mean_netflow)
+
+head(netflow_df)
+```
+
+```{r}
+#| warning: false
+
+ggplot(data = netflow_df) +
+  geom_density(aes(x = mean_netflow),
+               alpha=0.5, 
+               colour="darkblue", 
+               linewidth = 2
+               ) +
+  theme_tufte()
+```
 
 ## Mapping
 
+Colour palettes
+
+::: {.callout-note icon="false" appearance="simple"}
+## Question 1
+
+Why to create geovisualisations?
+:::
+
+For creating maps, cartography is important. A carefully crafted map can be an effective way of communicating complex information. Design issues include poor placement, size and readability of text and careless selection of colors. Have a look the style guide of the Journal of Maps for details.
+
+::: callout-note
+For colour palettes, we recommend the following resources:
+
+-   the R packages `viridis` and `RColorBrewer`
+
+-   the website [color brewer 2.0](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3)
+
+-   a publication by @crameri2020
+:::
+
 ### Choropleths
+
+Choropleths are thematic maps. They are easy to create but also to get wrong. We will look at a set of the principles you can follow to create effective choropleth maps. Here three more questions to consider:
+
+-   What is being plotted?
+
+-   What is the target audience?
+
+-   What degree of interactivity we want to offer?
+
+<!--# Use rates - need to aggregate the FB for individual months -->
+
+```{r}
+
+```
 
 ### Interactive mapping
 

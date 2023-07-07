@@ -285,8 +285,8 @@ ggplot() +
        y = "Number of movements")
 ```
 
-::: {.callout-note icon="false"}
-**Question 4**
+::: {.callout-note icon="false" appearance="simple"}
+## Question 4
 
 Does the overall trend in the internal movements involving Santiago province agree with your intuition?
 :::

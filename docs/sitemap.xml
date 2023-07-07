@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fcorowe.github.io/dfd4mobility/index.html</loc>
-    <lastmod>2023-07-07T21:34:35.049Z</lastmod>
+    <lastmod>2023-07-07T21:36:59.132Z</lastmod>
   </url>
   <url>
     <loc>https://fcorowe.github.io/dfd4mobility/overview.html</loc>
@@ -11,5 +11,9 @@
   <url>
     <loc>https://fcorowe.github.io/dfd4mobility/Using-Digital-Footprint-Data-to-Measure-and-Monitor-Human-Mobility.pdf</loc>
     <lastmod>2023-07-07T21:34:35.020Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fcorowe.github.io/dfd4mobility/spatial-patterns.html</loc>
+    <lastmod>2023-07-07T22:39:58.994Z</lastmod>
   </url>
 </urlset>

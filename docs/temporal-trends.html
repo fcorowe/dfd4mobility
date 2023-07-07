@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Using Digital Footprint Data to Measure and Monitor Human Mobility - 1&nbsp; Temporal patterns</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./spatial-patterns.html" rel="next">
+<link href="./overview.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal patterns</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Using Digital Footprint Data to Measure and Monitor Human Mobility</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/fcorowe/dfd4mobility" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./temporal-trends.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal patterns</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spatial-patterns.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Spatial patterns</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link active" data-scroll-target="#dependencies"><span class="toc-section-number">1.1</span>  Dependencies</a></li>
+  <li><a href="#sec-loading" id="toc-sec-loading" class="nav-link" data-scroll-target="#sec-loading"><span class="toc-section-number">1.2</span>  Loading and pre-processing the data</a>
+  <ul class="collapse">
+  <li><a href="#choice-of-variables-for-the-analysis" id="toc-choice-of-variables-for-the-analysis" class="nav-link" data-scroll-target="#choice-of-variables-for-the-analysis"><span class="toc-section-number">1.2.1</span>  Choice of variables for the analysis</a></li>
+  <li><a href="#extracting-the-calendar-date-for-each-population-flow" id="toc-extracting-the-calendar-date-for-each-population-flow" class="nav-link" data-scroll-target="#extracting-the-calendar-date-for-each-population-flow"><span class="toc-section-number">1.2.2</span>  Extracting the calendar date for each population flow</a></li>
+  <li><a href="#grouping-data-by-calendar-date" id="toc-grouping-data-by-calendar-date" class="nav-link" data-scroll-target="#grouping-data-by-calendar-date"><span class="toc-section-number">1.2.3</span>  Grouping data by calendar date</a></li>
+  </ul></li>
+  <li><a href="#internal-movements-at-the-nation-wide-scale" id="toc-internal-movements-at-the-nation-wide-scale" class="nav-link" data-scroll-target="#internal-movements-at-the-nation-wide-scale"><span class="toc-section-number">1.3</span>  Internal movements at the nation-wide scale</a></li>
+  <li><a href="#internal-movements-involving-santiago-province" id="toc-internal-movements-involving-santiago-province" class="nav-link" data-scroll-target="#internal-movements-involving-santiago-province"><span class="toc-section-number">1.4</span>  Internal movements involving Santiago province</a>
+  <ul class="collapse">
+  <li><a href="#internal-movements-to-santiago" id="toc-internal-movements-to-santiago" class="nav-link" data-scroll-target="#internal-movements-to-santiago"><span class="toc-section-number">1.4.1</span>  Internal movements to Santiago</a></li>
+  <li><a href="#internal-movements-from-santiago" id="toc-internal-movements-from-santiago" class="nav-link" data-scroll-target="#internal-movements-from-santiago"><span class="toc-section-number">1.4.2</span>  Internal movements from Santiago</a></li>
+  <li><a href="#internal-movements-between-santiago-and-valparaíso" id="toc-internal-movements-between-santiago-and-valparaíso" class="nav-link" data-scroll-target="#internal-movements-between-santiago-and-valparaíso"><span class="toc-section-number">1.4.3</span>  Internal movements between Santiago and Valparaíso</a></li>
+  </ul></li>
+  <li><a href="#advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users" id="toc-advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users" class="nav-link" data-scroll-target="#advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users"><span class="toc-section-number">1.5</span>  Advanced: tracked internal movements in relation to the active population of Facebook users</a>
+  <ul class="collapse">
+  <li><a href="#pre-processing-the-data" id="toc-pre-processing-the-data" class="nav-link" data-scroll-target="#pre-processing-the-data"><span class="toc-section-number">1.5.1</span>  Pre-processing the data</a></li>
+  <li><a href="#analysisng-the-results" id="toc-analysisng-the-results" class="nav-link" data-scroll-target="#analysisng-the-results"><span class="toc-section-number">1.5.2</span>  Analysisng the results</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal patterns</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>In this part of the workshop, we explore the temporal patterns displayed by human mobility data from Facebook Meta. The data was collected for Chile in the time period spanning from end of March of 2020 to the end of March 2022.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Before getting started, please run the code below to avoid getting warnings and messages when executing the rest of the workbook:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="dependencies" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">1.1</span> Dependencies</h2>
+<p>To analyse the data, we need R and the following R packages (see installation instructions <a href="R libraries">here</a>*). Once installed, you can use the R packages by loading them as libraries:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tools)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sec-loading" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="sec-loading"><span class="header-section-number">1.2</span> Loading and pre-processing the data</h2>
+<p>We start by looking at the temporal evolution of internal human mobility in Chile in the first few months after the first outbreak of COVID-19. To do so, we read the movement data corresponding to the months of May, June, July, August and September 2020. The data is stored as .rds files and can be read using the <code>readRDS()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_5 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"./data/fb/movement_grid/2020_05_mov.rds"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_6 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"./data/fb/movement_grid/2020_06_mov.rds"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df_7 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"./data/fb/movement_grid/2020_07_mov.rds"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df_8 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"./data/fb/movement_grid/2020_08_mov.rds"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df_9 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"./data/fb/movement_grid/2020_09_mov.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Since we are interested in the evolution of trends in internal human mobility over this five-month period, we bind the data sets together using the function <code>rbind()</code>. This function appends datasets that share the same columns. We call the resulting data set <code>df_mov</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_mov <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df_5, df_6, df_7, df_8, df_9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>But, what are the columns of <code>df1</code>, <code>df2</code>, <code>df3</code>, <code>df4</code>, <code>df5</code> and <code>df_mov</code>? We can easily visualise a dataset and its contents with the <code>glimpse()</code> function. For example, for <code>df_mov</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df_mov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 630,635
+Columns: 23
+$ geometry                     &lt;chr&gt; "LINESTRING (-71.630859375 -36.5272625723…
+$ date_time                    &lt;chr&gt; "2020-05-01 08:00:00", "2020-05-01 08:00:…
+$ start_polygon_id             &lt;chr&gt; "60871", "60871", "60871", "60871", "6087…
+$ start_polygon_name           &lt;chr&gt; "Ñuble", "Ñuble", "Ñuble", "Ñuble", "Ñubl…
+$ end_polygon_id               &lt;chr&gt; "60871", "60871", "60871", "60871", "6087…
+$ end_polygon_name             &lt;chr&gt; "Ñuble", "Ñuble", "Ñuble", "Ñuble", "Ñubl…
+$ length_km                    &lt;dbl&gt; 0.00000, 0.00000, 0.00000, 0.00000, 0.000…
+$ tile_size                    &lt;dbl&gt; 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 1…
+$ country                      &lt;chr&gt; "CL", "CL", "CL", "CL", "CL", "CL", "CL",…
+$ level                        &lt;chr&gt; "LEVEL3", "LEVEL3", "LEVEL3", "LEVEL3", "…
+$ n_crisis                     &lt;dbl&gt; 228, 455, 989, 2293, 111, 23, 22, 3045, 1…
+$ n_baseline                   &lt;dbl&gt; 236.2, 367.6, 1162.4, 1456.8, 92.6, 45.6,…
+$ n_difference                 &lt;dbl&gt; -8.2, 87.4, -173.4, 836.2, 18.4, -22.6, -…
+$ percent_change               &lt;dbl&gt; -3.456998, 23.711340, -14.904590, 57.3604…
+$ is_statistically_significant &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ z_score                      &lt;dbl&gt; -0.09754166, 1.02989015, -0.47284604, 4.0…
+$ start_lat                    &lt;dbl&gt; -36.64353, -36.64353, -36.64353, -36.6435…
+$ start_lon                    &lt;dbl&gt; -71.97498, -71.97498, -71.97498, -71.9749…
+$ end_lat                      &lt;dbl&gt; -36.64353, -36.64353, -36.64353, -36.6435…
+$ end_lon                      &lt;dbl&gt; -71.97498, -71.97498, -71.97498, -71.9749…
+$ start_quadkey                &lt;chr&gt; "21023300110", "21023300110", "2102330011…
+$ end_quadkey                  &lt;chr&gt; "21023300110", "21023300110", "2102330011…
+$ date_time2                   &lt;dttm&gt; 2020-05-01 07:00:00, 2020-05-01 07:00:00…</code></pre>
+</div>
+</div>
+<p>In the output, we first see the number of rows and columns in the data set. Then we see the name of each column, followed by the type of data stored in that column (e.g.&nbsp;<code>&lt;chr&gt;</code> for character), and a sample of the data values. Alternatively, if we only want to know the names of the columns, we can use the <code>names()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df_mov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "geometry"                     "date_time"                   
+ [3] "start_polygon_id"             "start_polygon_name"          
+ [5] "end_polygon_id"               "end_polygon_name"            
+ [7] "length_km"                    "tile_size"                   
+ [9] "country"                      "level"                       
+[11] "n_crisis"                     "n_baseline"                  
+[13] "n_difference"                 "percent_change"              
+[15] "is_statistically_significant" "z_score"                     
+[17] "start_lat"                    "start_lon"                   
+[19] "end_lat"                      "end_lon"                     
+[21] "start_quadkey"                "end_quadkey"                 
+[23] "date_time2"                  </code></pre>
+</div>
+</div>
+<p>As you might have guessed, each column represents a variable or a characteristic of the data stored in the dataset. Each row or data point in the resulting dataset <code>df_mov</code> represents a population flow between an origin and a destination location, taking place during a given time window, in this case, within the five-month period starting in May 2020. The information about the origin and destination of the flow is fully determined by the <code>geometry</code> column. Other columns also contain information about the start and end locations of the movements, such as <code>start_polygon_id</code>, <code>start_polygon_name</code>, <code>end_polygon_id</code>, <code>end_polygon_name</code>, <code>start_lat</code>, <code>start_lon</code>, <code>end_lat</code>, <code>end_lon</code>, <code>start_quadkey</code> and <code>end_quadkey</code>. The information about the time window in which each population flow takes place is contained in the <code>date_time</code> column.</p>
+<p>In the next few sections, we will focus only on three variables, namely, <code>date_time</code>, <code>n_crisis</code> and <code>n_baseline</code>. But first, let’s talk a bit more about the datetime format.</p>
+<section id="choice-of-variables-for-the-analysis" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="choice-of-variables-for-the-analysis"><span class="header-section-number">1.2.1</span> Choice of variables for the analysis</h3>
+<p>Of all the columns in the dataset <code>df_mov</code>, three of them are particularly relevant for the analysis in this section of the workshop, <code>n_crisis</code>, <code>n_baseline</code> and <code>date_time</code>. Firstly, the variable <code>n_crisis</code> gives us the size of a given flow, i.e.&nbsp;the number of people moving from an origin to a destination. For the first flow, this would be:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_mov<span class="sc">$</span>n_crisis[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 228</code></pre>
+</div>
+</div>
+<p>But is this number large or small? In order to establish a benchmark, we can look at <code>n_baseline</code>. This variable tells us about the number of people that we would expect travelling from origin to destination on the same weekday at the same time of the day in normal conditions, i.e.&nbsp;pre-pandemic.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_mov<span class="sc">$</span>n_baseline[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 236.2</code></pre>
+</div>
+</div>
+<p>The fact that the value of <code>n_crisis</code> is smaller than <code>n_baseline</code> for the first flow suggests that during the pandemic people were moving less between the particular origin-destination pair of locations corresponding to the first flow in the dataset.</p>
+<p>However, in order to draw conclusions at the population level, looking at a data point in isolation is not enough. We can gain much more meaningful insights if we look at much larger amounts of data as well as the temporal evolution of the observed patterns. To do this, we need to look into the <code>date_time</code> variable, that tells us the 8-hour time window in which a flow takes place. For example, we can look up the value of <code>date_time</code> for the first flow recorded in <code>df_mov</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_mov<span class="sc">$</span>date_time[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2020-05-01 08:00:00"</code></pre>
+</div>
+</div>
+<p>Therefore, the first flow in the dataset <code>df_mov</code> took place between 00:00 and 08:00 of the 1st of May 2020. However, for the analysis in this workbook, we are interested only in the patterns taking place at the daily scale, so the information regarding the time window within the day is irrelevant.</p>
+</section>
+<section id="extracting-the-calendar-date-for-each-population-flow" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="extracting-the-calendar-date-for-each-population-flow"><span class="header-section-number">1.2.2</span> Extracting the calendar date for each population flow</h3>
+<p>To explore the variation in the number of flows at the daily level, we need to first extract only the date from each movement. This can be done by running the code below, where we create a new column in <code>df_mov</code> named <code>date</code>. This new column stores only the information corresponding to date which can be obtained by applying the <code>as.Date()</code> function to the data from the <code>date_time</code> column. This function allows us to convert character data into objects of class <code>Date</code> representing calendar dates and following a specified format (in this case, year-month-day).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_mov<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_mov<span class="sc">$</span>date_time, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="grouping-data-by-calendar-date" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="grouping-data-by-calendar-date"><span class="header-section-number">1.2.3</span> Grouping data by calendar date</h3>
+<p>Since we are interested in the number of movements taking place on a daily basis, we need to aggregate the information from flows that take place on the same day. Specifically, we need to sum all the values of <code>n_crisis</code> corresponding to flows from the same day. This can be done, firstly, by passing the <code>df_mov</code> dataset to the <code>group_by()</code> function and specifying that we want to group the data according to the information stored in the <code>df_mov$date</code> column that we just created. This action can be achieved via the pipeline operator <code>%&gt;%</code>, which simply feeds the results of one operation into the next operation. For those familiar with the mathematical language, the pipe operator is equivalent to the function composition operation. But the <code>group_by()</code> function alone will not give the desired output, so we follow it by the <code>summarise()</code> function with an appropriate action to perform, in this case the sum of the values of <code>n_crisis</code> for all the entries that share a date. The output is a dataset containing two columns, named <code>total</code> and <code>df_mov$date</code>. We rename the second column of the resulting dataset to <code>date</code> instead of <code>df_mov$date</code>. The final dataset is <code>df_crisis</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_crisis <span class="ot">&lt;-</span> df_mov <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n_crisis)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov$date"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We apply a very similar process to sum the values of <code>n_baseline</code> corresponding to flows from the same day. The resulting dataset is <code>df_baseline</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_baseline <span class="ot">&lt;-</span> df_mov <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n_baseline)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov$date"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="internal-movements-at-the-nation-wide-scale" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="internal-movements-at-the-nation-wide-scale"><span class="header-section-number">1.3</span> Internal movements at the nation-wide scale</h2>
+<p>With <code>df_crisis</code> and <code>df_baseline</code>, we are ready to create our first figure. The goal is to show the daily evolution of internal movements at the nation-wide scale in Chile during the five-month period starting in May 2020. Therefore, the figure will include information about the date on the <em>x</em>-axis and the number of movements on the <em>y</em>-axis. Furthermore, the figures should allow us to compare the trends in the period of interest with the baseline levels of internal mobility. Hence, our plot will include two components: a line showing the evolution of internal movements from May to September 2020 and a line representing the baseline.</p>
+<p>To generate the figure, we use the <code>ggplot2</code> package. First, <code>ggplot()</code> is used to construct the initial plot object, and is followed by a plus sign ( + ) to add components to the plot. Note that we add a legend to specify the component of the plot that refers to the “crisis” or pandemic period and the component that refers to the baseline.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color=</span><span class="st">"Baseline"</span>), </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_baseline, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color =</span> <span class="st">"Crisis"</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_crisis, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"Crisis"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"Baseline"</span> <span class="ot">=</span> <span class="st">"blue"</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"Crisis"</span>)) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figure 1: Temporal patterns in the number of movements in Chile"</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of movements"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="temporal-trends_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can also plot the difference between the levels of internal migration during the pandemic period and the baseline. First we create a new dataset <code>df_difference</code> with a column named <code>difference</code> as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_difference <span class="ot">&lt;-</span> df_crisis</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df_difference<span class="sc">$</span>difference <span class="ot">&lt;-</span> df_crisis<span class="sc">$</span>total <span class="sc">-</span> df_baseline<span class="sc">$</span>total</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we generate a plot following a procedure as above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> difference, <span class="at">color =</span> <span class="st">"Difference"</span>), </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_difference, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Difference"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Difference between crisis </span><span class="sc">\n</span><span class="st">and baseline"</span>)) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figure 2: Temporal patterns in the number of movements in Chile"</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Difference in number of movements"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="temporal-trends_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The patterns during the crisis period, display an overall trend and some shorter-term oscillations. What do these oscillations correspond to?</p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Does the observed overall trend in the 5-month period starting in May 2020 agree with what you expected? You may answer this question based on your knowledge on the evolution of the COVID-19 pandemic in Chile.</p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Why do you think the number of movements is generally higher during the crisis period than during the baseline period?</p>
+</div>
+</div>
+</section>
+<section id="internal-movements-involving-santiago-province" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="internal-movements-involving-santiago-province"><span class="header-section-number">1.4</span> Internal movements involving Santiago province</h2>
+<p>Up to this point, we have focused on the temporal trends of internal mobility at the nation-wide scale. Thanks to the fine level of detail in our original datasets, we can focus the analysis on more specific areas or regions. In the remainder of this sections, we will analyse movements that involve Santiago, Chile’s capital city. As we pointed out in section <a href="#sec-loading"><span>Section&nbsp;1.2</span></a>, there are several columns in the dataset <code>df_mov</code> that contain information about the start and end locations of the movements. The spatial variability of internal population flows will be explored in more detail in the next section of the workshop. But for now, we will focus on the columns names <code>start_polygon_name</code> and <code>end_polygon_name</code>, which contain the name of the province where a flow starts or ends respectively.</p>
+<section id="internal-movements-to-santiago" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="internal-movements-to-santiago"><span class="header-section-number">1.4.1</span> Internal movements to Santiago</h3>
+<p>Hence, to obtain only the movements that have the province of Santiago as their destination, we need to filter the data set <code>df_mov</code> so that it only contains rows where the value of <code>end_polygon_name</code> is Santiago. In R, this can be done very simply by running the lines of code below. The first line, keeps only the flows that start outside of Santiago and stores the result in the <code>df_mov_to</code> dataset. The second line, keeps only the flows that end in Santiago and stores the result in the <code>df_mov_to</code> dataset. We call the resulting data set <code>df_move_to</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_mov_to <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov, start_polygon_name <span class="sc">!=</span> <span class="st">'Santiago'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_mov_to <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov_to, end_polygon_name <span class="sc">==</span> <span class="st">'Santiago'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, like before, we create a new column for <code>df_mov_to</code> containing only information about the date (and not the time) in year-month-day format:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_mov_to<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_mov_to<span class="sc">$</span>date_time, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and we follow this action by grouping the data by date. We generate the datasets <code>df_to_crisis</code> and <code>df_to_baseline</code>, which contain the sum of the values of <code>n_crisis</code> and <code>n_baseline</code> for flows that happen on the same day:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_to_crisis <span class="ot">&lt;-</span> df_mov_to <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_to<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n_crisis)) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_to$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_to_baseline <span class="ot">&lt;-</span> df_mov_to <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_to<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n_baseline)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_to$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With all these elements, we can generate a figure showing the trends in the number of movements from any province outside of Santiago to Santiago, both during the 5-month crisis period during the pandemic and during the baseline period:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color=</span><span class="st">"Baseline"</span>), </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_to_baseline, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color =</span> <span class="st">"Crisis"</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_to_crisis, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"Crisis"</span> <span class="ot">=</span> <span class="st">"magenta"</span>, <span class="st">"Baseline"</span> <span class="ot">=</span> <span class="st">"blue"</span>),</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"Crisis"</span>)) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figure 3: Temporal patterns in the number of movements to Santiago"</span>,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of movements"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="temporal-trends_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="internal-movements-from-santiago" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="internal-movements-from-santiago"><span class="header-section-number">1.4.2</span> Internal movements from Santiago</h3>
+<p>An analogous analysis can be carried out for movements with origin in the province of Santiago and destination elsewhere. To do this, we follow exactly the same steps as before but modifying the way in which we filter <code>df_mov</code>, and replacing the names of new variables where appropriate (e.g.&nbsp;<code>df_mov_from</code> instead of <code>df_mov_to</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_mov_from <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov, start_polygon_name <span class="sc">==</span> <span class="st">'Santiago'</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df_mov_from <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov_from, end_polygon_name <span class="sc">!=</span> <span class="st">'Santiago'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_mov_from<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_mov_from<span class="sc">$</span>date_time, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df_from_crisis <span class="ot">&lt;-</span> df_mov_from <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_from<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n_crisis)) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_from$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_from_baseline <span class="ot">&lt;-</span> df_mov_from <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_from<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n_baseline)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_from$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color=</span><span class="st">"Baseline"</span>), </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_from_baseline, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color =</span> <span class="st">"Crisis"</span>),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_from_crisis, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"Crisis"</span> <span class="ot">=</span> <span class="st">"darkcyan"</span>, <span class="st">"Baseline"</span> <span class="ot">=</span> <span class="st">"blue"</span>),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"Crisis"</span>)) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figure 4: Temporal patterns in the number of movements from Santiago"</span>,</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of movements"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="temporal-trends_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can also compare the movements to and from Santiago province, this time omitting the baseline trends for clarity:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color=</span><span class="st">"To"</span>), </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_to_crisis, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color =</span> <span class="st">"From"</span>),</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_from_crisis, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"To"</span> <span class="ot">=</span> <span class="st">"magenta"</span>, <span class="st">"From"</span> <span class="ot">=</span> <span class="st">"darkcyan"</span>),</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"From Santiago"</span>, <span class="st">"To Santiago"</span>)) <span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, </span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figure 5: Temporal patterns in the number of movements to and from Santiago"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of movements"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="temporal-trends_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question 4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Does the overall trend in the internal movements involving Santiago province agree with your intuition?</p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question 5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can you observe any differences in the shorter-term oscillations corresponding to movements to and from Santiago province? To answer this question, it might be helpful to complete the Exercise below.</p>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Create a plot analogous to Figure 5, but comparing the baseline movements instead of the movements during the crisis period.</p>
+</div>
+</div>
+</section>
+<section id="internal-movements-between-santiago-and-valparaíso" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="internal-movements-between-santiago-and-valparaíso"><span class="header-section-number">1.4.3</span> Internal movements between Santiago and Valparaíso</h3>
+<p>It is possible to look at movements beetween a specified origin and destination. Here, we focus on the flow of people between Santiago and a popular destination province for Santiaguinos, Valparaíso. To explore the movements from Santiago to Valparaíso, you can run the code below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_mov_between1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov, start_polygon_name <span class="sc">==</span> <span class="st">'Santiago'</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df_mov_between1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov_between1, end_polygon_name <span class="sc">==</span> <span class="st">'Valparaíso'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_mov_between1<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_mov_between1<span class="sc">$</span>date_time, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_between1_crisis <span class="ot">&lt;-</span> df_mov_between1 <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_between1<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n_crisis)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_between1$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_between1_baseline <span class="ot">&lt;-</span> df_mov_between1 <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_between1<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(n_baseline)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_between1$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color=</span><span class="st">"Baseline"</span>), </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_between1_baseline, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> total, <span class="at">color =</span> <span class="st">"Crisis"</span>),</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> df_between1_crisis, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"Crisis"</span> <span class="ot">=</span> <span class="st">"magenta"</span>, <span class="st">"Baseline"</span> <span class="ot">=</span> <span class="st">"blue"</span>),</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"Crisis"</span>)) <span class="sc">+</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, </span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figure 6: Temporal patterns in the number of movements from Santiago to Valparaíso"</span>,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of movements"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="temporal-trends_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Question 6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Does the overall trend in the internal movements from Santiago to Valparaíso in this time period agree with your intuition?</p>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Create a plot analogous to Figure 6, but comparing the movements from Valparaíso to Santiago during the crisis and baseline period.</p>
+</div>
+</div>
+<div class="callout-warning callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Compare the trends in movements from Santiago to Valparaíso and from Valparaíso to Santiago. Are the overall trends similar? Are there differentces in the shorter-term fluctuations?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users"><span class="header-section-number">1.5</span> Advanced: tracked internal movements in relation to the active population of Facebook users</h2>
+<p>So far, we have looked at the 5-month period starting in May 2020 and spanning throughout the Chilean winter. But, as mentioned at the beginning of the workbook, Facebook Meta collected data for Chile in the two-year period spanning from the end of March of 2020 to the end of March 2022. As we saw in <a href="#sec-loading"><span>Section&nbsp;1.2</span></a>, the data is organised in files by month, and we can load them individually. However, since we are going to look at many months, we can automate the data-reading process. This is done by first, specifying the path to the folder where the movement data files are stored, and then, using a for loop to read each of the files in the folder and bind them together. Getting a full understanding of the code below is out of the scope of this workshop, but we have included comments starting with the ( # ) symbol to indicate what each line of code does in case you are curious.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a list of file paths in the folder</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>folder_path <span class="ot">&lt;-</span> <span class="st">"./data/fb/movement_grid/"</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>file_paths <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> folder_path, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.rds$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty list to store the data frames</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>dfs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through the file paths</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (file_path <span class="cf">in</span> file_paths) {</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Read each file as a data frame</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(file_path)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Store the data frame in the list</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  dfs <span class="ot">&lt;-</span> <span class="fu">append</span>(dfs, <span class="fu">list</span>(df))</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind all the data frames into a single data frame</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>df_mov_full <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(dfs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the previous sections, we have focused on analysing movement data during the pandemic and comparing it to a baseline period. While some insights can be gained by looking only at this data, it is important to consider the number of active Facebook users. The reason for this can be illustrated through the following examples. Suppose that the number of Facebook users drops to zero, then no movements would be recorded. However, this does not mean there are no movements taking place. Conversely, suppose Facebook becomes very popular and the whole population starts using it, then more movements would probably be recorded but this does not mean that people started moving more. Hence, it can be very useful to look at the number of movements per active user and analyse how this quantity evolves both during the pandemic and the baseline.</p>
+<p>Below, we load data for the population of active Facebook users:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a list of file paths in the folder</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>folder_path <span class="ot">&lt;-</span> <span class="st">"data/fb/population_grid/"</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>file_paths <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> folder_path, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.rds$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty list to store the data frames</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>dfs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through the file paths</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (file_path <span class="cf">in</span> file_paths) {</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Read each file as a data frame</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(file_path)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Store the data frame in the list</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  dfs <span class="ot">&lt;-</span> <span class="fu">append</span>(dfs, <span class="fu">list</span>(df))</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind all the data frames into a single data frame</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>df_mov_full_pop <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(dfs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="pre-processing-the-data" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="pre-processing-the-data"><span class="header-section-number">1.5.1</span> Pre-processing the data</h3>
+<p>Like the movement datasets, the Facebook population data is aggregated into 8-hour time windows but here, we are only interested in the variation at the daily level. Therefore, we group by date the number of movements and the number of active users during the crisis period.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_mov_full<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_mov_full<span class="sc">$</span>date_time, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_mov_full_pop<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_mov_full_pop<span class="sc">$</span>date_time, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df_mov_full_crisis <span class="ot">&lt;-</span> df_mov_full <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_full<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_crisis =</span> <span class="fu">sum</span>(n_crisis)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_full$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_mov_full_pop_crisis <span class="ot">&lt;-</span> df_mov_full_pop <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_full_pop<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pop_n_crisis =</span> <span class="fu">sum</span>(n_crisis)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_full_pop$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once the grouping by date is done, we merge the resulting datasets for movements and population of active Facebook users according to the <code>date</code> column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df_full_crisis <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_mov_full_crisis, df_mov_full_pop_crisis, <span class="at">by =</span> <span class="st">"date"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The original data for the population of active Facebook users is missing some dates, so we estimate the missing data using Multivariate Imputation by Chained Equations (with the mice package).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a mice object with only the column you want to impute</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>df_to_complete <span class="ot">&lt;-</span> <span class="fu">mice</span>(df_full_crisis[, <span class="sc">-</span><span class="fu">which</span>(<span class="fu">names</span>(df_full_crisis) <span class="sc">==</span> <span class="st">"n_crisis"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ iter imp variable
+  1   1  pop_n_crisis
+  1   2  pop_n_crisis
+  1   3  pop_n_crisis
+  1   4  pop_n_crisis
+  1   5  pop_n_crisis
+  2   1  pop_n_crisis
+  2   2  pop_n_crisis
+  2   3  pop_n_crisis
+  2   4  pop_n_crisis
+  2   5  pop_n_crisis
+  3   1  pop_n_crisis
+  3   2  pop_n_crisis
+  3   3  pop_n_crisis
+  3   4  pop_n_crisis
+  3   5  pop_n_crisis
+  4   1  pop_n_crisis
+  4   2  pop_n_crisis
+  4   3  pop_n_crisis
+  4   4  pop_n_crisis
+  4   5  pop_n_crisis
+  5   1  pop_n_crisis
+  5   2  pop_n_crisis
+  5   3  pop_n_crisis
+  5   4  pop_n_crisis
+  5   5  pop_n_crisis</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the imputation</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>df_complete_crisis <span class="ot">&lt;-</span> <span class="fu">complete</span>(df_to_complete)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>df_full_crisis<span class="sc">$</span>pop_n_crisis <span class="ot">&lt;-</span> df_complete_crisis<span class="sc">$</span>pop_n_crisis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Similarly, we group by date the number of movements and the number of active users during the baseline. Then, we merge the resulting datasets for movements and population of active Facebook users according to the <code>date</code> column and finally, we estimate any missing values using Multivariate Imputation by Chained Equations (with the mice package).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_mov_full_baseline <span class="ot">&lt;-</span> df_mov_full <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_full<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_baseline =</span> <span class="fu">sum</span>(n_baseline)) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_full$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_mov_full_pop_baseline <span class="ot">&lt;-</span> df_mov_full_pop <span class="sc">%&gt;%</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df_mov_full_pop<span class="sc">$</span>date) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">pop_n_baseline =</span> <span class="fu">sum</span>(n_baseline)) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"date"</span><span class="ot">=</span><span class="st">"df_mov_full_pop$date"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>df_full_baseline <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_mov_full_baseline, df_mov_full_pop_baseline, <span class="at">by =</span> <span class="st">"date"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a mice object with only the column you want to impute</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>df_to_complete <span class="ot">&lt;-</span> <span class="fu">mice</span>(df_full_baseline[, <span class="sc">-</span><span class="fu">which</span>(<span class="fu">names</span>(df_full_baseline) <span class="sc">==</span> <span class="st">"n_baseline"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ iter imp variable
+  1   1  pop_n_baseline
+  1   2  pop_n_baseline
+  1   3  pop_n_baseline
+  1   4  pop_n_baseline
+  1   5  pop_n_baseline
+  2   1  pop_n_baseline
+  2   2  pop_n_baseline
+  2   3  pop_n_baseline
+  2   4  pop_n_baseline
+  2   5  pop_n_baseline
+  3   1  pop_n_baseline
+  3   2  pop_n_baseline
+  3   3  pop_n_baseline
+  3   4  pop_n_baseline
+  3   5  pop_n_baseline
+  4   1  pop_n_baseline
+  4   2  pop_n_baseline
+  4   3  pop_n_baseline
+  4   4  pop_n_baseline
+  4   5  pop_n_baseline
+  5   1  pop_n_baseline
+  5   2  pop_n_baseline
+  5   3  pop_n_baseline
+  5   4  pop_n_baseline
+  5   5  pop_n_baseline</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the imputation</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>df_complete_baseline <span class="ot">&lt;-</span> <span class="fu">complete</span>(df_to_complete)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>df_full_baseline<span class="sc">$</span>pop_n_baseline <span class="ot">&lt;-</span> df_complete_baseline<span class="sc">$</span>pop_n_baseline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The merged datasets for the crisis period and the baseline can be merged according to the <code>date</code> column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>df_full <span class="ot">&lt;-</span> <span class="fu">merge</span>(df_full_crisis, df_full_baseline, <span class="at">by =</span> <span class="st">"date"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To obtain the number of movements per active Facebook user on a given date, we can divide the number of movements on that date by the total number of active Facebook users on the same date. This can be done for both the crisis and baseline periods and the results can be stored in new columns. Furthermore, we compute the difference in the number of movements per active Facebook user between the crisis and baseline periods and store it in the <code>difference_div</code> column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df_full<span class="sc">$</span>n_crisis_div <span class="ot">&lt;-</span> df_full<span class="sc">$</span>n_crisis<span class="sc">/</span>df_full<span class="sc">$</span>pop_n_crisis</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>df_full<span class="sc">$</span>n_baseline_div <span class="ot">&lt;-</span> df_full<span class="sc">$</span>n_baseline<span class="sc">/</span>df_full<span class="sc">$</span>pop_n_baseline</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>df_full<span class="sc">$</span>n_difference_div <span class="ot">&lt;-</span> df_full<span class="sc">$</span>n_crisis_div <span class="sc">-</span> df_full<span class="sc">$</span>n_baseline_div</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="analysisng-the-results" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="analysisng-the-results"><span class="header-section-number">1.5.2</span> Analysisng the results</h3>
+<p>Below we plot the baseline number of tracked movements and Facebook active users as well as the same quantities for the crisis period:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> n_baseline, <span class="at">color=</span><span class="st">"Baseline"</span>), </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> n_crisis, <span class="at">color =</span> <span class="st">"Crisis"</span>),</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>)  <span class="sc">+</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> pop_n_baseline, <span class="at">color=</span><span class="st">"Baseline FB users"</span>),</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> pop_n_crisis, <span class="at">color =</span> <span class="st">"Crisis FB users"</span>),</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>)  <span class="sc">+</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"Crisis"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"Baseline"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"Crisis FB users"</span> <span class="ot">=</span> <span class="st">"magenta"</span>, <span class="st">"Baseline FB users"</span> <span class="ot">=</span> <span class="st">"cyan"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Baseline movements"</span>, <span class="st">"Baseline FB users"</span>, <span class="st">"Crisis movements"</span>, <span class="st">"Crisis FB users"</span>)) <span class="sc">+</span></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, <span class="at">title =</span> <span class="st">"Figure 7: Temporal patterns in the number of tracked movements </span><span class="sc">\n</span><span class="st">and active Facebook users in Chile"</span>,</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Number of movements/users"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="temporal-trends_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Disregarding the spikes which are likely due to anomalies in the data collection process applied by Facebook, we observe that, generally speaking, both the baseline number of movements and the number of active Facebook users remain constant through the plotted period. In the case of the number of movements and the number of active Facebook users during the pandemic, they both experience a decline. But, is the decline observed in the number of movements a result of the decline in the number of active Facebook users? To answer this question, we can plot the number of tracked movements per active Facebook user, both for the baseline and the pandemic period. We can also plot the difference between these two quantities:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> n_baseline_div, <span class="at">color=</span><span class="st">"Baseline movements per user"</span>), </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> n_crisis_div, <span class="at">color =</span> <span class="st">"Crisis movements per user"</span>),</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>)  <span class="sc">+</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> n_difference_div, <span class="at">color =</span> <span class="st">"Difference"</span>),</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>)  <span class="sc">+</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"Crisis movements per user"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"Baseline movements per user"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"Difference"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Baseline movements per user"</span>, <span class="st">"Crisis movements per user"</span>, <span class="st">"Difference"</span>)) <span class="sc">+</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, <span class="at">title =</span> <span class="st">"Figure 8: Temporal patterns in the number of tracked movements per active Facebook user in Chile"</span>,</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of movements per active user"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="temporal-trends_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This last figure shows that since the start of the pandemic, the number of movements per active Facebook user has been consistently lower than during the baseline period. However, the difference in trends between the crisis and basline periods is not as large as it might have been suggested by looking at the raw number of movements without taking into account the active population of users (e.g.&nbsp;the line corresponding to the number of movements during the crisis period from Figure 7).</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./overview.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./spatial-patterns.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Spatial patterns</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

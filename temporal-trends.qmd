@@ -1,4 +1,4 @@
-# Exploring temporal patterns of human mobility
+# Temporal patterns
 
 In this part of the workshop, we explore the temporal patterns displayed by human mobility data from Facebook Meta. The data was collected for Chile in the time period spanning from end of March of 2020 to the end of March 2022.
 
@@ -29,11 +29,11 @@ library(mice)
 We start by looking at the temporal evolution of internal human mobility in Chile in the first few months after the first outbreak of COVID-19. To do so, we read the movement data corresponding to the months of May, June, July, August and September 2020. The data is stored as .rds files and can be read using the `readRDS()` function:
 
 ```{r}
-df_5 <- readRDS("data/movements/2020_05_mov.rds")
-df_6 <- readRDS("data/movements/2020_06_mov.rds")
-df_7 <- readRDS("data/movements/2020_07_mov.rds")
-df_8 <- readRDS("data/movements/2020_08_mov.rds")
-df_9 <- readRDS("data/movements/2020_09_mov.rds")
+df_5 <- readRDS("./data/fb/movement_grid/2020_05_mov.rds")
+df_6 <- readRDS("./data/fb/movement_grid/2020_06_mov.rds")
+df_7 <- readRDS("./data/fb/movement_grid/2020_07_mov.rds")
+df_8 <- readRDS("./data/fb/movement_grid/2020_08_mov.rds")
+df_9 <- readRDS("./data/fb/movement_grid/2020_09_mov.rds")
 ```
 
 Since we are interested in the evolution of trends in internal human mobility over this five-month period, we bind the data sets together using the function `rbind()`. This function appends datasets that share the same columns. We call the resulting data set `df_mov`.
@@ -95,13 +95,19 @@ df_mov$date <- as.Date(df_mov$date_time, format = "%Y-%m-%d")
 Since we are interested in the number of movements taking place on a daily basis, we need to aggregate the information from flows that take place on the same day. Specifically, we need to sum all the values of `n_crisis` corresponding to flows from the same day. This can be done, firstly, by passing the `df_mov` dataset to the `group_by()` function and specifying that we want to group the data according to the information stored in the `df_mov$date` column that we just created. This action can be achieved via the pipeline operator `%>%`, which simply feeds the results of one operation into the next operation. For those familiar with the mathematical language, the pipe operator is equivalent to the function composition operation. But the `group_by()` function alone will not give the desired output, so we follow it by the `summarise()` function with an appropriate action to perform, in this case the sum of the values of `n_crisis` for all the entries that share a date. The output is a dataset containing two columns, named `total` and `df_mov$date`. We rename the second column of the resulting dataset to `date` instead of `df_mov$date`. The final dataset is `df_crisis`.
 
 ```{r}
-df_crisis <- df_mov %>% group_by(df_mov$date) %>% summarise(total = sum(n_crisis)) %>% rename("date"="df_mov$date")
+df_crisis <- df_mov %>% 
+  group_by(df_mov$date) %>% 
+  summarise(total = sum(n_crisis)) %>% 
+  rename("date"="df_mov$date")
 ```
 
 We apply a very similar process to sum the values of `n_baseline` corresponding to flows from the same day. The resulting dataset is `df_baseline`.
 
 ```{r}
-df_baseline <- df_mov %>% group_by(df_mov$date) %>% summarise(total = sum(n_baseline)) %>% rename("date"="df_mov$date")
+df_baseline <- df_mov %>% 
+  group_by(df_mov$date) %>% 
+  summarise(total = sum(n_baseline)) %>% 
+  rename("date"="df_mov$date")
 ```
 
 ## Internal movements at the nation-wide scale
@@ -187,11 +193,19 @@ df_mov_to$date <- as.Date(df_mov_to$date_time, format = "%Y-%m-%d")
 and we follow this action by grouping the data by date. We generate the datasets `df_to_crisis` and `df_to_baseline`, which contain the sum of the values of `n_crisis` and `n_baseline` for flows that happen on the same day:
 
 ```{r}
-df_to_crisis <- df_mov_to %>% group_by(df_mov_to$date) %>% summarise(total = sum(n_crisis)) %>% rename("date"="df_mov_to$date")
+df_to_crisis <- df_mov_to %>% 
+  group_by(df_mov_to$date) %>% 
+  summarise(total = sum(n_crisis)) %>% 
+  rename("date"="df_mov_to$date") %>% 
+  ungroup()
 ```
 
 ```{r}
-df_to_baseline <- df_mov_to %>% group_by(df_mov_to$date) %>% summarise(total = sum(n_baseline)) %>% rename("date"="df_mov_to$date")
+df_to_baseline <- df_mov_to %>% 
+  group_by(df_mov_to$date) %>% 
+  summarise(total = sum(n_baseline)) %>% 
+  rename("date"="df_mov_to$date") %>% 
+  ungroup()
 ```
 
 With all these elements, we can generate a figure showing the trends in the number of movements from any province outside of Santiago to Santiago, both during the 5-month crisis period during the pandemic and during the baseline period:
@@ -225,11 +239,19 @@ df_mov_from$date <- as.Date(df_mov_from$date_time, format = "%Y-%m-%d")
 ```
 
 ```{r}
-df_from_crisis <- df_mov_from %>% group_by(df_mov_from$date) %>% summarise(total = sum(n_crisis)) %>% rename("date"="df_mov_from$date")
+df_from_crisis <- df_mov_from %>% 
+  group_by(df_mov_from$date) %>% 
+  summarise(total = sum(n_crisis)) %>% 
+  rename("date"="df_mov_from$date") %>% 
+  ungroup()
 ```
 
 ```{r}
-df_from_baseline <- df_mov_from %>% group_by(df_mov_from$date) %>% summarise(total = sum(n_baseline)) %>% rename("date"="df_mov_from$date")
+df_from_baseline <- df_mov_from %>% 
+  group_by(df_mov_from$date) %>% 
+  summarise(total = sum(n_baseline)) %>% 
+  rename("date"="df_mov_from$date") %>% 
+  ungroup()
 ```
 
 ```{r}
@@ -295,11 +317,19 @@ df_mov_between1$date <- as.Date(df_mov_between1$date_time, format = "%Y-%m-%d")
 ```
 
 ```{r}
-df_between1_crisis <- df_mov_between1 %>% group_by(df_mov_between1$date) %>% summarise(total = sum(n_crisis)) %>% rename("date"="df_mov_between1$date")
+df_between1_crisis <- df_mov_between1 %>% 
+  group_by(df_mov_between1$date) %>% 
+  summarise(total = sum(n_crisis)) %>% 
+  rename("date"="df_mov_between1$date") %>% 
+  ungroup()
 ```
 
 ```{r}
-df_between1_baseline <- df_mov_between1 %>% group_by(df_mov_between1$date) %>% summarise(total = sum(n_baseline)) %>% rename("date"="df_mov_between1$date")
+df_between1_baseline <- df_mov_between1 %>% 
+  group_by(df_mov_between1$date) %>% 
+  summarise(total = sum(n_baseline)) %>% 
+  rename("date"="df_mov_between1$date") %>% 
+  ungroup()
 ```
 
 ```{r}
@@ -340,7 +370,7 @@ So far, we have looked at the 5-month period starting in May 2020 and spanning t
 
 ```{r}
 # Get a list of file paths in the folder
-folder_path <- "data/movements/"
+folder_path <- "./data/fb/movement_grid/"
 file_paths <- list.files(path = folder_path, pattern = "\\.rds$", full.names = TRUE)
 
 # Create an empty list to store the data frames
@@ -364,7 +394,7 @@ Below, we load data for the population of active Facebook users:
 
 ```{r}
 # Get a list of file paths in the folder
-folder_path <- "data/FB_population/"
+folder_path <- "data/fb/population_grid/"
 file_paths <- list.files(path = folder_path, pattern = "\\.rds$", full.names = TRUE)
 
 # Create an empty list to store the data frames
@@ -396,11 +426,19 @@ df_mov_full_pop$date <- as.Date(df_mov_full_pop$date_time, format = "%Y-%m-%d")
 ```
 
 ```{r}
-df_mov_full_crisis <- df_mov_full %>% group_by(df_mov_full$date) %>% summarise(n_crisis = sum(n_crisis)) %>% rename("date"="df_mov_full$date")
+df_mov_full_crisis <- df_mov_full %>% 
+  group_by(df_mov_full$date) %>% 
+  summarise(n_crisis = sum(n_crisis)) %>% 
+  rename("date"="df_mov_full$date") %>% 
+  ungroup()
 ```
 
 ```{r}
-df_mov_full_pop_crisis <- df_mov_full_pop %>% group_by(df_mov_full_pop$date) %>% summarise(pop_n_crisis = sum(n_crisis)) %>% rename("date"="df_mov_full_pop$date")
+df_mov_full_pop_crisis <- df_mov_full_pop %>% 
+  group_by(df_mov_full_pop$date) %>% 
+  summarise(pop_n_crisis = sum(n_crisis)) %>% 
+  rename("date"="df_mov_full_pop$date") %>% 
+  ungroup()
 ```
 
 Once the grouping by date is done, we merge the resulting datasets for movements and population of active Facebook users according to the `date` column:
@@ -423,11 +461,19 @@ df_full_crisis$pop_n_crisis <- df_complete_crisis$pop_n_crisis
 Similarly, we group by date the number of movements and the number of active users during the baseline. Then, we merge the resulting datasets for movements and population of active Facebook users according to the `date` column and finally, we estimate any missing values using Multivariate Imputation by Chained Equations (with the mice package).
 
 ```{r}
-df_mov_full_baseline <- df_mov_full %>% group_by(df_mov_full$date) %>% summarise(n_baseline = sum(n_baseline)) %>% rename("date"="df_mov_full$date")
+df_mov_full_baseline <- df_mov_full %>% 
+  group_by(df_mov_full$date) %>% 
+  summarise(n_baseline = sum(n_baseline)) %>% 
+  rename("date"="df_mov_full$date") %>% 
+  ungroup()
 ```
 
 ```{r}
-df_mov_full_pop_baseline <- df_mov_full_pop %>% group_by(df_mov_full_pop$date) %>% summarise(pop_n_baseline = sum(n_baseline)) %>% rename("date"="df_mov_full_pop$date")
+df_mov_full_pop_baseline <- df_mov_full_pop %>% 
+  group_by(df_mov_full_pop$date) %>% 
+  summarise(pop_n_baseline = sum(n_baseline)) %>% 
+  rename("date"="df_mov_full_pop$date") %>% 
+  ungroup()
 ```
 
 ```{r}
@@ -498,4 +544,4 @@ ggplot() +
        y = "Number of movements per active user")
 ```
 
-This last figure shows that since the start of the pandemic, the number of movements per active Facebook user has been consistently lower than during the baseline period. However, the difference in trends between the crisis and basline periods is not as large as it might have been suggested by looking at the raw number of movements without taking into account the active population of users (e.g. the line correspondingto the number of movements during the crisis period from Figure 7).
+This last figure shows that since the start of the pandemic, the number of movements per active Facebook user has been consistently lower than during the baseline period. However, the difference in trends between the crisis and basline periods is not as large as it might have been suggested by looking at the raw number of movements without taking into account the active population of users (e.g. the line corresponding to the number of movements during the crisis period from Figure 7).

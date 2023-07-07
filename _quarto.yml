@@ -10,8 +10,8 @@ book:
     - index.qmd
     - overview.qmd
     # - data-description.qmd
-    # - temporal-trends.qmd
-    # - spatial-patterns.qmd
+    - temporal-trends.qmd
+    - spatial-patterns.qmd
     # - references.qmd
 
   search: true

@@ -1,4 +1,123 @@
-# Exploring spatial patterns of human mobility data
+# Spatial patterns
+
+## Aims
+
+## Dependencies
+
+```{r}
+#| warning: false
+#| message: false
+
+# data wrangling
+library(tidyverse)
+#library(fs)
+#library(here)
+
+# spatial data wrangling
+library(sf)
+library(mapdeck)
+
+# data visualisation
+library(viridis) 
+#library(viridisLite)
+library(ggthemes)
+library(patchwork)
+library(showtext)
+library(gganimate)
+#library(gifski)
+#library(ggnewscale)
+```
+
+## Data
+
+Read and describe Meta-Facebook mobility data
+
+```{r}
+df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>% 
+  dplyr::filter(country == "CL")
+str(df20)
+```
+
+```{r}
+unique_origins <- unique(df20$start_polygon_name)
+unique_destinations <- unique(df20$end_polygon_name)
+```
+
+### Bing tiles
+
+Read and describe Bing tile grids and how they can be created - reference to our work.
+
+```{r}
+#bing_grid <- read_sf()
+```
+
+### Administrative areas
+
+Read and describe administrative areas. Explain spatial data frames: geometry, projection, etc.
+
+```{r}
+shp <- read_sf("./data/shp/gadm41_CHL_3.shp") %>% 
+  st_simplify(preserveTopology =T,
+              dTolerance = 1000) %>%  # 1km
+  sf::st_make_valid() %>% 
+  dplyr::select( -c(
+    NL_NAME_1, NL_NAME_2, VARNAME_3, NL_NAME_3, CC_3, HASC_3
+  ) )
+
+shp
+```
+
+```{r}
+plot(shp$geometry)
+```
+
+## Spatial indicators of human mobility
+
+### Origin-based indicators
+
+This measure is in relation to a baseline - percentage change and flow
+
+```{r}
+origin_df <- df20 %>% 
+  group_by(start_polygon_name) %>% 
+  dplyr::summarise(
+    mean_perchange = mean(percent_change, na.rm = T),
+    mean_flows = mean(n_difference, na.rm = T),
+    mean_outflow = mean(n_crisis, na.rm = T),
+    sum_flows = sum(n_difference, na.rm = T),
+    sum_outflow = sum(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+tail(origin_df, 10)
+```
+
+### Destination-based indicators
+
+```{r}
+destination_df <- df20 %>% 
+  group_by(end_polygon_name) %>% 
+  dplyr::summarise(
+    mean_perchange = mean(percent_change, na.rm = T),
+    mean_flows = mean(n_difference, na.rm = T),
+    mean_outflow = mean(n_crisis, na.rm = T),
+    sum_flows = sum(n_difference, na.rm = T),
+    sum_outflow = sum(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+tail(destination_df, 10)
+```
+
+### Netflows
+
+## Mapping
+
+### Choropleths
+
+### Interactive mapping
+
+### Flow mapping
 
 ## Common concepts
 

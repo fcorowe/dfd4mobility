@@ -15,11 +15,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 To analyse the data, we need R and the following R packages (see installation instructions [here](R%20libraries)\*). Once installed, you can use the R packages by loading them as libraries:
 
 ```{r}
-library(dplyr)
+#| warning: false
+#| message: false
+
 library(tidyverse)
 library(zoo)
-library(ggplot2)
-library(lubridate)
 library(tools)
 library(mice)
 ```

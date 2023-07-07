@@ -48,7 +48,39 @@ unique_destinations <- unique(df20$end_polygon_name)
 Read and describe Bing tile grids and how they can be created - reference to our work.
 
 ```{r}
-#bing_grid <- read_sf()
+bing_grid <- read_sf("./data/shp/grid/chile_grid.shp") %>% 
+  st_simplify(preserveTopology =T,
+              dTolerance = 1000) %>%  # 1km
+  sf::st_make_valid()
+```
+
+```{r}
+#| echo: false
+p_country <- ggplot(data = bing_grid) + 
+  geom_sf(color = "gray60", 
+          size = 0.1) +
+  theme_void() +
+  ggtitle('Chile')
+
+p_north <- ggplot(data = bing_grid %>% tail(100) ) + 
+  geom_sf(color = "gray60", 
+          size = 0.1) +
+  theme_void() +
+  ggtitle('North')
+
+p_central <- ggplot(data = bing_grid[2500:3000,] ) + 
+  geom_sf(color = "gray60", 
+          size = 0.1) +
+  theme_void() +
+  ggtitle('Central')
+
+p_south <- ggplot(data = bing_grid %>% head(1500) ) + 
+  geom_sf(color = "gray60", 
+          size = 0.1) +
+  theme_void() +
+  ggtitle('South')
+
+p_country | (p_north / p_central / p_south)
 ```
 
 ### Administrative areas
@@ -56,7 +88,7 @@ Read and describe Bing tile grids and how they can be created - reference to our
 Read and describe administrative areas. Explain spatial data frames: geometry, projection, etc.
 
 ```{r}
-shp <- read_sf("./data/shp/gadm41_CHL_3.shp") %>% 
+shp_adm <- read_sf("./data/shp/adm/gadm41_CHL_3.shp") %>% 
   st_simplify(preserveTopology =T,
               dTolerance = 1000) %>%  # 1km
   sf::st_make_valid() %>% 
@@ -64,11 +96,11 @@ shp <- read_sf("./data/shp/gadm41_CHL_3.shp") %>%
     NL_NAME_1, NL_NAME_2, VARNAME_3, NL_NAME_3, CC_3, HASC_3
   ) )
 
-shp
+shp_adm
 ```
 
 ```{r}
-plot(shp$geometry)
+plot(shp_adm$geometry)
 ```
 
 ## Spatial indicators of human mobility
@@ -119,10 +151,10 @@ tail(destination_df, 10)
 
 ### Flow mapping
 
-## Common concepts
+<!--# Common concepts -->
 
-There are several concepts relevant to understanding the data sets. First of all, we construct maps using two different methods of identifying locations: tiles and administrative polygons.
+<!--# There are several concepts relevant to understanding the data sets. First of all, we construct maps using two different methods of identifying locations: tiles and administrative polygons. -->
 
-The Bing Maps Tile System defines a series of grids at different resolution levels over a rectangular projection of the world (Schwartz 2018). Each level is constructed by dividing the previous level into fourths. We typically use Bing tile levels 13 through 16, where level 13 results in tiles that are about 4.9 x 4.9 km at the Equator. The other method we use for identifying a location is administrative polygons, which define the political and geographic boundaries of countries, states, provinces, counties, cities, and more.
+<!--#  The Bing Maps Tile System defines a series of grids at different resolution levels over a rectangular projection of the world (Schwartz 2018). Each level is constructed by dividing the previous level into fourths. We typically use Bing tile levels 13 through 16, where level 13 results in tiles that are about 4.9 x 4.9 km at the Equator. The other method we use for identifying a location is administrative polygons, which define the political and geographic boundaries of countries, states, provinces, counties, cities, and more. -->
 
-When generating a map for a crisis event, we specify a rectangular bounding box around the most directly affected area. The different map calculations, described in the following sections, are done relative to this region, and, for most of the maps, only data within this region is included. Most of the map types are based on counting events that occur within a time interval, which is frequently 8 or 24 hours. The time interval determines what data is included in a calculation as well as the minimum frequency with which new maps are generated.
+<!--#  When generating a map for a crisis event, we specify a rectangular bounding box around the most directly affected area. The different map calculations, described in the following sections, are done relative to this region, and, for most of the maps, only data within this region is included. Most of the map types are based on counting events that occur within a time interval, which is frequently 8 or 24 hours. The time interval determines what data is included in a calculation as well as the minimum frequency with which new maps are generated.  -->

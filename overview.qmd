@@ -7,7 +7,7 @@ This workshop offers an introduction to the use of digital footprint data from M
 ## Structure
 
 | Time        | Activity                                                    |
-|-------------|-------------------------------------------------------------|
+|----------------|--------------------------------------------------------|
 | 9.00-9.30   | Registration and welcome coffee                             |
 | 9.30-10.30  | Digital Footprint Data overview                             |
 | 10.30-10.40 | Comfort break                                               |

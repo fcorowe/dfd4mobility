@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Using Digital Footprint Data to Measure and Monitor Human Mobility - 1&nbsp; Temporal patterns</title>
+<title>Using Digital Footprint Data to Measure and Monitor Human Mobility - Temporal patterns</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal patterns</span></h1>
+      <h1 class="quarto-secondary-nav-title">Temporal patterns</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -171,12 +171,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./temporal-trends.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal patterns</span></a>
+  <a href="./temporal-trends.html" class="sidebar-item-text sidebar-link active">Temporal patterns</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spatial-patterns.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Spatial patterns</span></a>
+  <a href="./spatial-patterns.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Spatial patterns</span></a>
   </div>
 </li>
     </ul>
@@ -188,24 +188,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dependencies" id="toc-dependencies" class="nav-link active" data-scroll-target="#dependencies"><span class="toc-section-number">1.1</span>  Dependencies</a></li>
-  <li><a href="#sec-loading" id="toc-sec-loading" class="nav-link" data-scroll-target="#sec-loading"><span class="toc-section-number">1.2</span>  Loading and pre-processing the data</a>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link active" data-scroll-target="#dependencies">Dependencies</a></li>
+  <li><a href="#sec-loading" id="toc-sec-loading" class="nav-link" data-scroll-target="#sec-loading">Data wrangling</a>
   <ul class="collapse">
-  <li><a href="#choice-of-variables-for-the-analysis" id="toc-choice-of-variables-for-the-analysis" class="nav-link" data-scroll-target="#choice-of-variables-for-the-analysis"><span class="toc-section-number">1.2.1</span>  Choice of variables for the analysis</a></li>
-  <li><a href="#extracting-the-calendar-date-for-each-population-flow" id="toc-extracting-the-calendar-date-for-each-population-flow" class="nav-link" data-scroll-target="#extracting-the-calendar-date-for-each-population-flow"><span class="toc-section-number">1.2.2</span>  Extracting the calendar date for each population flow</a></li>
-  <li><a href="#grouping-data-by-calendar-date" id="toc-grouping-data-by-calendar-date" class="nav-link" data-scroll-target="#grouping-data-by-calendar-date"><span class="toc-section-number">1.2.3</span>  Grouping data by calendar date</a></li>
+  <li><a href="#variable-selection" id="toc-variable-selection" class="nav-link" data-scroll-target="#variable-selection">Variable selection</a></li>
+  <li><a href="#extracting-calendar-date" id="toc-extracting-calendar-date" class="nav-link" data-scroll-target="#extracting-calendar-date">Extracting calendar date</a></li>
+  <li><a href="#temporally-grouping-data" id="toc-temporally-grouping-data" class="nav-link" data-scroll-target="#temporally-grouping-data">Temporally grouping data</a></li>
   </ul></li>
-  <li><a href="#internal-movements-at-the-nation-wide-scale" id="toc-internal-movements-at-the-nation-wide-scale" class="nav-link" data-scroll-target="#internal-movements-at-the-nation-wide-scale"><span class="toc-section-number">1.3</span>  Internal movements at the nation-wide scale</a></li>
-  <li><a href="#internal-movements-involving-santiago-province" id="toc-internal-movements-involving-santiago-province" class="nav-link" data-scroll-target="#internal-movements-involving-santiago-province"><span class="toc-section-number">1.4</span>  Internal movements involving Santiago province</a>
+  <li><a href="#system-wide-analysis" id="toc-system-wide-analysis" class="nav-link" data-scroll-target="#system-wide-analysis">System-wide analysis</a></li>
+  <li><a href="#santiago-internal-movements" id="toc-santiago-internal-movements" class="nav-link" data-scroll-target="#santiago-internal-movements">Santiago: Internal movements</a>
   <ul class="collapse">
-  <li><a href="#internal-movements-to-santiago" id="toc-internal-movements-to-santiago" class="nav-link" data-scroll-target="#internal-movements-to-santiago"><span class="toc-section-number">1.4.1</span>  Internal movements to Santiago</a></li>
-  <li><a href="#internal-movements-from-santiago" id="toc-internal-movements-from-santiago" class="nav-link" data-scroll-target="#internal-movements-from-santiago"><span class="toc-section-number">1.4.2</span>  Internal movements from Santiago</a></li>
-  <li><a href="#internal-movements-between-santiago-and-valparaíso" id="toc-internal-movements-between-santiago-and-valparaíso" class="nav-link" data-scroll-target="#internal-movements-between-santiago-and-valparaíso"><span class="toc-section-number">1.4.3</span>  Internal movements between Santiago and Valparaíso</a></li>
+  <li><a href="#santiago-as-destination" id="toc-santiago-as-destination" class="nav-link" data-scroll-target="#santiago-as-destination">Santiago as destination</a></li>
+  <li><a href="#santiago-as-origin" id="toc-santiago-as-origin" class="nav-link" data-scroll-target="#santiago-as-origin">Santiago as origin</a></li>
+  <li><a href="#santiago-valparaíso-movements" id="toc-santiago-valparaíso-movements" class="nav-link" data-scroll-target="#santiago-valparaíso-movements">Santiago-Valparaíso movements</a></li>
   </ul></li>
-  <li><a href="#advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users" id="toc-advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users" class="nav-link" data-scroll-target="#advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users"><span class="toc-section-number">1.5</span>  Advanced: tracked internal movements in relation to the active population of Facebook users</a>
+  <li><a href="#relationship-between-movements-and-active-facebook-user-population" id="toc-relationship-between-movements-and-active-facebook-user-population" class="nav-link" data-scroll-target="#relationship-between-movements-and-active-facebook-user-population">Relationship between movements and active Facebook user population</a>
   <ul class="collapse">
-  <li><a href="#pre-processing-the-data" id="toc-pre-processing-the-data" class="nav-link" data-scroll-target="#pre-processing-the-data"><span class="toc-section-number">1.5.1</span>  Pre-processing the data</a></li>
-  <li><a href="#analysisng-the-results" id="toc-analysisng-the-results" class="nav-link" data-scroll-target="#analysisng-the-results"><span class="toc-section-number">1.5.2</span>  Analysisng the results</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a></li>
+  <li><a href="#analysing-trends" id="toc-analysing-trends" class="nav-link" data-scroll-target="#analysing-trends">Analysing trends</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -215,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal patterns</span></h1>
+<h1 class="title d-none d-lg-block">Temporal patterns</h1>
 </div>
 
 
@@ -234,8 +234,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Before getting started, please run the code below to avoid getting warnings and messages when executing the rest of the workbook:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="dependencies" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">1.1</span> Dependencies</h2>
+<section id="dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="dependencies">Dependencies</h2>
 <p>To analyse the data, we need R and the following R packages (see installation instructions <a href="R libraries">here</a>*). Once installed, you can use the R packages by loading them as libraries:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -247,8 +247,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="sec-loading" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="sec-loading"><span class="header-section-number">1.2</span> Loading and pre-processing the data</h2>
+<section id="sec-loading" class="level2">
+<h2 class="anchored" data-anchor-id="sec-loading">Data wrangling</h2>
 <p>We start by looking at the temporal evolution of internal human mobility in Chile in the first few months after the first outbreak of COVID-19. To do so, we read the movement data corresponding to the months of May, June, July, August and September 2020. The data is stored as .rds files and can be read using the <code>readRDS()</code> function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_5 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"./data/fb/movement_grid/2020_05_mov.rds"</span>)</span>
@@ -312,8 +312,8 @@ $ date_time2                   &lt;dttm&gt; 2020-05-01 07:00:00, 2020-05-01 07:0
 </div>
 <p>As you might have guessed, each column represents a variable or a characteristic of the data stored in the dataset. Each row or data point in the resulting dataset <code>df_mov</code> represents a population flow between an origin and a destination location, taking place during a given time window, in this case, within the five-month period starting in May 2020. The information about the origin and destination of the flow is fully determined by the <code>geometry</code> column. Other columns also contain information about the start and end locations of the movements, such as <code>start_polygon_id</code>, <code>start_polygon_name</code>, <code>end_polygon_id</code>, <code>end_polygon_name</code>, <code>start_lat</code>, <code>start_lon</code>, <code>end_lat</code>, <code>end_lon</code>, <code>start_quadkey</code> and <code>end_quadkey</code>. The information about the time window in which each population flow takes place is contained in the <code>date_time</code> column.</p>
 <p>In the next few sections, we will focus only on three variables, namely, <code>date_time</code>, <code>n_crisis</code> and <code>n_baseline</code>. But first, let’s talk a bit more about the datetime format.</p>
-<section id="choice-of-variables-for-the-analysis" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="choice-of-variables-for-the-analysis"><span class="header-section-number">1.2.1</span> Choice of variables for the analysis</h3>
+<section id="variable-selection" class="level3">
+<h3 class="anchored" data-anchor-id="variable-selection">Variable selection</h3>
 <p>Of all the columns in the dataset <code>df_mov</code>, three of them are particularly relevant for the analysis in this section of the workshop, <code>n_crisis</code>, <code>n_baseline</code> and <code>date_time</code>. Firstly, the variable <code>n_crisis</code> gives us the size of a given flow, i.e.&nbsp;the number of people moving from an origin to a destination. For the first flow, this would be:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_mov<span class="sc">$</span>n_crisis[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -338,15 +338,15 @@ $ date_time2                   &lt;dttm&gt; 2020-05-01 07:00:00, 2020-05-01 07:0
 </div>
 <p>Therefore, the first flow in the dataset <code>df_mov</code> took place between 00:00 and 08:00 of the 1st of May 2020. However, for the analysis in this workbook, we are interested only in the patterns taking place at the daily scale, so the information regarding the time window within the day is irrelevant.</p>
 </section>
-<section id="extracting-the-calendar-date-for-each-population-flow" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="extracting-the-calendar-date-for-each-population-flow"><span class="header-section-number">1.2.2</span> Extracting the calendar date for each population flow</h3>
+<section id="extracting-calendar-date" class="level3">
+<h3 class="anchored" data-anchor-id="extracting-calendar-date">Extracting calendar date</h3>
 <p>To explore the variation in the number of flows at the daily level, we need to first extract only the date from each movement. This can be done by running the code below, where we create a new column in <code>df_mov</code> named <code>date</code>. This new column stores only the information corresponding to date which can be obtained by applying the <code>as.Date()</code> function to the data from the <code>date_time</code> column. This function allows us to convert character data into objects of class <code>Date</code> representing calendar dates and following a specified format (in this case, year-month-day).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_mov<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_mov<span class="sc">$</span>date_time, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="grouping-data-by-calendar-date" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="grouping-data-by-calendar-date"><span class="header-section-number">1.2.3</span> Grouping data by calendar date</h3>
+<section id="temporally-grouping-data" class="level3">
+<h3 class="anchored" data-anchor-id="temporally-grouping-data">Temporally grouping data</h3>
 <p>Since we are interested in the number of movements taking place on a daily basis, we need to aggregate the information from flows that take place on the same day. Specifically, we need to sum all the values of <code>n_crisis</code> corresponding to flows from the same day. This can be done, firstly, by passing the <code>df_mov</code> dataset to the <code>group_by()</code> function and specifying that we want to group the data according to the information stored in the <code>df_mov$date</code> column that we just created. This action can be achieved via the pipeline operator <code>%&gt;%</code>, which simply feeds the results of one operation into the next operation. For those familiar with the mathematical language, the pipe operator is equivalent to the function composition operation. But the <code>group_by()</code> function alone will not give the desired output, so we follow it by the <code>summarise()</code> function with an appropriate action to perform, in this case the sum of the values of <code>n_crisis</code> for all the entries that share a date. The output is a dataset containing two columns, named <code>total</code> and <code>df_mov$date</code>. We rename the second column of the resulting dataset to <code>date</code> instead of <code>df_mov$date</code>. The final dataset is <code>df_crisis</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_crisis <span class="ot">&lt;-</span> df_mov <span class="sc">%&gt;%</span> </span>
@@ -363,8 +363,8 @@ $ date_time2                   &lt;dttm&gt; 2020-05-01 07:00:00, 2020-05-01 07:0
 </div>
 </section>
 </section>
-<section id="internal-movements-at-the-nation-wide-scale" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="internal-movements-at-the-nation-wide-scale"><span class="header-section-number">1.3</span> Internal movements at the nation-wide scale</h2>
+<section id="system-wide-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="system-wide-analysis">System-wide analysis</h2>
 <p>With <code>df_crisis</code> and <code>df_baseline</code>, we are ready to create our first figure. The goal is to show the daily evolution of internal movements at the nation-wide scale in Chile during the five-month period starting in May 2020. Therefore, the figure will include information about the date on the <em>x</em>-axis and the number of movements on the <em>y</em>-axis. Furthermore, the figures should allow us to compare the trends in the period of interest with the baseline levels of internal mobility. Hence, our plot will include two components: a line showing the evolution of internal movements from May to September 2020 and a line representing the baseline.</p>
 <p>To generate the figure, we use the <code>ggplot2</code> package. First, <code>ggplot()</code> is used to construct the initial plot object, and is followed by a plus sign ( + ) to add components to the plot. Note that we add a legend to specify the component of the plot that refers to the “crisis” or pandemic period and the component that refers to the baseline.</p>
 <div class="cell">
@@ -409,10 +409,11 @@ $ date_time2                   &lt;dttm&gt; 2020-05-01 07:00:00, 2020-05-01 07:0
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Question 1
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Question 1</strong></p>
 <p>The patterns during the crisis period, display an overall trend and some shorter-term oscillations. What do these oscillations correspond to?</p>
 </div>
 </div>
@@ -422,10 +423,11 @@ Question 1
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Question 2
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Question 2</strong></p>
 <p>Does the observed overall trend in the 5-month period starting in May 2020 agree with what you expected? You may answer this question based on your knowledge on the evolution of the COVID-19 pandemic in Chile.</p>
 </div>
 </div>
@@ -435,19 +437,20 @@ Question 2
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Question 3
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Question 3</strong></p>
 <p>Why do you think the number of movements is generally higher during the crisis period than during the baseline period?</p>
 </div>
 </div>
 </section>
-<section id="internal-movements-involving-santiago-province" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="internal-movements-involving-santiago-province"><span class="header-section-number">1.4</span> Internal movements involving Santiago province</h2>
-<p>Up to this point, we have focused on the temporal trends of internal mobility at the nation-wide scale. Thanks to the fine level of detail in our original datasets, we can focus the analysis on more specific areas or regions. In the remainder of this sections, we will analyse movements that involve Santiago, Chile’s capital city. As we pointed out in section <a href="#sec-loading"><span>Section&nbsp;1.2</span></a>, there are several columns in the dataset <code>df_mov</code> that contain information about the start and end locations of the movements. The spatial variability of internal population flows will be explored in more detail in the next section of the workshop. But for now, we will focus on the columns names <code>start_polygon_name</code> and <code>end_polygon_name</code>, which contain the name of the province where a flow starts or ends respectively.</p>
-<section id="internal-movements-to-santiago" class="level3" data-number="1.4.1">
-<h3 data-number="1.4.1" class="anchored" data-anchor-id="internal-movements-to-santiago"><span class="header-section-number">1.4.1</span> Internal movements to Santiago</h3>
+<section id="santiago-internal-movements" class="level2">
+<h2 class="anchored" data-anchor-id="santiago-internal-movements">Santiago: Internal movements</h2>
+<p>Up to this point, we have focused on the temporal trends of internal mobility at the nation-wide scale. Thanks to the fine level of detail in our original datasets, we can focus the analysis on more specific areas or regions. In the remainder of this sections, we will analyse movements that involve Santiago, Chile’s capital city. As we pointed out in section <a href="#sec-loading"><span>Section&nbsp;2</span></a>, there are several columns in the dataset <code>df_mov</code> that contain information about the start and end locations of the movements. The spatial variability of internal population flows will be explored in more detail in the next section of the workshop. But for now, we will focus on the columns names <code>start_polygon_name</code> and <code>end_polygon_name</code>, which contain the name of the province where a flow starts or ends respectively.</p>
+<section id="santiago-as-destination" class="level3">
+<h3 class="anchored" data-anchor-id="santiago-as-destination">Santiago as destination</h3>
 <p>Hence, to obtain only the movements that have the province of Santiago as their destination, we need to filter the data set <code>df_mov</code> so that it only contains rows where the value of <code>end_polygon_name</code> is Santiago. In R, this can be done very simply by running the lines of code below. The first line, keeps only the flows that start outside of Santiago and stores the result in the <code>df_mov_to</code> dataset. The second line, keeps only the flows that end in Santiago and stores the result in the <code>df_mov_to</code> dataset. We call the resulting data set <code>df_move_to</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_mov_to <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov, start_polygon_name <span class="sc">!=</span> <span class="st">'Santiago'</span>)</span>
@@ -490,8 +493,8 @@ Question 3
 </div>
 </div>
 </section>
-<section id="internal-movements-from-santiago" class="level3" data-number="1.4.2">
-<h3 data-number="1.4.2" class="anchored" data-anchor-id="internal-movements-from-santiago"><span class="header-section-number">1.4.2</span> Internal movements from Santiago</h3>
+<section id="santiago-as-origin" class="level3">
+<h3 class="anchored" data-anchor-id="santiago-as-origin">Santiago as origin</h3>
 <p>An analogous analysis can be carried out for movements with origin in the province of Santiago and destination elsewhere. To do this, we follow exactly the same steps as before but modifying the way in which we filter <code>df_mov</code>, and replacing the names of new variables where appropriate (e.g.&nbsp;<code>df_mov_from</code> instead of <code>df_mov_to</code>):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_mov_from <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov, start_polygon_name <span class="sc">==</span> <span class="st">'Santiago'</span>)</span>
@@ -553,10 +556,11 @@ Question 3
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Question 4
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Question 4</strong></p>
 <p>Does the overall trend in the internal movements involving Santiago province agree with your intuition?</p>
 </div>
 </div>
@@ -566,10 +570,11 @@ Question 4
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Question 5
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Question 5</strong></p>
 <p>Can you observe any differences in the shorter-term oscillations corresponding to movements to and from Santiago province? To answer this question, it might be helpful to complete the Exercise below.</p>
 </div>
 </div>
@@ -579,16 +584,17 @@ Question 5
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Exercise 1
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Exercise 1</strong></p>
 <p>Create a plot analogous to Figure 5, but comparing the baseline movements instead of the movements during the crisis period.</p>
 </div>
 </div>
 </section>
-<section id="internal-movements-between-santiago-and-valparaíso" class="level3" data-number="1.4.3">
-<h3 data-number="1.4.3" class="anchored" data-anchor-id="internal-movements-between-santiago-and-valparaíso"><span class="header-section-number">1.4.3</span> Internal movements between Santiago and Valparaíso</h3>
+<section id="santiago-valparaíso-movements" class="level3">
+<h3 class="anchored" data-anchor-id="santiago-valparaíso-movements">Santiago-Valparaíso movements</h3>
 <p>It is possible to look at movements beetween a specified origin and destination. Here, we focus on the flow of people between Santiago and a popular destination province for Santiaguinos, Valparaíso. To explore the movements from Santiago to Valparaíso, you can run the code below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_mov_between1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(df_mov, start_polygon_name <span class="sc">==</span> <span class="st">'Santiago'</span>)</span>
@@ -633,10 +639,11 @@ Exercise 1
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Question 6
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Question 6</strong></p>
 <p>Does the overall trend in the internal movements from Santiago to Valparaíso in this time period agree with your intuition?</p>
 </div>
 </div>
@@ -646,10 +653,11 @@ Question 6
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Exercise 2
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Exercise 2</strong></p>
 <p>Create a plot analogous to Figure 6, but comparing the movements from Valparaíso to Santiago during the crisis and baseline period.</p>
 </div>
 </div>
@@ -659,18 +667,19 @@ Exercise 2
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Exercise 3
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Exercise 3</strong></p>
 <p>Compare the trends in movements from Santiago to Valparaíso and from Valparaíso to Santiago. Are the overall trends similar? Are there differentces in the shorter-term fluctuations?</p>
 </div>
 </div>
 </section>
 </section>
-<section id="advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="advanced-tracked-internal-movements-in-relation-to-the-active-population-of-facebook-users"><span class="header-section-number">1.5</span> Advanced: tracked internal movements in relation to the active population of Facebook users</h2>
-<p>So far, we have looked at the 5-month period starting in May 2020 and spanning throughout the Chilean winter. But, as mentioned at the beginning of the workbook, Facebook Meta collected data for Chile in the two-year period spanning from the end of March of 2020 to the end of March 2022. As we saw in <a href="#sec-loading"><span>Section&nbsp;1.2</span></a>, the data is organised in files by month, and we can load them individually. However, since we are going to look at many months, we can automate the data-reading process. This is done by first, specifying the path to the folder where the movement data files are stored, and then, using a for loop to read each of the files in the folder and bind them together. Getting a full understanding of the code below is out of the scope of this workshop, but we have included comments starting with the ( # ) symbol to indicate what each line of code does in case you are curious.</p>
+<section id="relationship-between-movements-and-active-facebook-user-population" class="level2">
+<h2 class="anchored" data-anchor-id="relationship-between-movements-and-active-facebook-user-population">Relationship between movements and active Facebook user population</h2>
+<p>So far, we have looked at the 5-month period starting in May 2020 and spanning throughout the Chilean winter. But, as mentioned at the beginning of the workbook, Facebook Meta collected data for Chile in the two-year period spanning from the end of March of 2020 to the end of March 2022. As we saw in <a href="#sec-loading"><span>Section&nbsp;2</span></a>, the data is organised in files by month, and we can load them individually. However, since we are going to look at many months, we can automate the data-reading process. This is done by first, specifying the path to the folder where the movement data files are stored, and then, using a for loop to read each of the files in the folder and bind them together. Getting a full understanding of the code below is out of the scope of this workshop, but we have included comments starting with the ( # ) symbol to indicate what each line of code does in case you are curious.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a list of file paths in the folder</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>folder_path <span class="ot">&lt;-</span> <span class="st">"./data/fb/movement_grid/"</span></span>
@@ -712,8 +721,8 @@ Exercise 3
 <span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind all the data frames into a single data frame</span></span>
 <span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>df_mov_full_pop <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(dfs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="pre-processing-the-data" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="pre-processing-the-data"><span class="header-section-number">1.5.1</span> Pre-processing the data</h3>
+<section id="data-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="data-preparation">Data preparation</h3>
 <p>Like the movement datasets, the Facebook population data is aggregated into 8-hour time windows but here, we are only interested in the variation at the daily level. Therefore, we group by date the number of movements and the number of active users during the crisis period.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_mov_full<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df_mov_full<span class="sc">$</span>date_time, <span class="at">format =</span> <span class="st">"%Y-%m-%d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -843,8 +852,8 @@ Exercise 3
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>df_full<span class="sc">$</span>n_difference_div <span class="ot">&lt;-</span> df_full<span class="sc">$</span>n_crisis_div <span class="sc">-</span> df_full<span class="sc">$</span>n_baseline_div</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="analysisng-the-results" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="analysisng-the-results"><span class="header-section-number">1.5.2</span> Analysisng the results</h3>
+<section id="analysing-trends" class="level3">
+<h3 class="anchored" data-anchor-id="analysing-trends">Analysing trends</h3>
 <p>Below we plot the baseline number of tracked movements and Facebook active users as well as the same quantities for the crisis period:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -858,7 +867,7 @@ Exercise 3
 <span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> pop_n_crisis, <span class="at">color =</span> <span class="st">"Crisis FB users"</span>),</span>
 <span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>)  <span class="sc">+</span></span>
 <span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"Crisis"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"Baseline"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"Crisis FB users"</span> <span class="ot">=</span> <span class="st">"magenta"</span>, <span class="st">"Baseline FB users"</span> <span class="ot">=</span> <span class="st">"cyan"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Baseline movements"</span>, <span class="st">"Baseline FB users"</span>, <span class="st">"Crisis movements"</span>, <span class="st">"Crisis FB users"</span>)) <span class="sc">+</span></span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, <span class="at">title =</span> <span class="st">"Figure 7: Temporal patterns in the number of tracked movements </span><span class="sc">\n</span><span class="st">and active Facebook users in Chile"</span>,</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, <span class="at">title =</span> <span class="st">"Figure 7: Number of tracked movements </span><span class="sc">\n</span><span class="st">and active Facebook users in Chile"</span>,</span>
 <span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Date"</span>,</span>
 <span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Number of movements/users"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -876,7 +885,7 @@ Exercise 3
 <span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df_full, <span class="at">size =</span> <span class="fl">1.5</span>)  <span class="sc">+</span></span>
 <span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="st">"Crisis movements per user"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"Baseline movements per user"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"Difference"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Baseline movements per user"</span>, <span class="st">"Crisis movements per user"</span>, <span class="st">"Difference"</span>)) <span class="sc">+</span></span>
 <span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, <span class="at">title =</span> <span class="st">"Figure 8: Temporal patterns in the number of tracked movements per active Facebook user in Chile"</span>,</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Legend"</span>, <span class="at">title =</span> <span class="st">"Figure 8: Number of tracked movements per active Facebook user in Chile"</span>,</span>
 <span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
 <span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of movements per active user"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1031,7 +1040,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./spatial-patterns.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Spatial patterns</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Spatial patterns</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

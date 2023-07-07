@@ -1,4 +1,4 @@
-# Spatial patterns
+# Spatial patterns {.unnumbered}
 
 ## Aims
 

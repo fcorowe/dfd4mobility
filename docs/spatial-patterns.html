@@ -205,6 +205,7 @@ div.csl-indent {
   <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies">Dependencies</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
   <ul class="collapse">
+  <li><a href="#meta-facebook-mobility-data" id="toc-meta-facebook-mobility-data" class="nav-link" data-scroll-target="#meta-facebook-mobility-data">Meta-Facebook mobility data</a></li>
   <li><a href="#bing-tiles" id="toc-bing-tiles" class="nav-link" data-scroll-target="#bing-tiles">Bing tiles</a></li>
   <li><a href="#administrative-areas" id="toc-administrative-areas" class="nav-link" data-scroll-target="#administrative-areas">Administrative areas</a></li>
   </ul></li>
@@ -217,6 +218,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#mapping" id="toc-mapping" class="nav-link" data-scroll-target="#mapping">Mapping</a>
   <ul class="collapse">
+  <li><a href="#handling-spatial-data" id="toc-handling-spatial-data" class="nav-link" data-scroll-target="#handling-spatial-data">Handling spatial data</a></li>
   <li><a href="#choropleths" id="toc-choropleths" class="nav-link" data-scroll-target="#choropleths">Choropleths</a></li>
   <li><a href="#interactive-mapping" id="toc-interactive-mapping" class="nav-link" data-scroll-target="#interactive-mapping">Interactive mapping</a></li>
   <li><a href="#flow-mapping" id="toc-flow-mapping" class="nav-link" data-scroll-target="#flow-mapping">Flow mapping</a></li>
@@ -272,6 +274,8 @@ div.csl-indent {
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
+<section id="meta-facebook-mobility-data" class="level3">
+<h3 class="anchored" data-anchor-id="meta-facebook-mobility-data">Meta-Facebook mobility data</h3>
 <p>Read and describe Meta-Facebook mobility data</p>
 <p>Data for April 2020</p>
 <div class="cell">
@@ -308,6 +312,7 @@ $ end_lon                      &lt;dbl&gt; -69.60081, -71.19829, -68.20015, -71.
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>unique_origins <span class="ot">&lt;-</span> <span class="fu">unique</span>(df20<span class="sc">$</span>start_polygon_name)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>unique_destinations <span class="ot">&lt;-</span> <span class="fu">unique</span>(df20<span class="sc">$</span>end_polygon_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="bing-tiles" class="level3">
 <h3 class="anchored" data-anchor-id="bing-tiles">Bing tiles</h3>
 <p>Read and describe Bing tile grids and how they can be created - reference to our work.</p>
@@ -563,6 +568,170 @@ Note
 </ul>
 </div>
 </div>
+<section id="handling-spatial-data" class="level3">
+<h3 class="anchored" data-anchor-id="handling-spatial-data">Handling spatial data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set crs</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>crs_default <span class="ot">=</span> <span class="st">"EPSG:4326"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df20 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"./data/fb/movement_adm/2020_04.rds"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"CL"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"start_lon"</span>, <span class="st">"start_lat"</span>), </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">crs =</span> crs_default)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df20)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 29,491
+Columns: 19
+$ GEOMETRY                     &lt;chr&gt; "LINESTRING (-69.96872527689874 -23.40113…
+$ date_time                    &lt;chr&gt; "2020-04-01 00:00", "2020-04-01 00:00", "…
+$ start_polygon_id             &lt;chr&gt; "60845", "60862", "60845", "60862", "6086…
+$ start_polygon_name           &lt;chr&gt; "Antofagasta", "Cardenal Caro", "Antofaga…
+$ end_polygon_id               &lt;chr&gt; "60847", "60890", "60846", "60863", "6089…
+$ end_polygon_name             &lt;chr&gt; "Tocopilla", "Melipilla", "El Loa", "Colc…
+$ length_km                    &lt;dbl&gt; 139.7543134, 24.0764953, 100.3339392, 24.…
+$ tile_size                    &lt;dbl&gt; 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 1…
+$ country                      &lt;chr&gt; "CL", "CL", "CL", "CL", "CL", "CL", "CL",…
+$ level                        &lt;chr&gt; "LEVEL3", "LEVEL3", "LEVEL3", "LEVEL3", "…
+$ n_crisis                     &lt;dbl&gt; 79, 18, 320, 71, NA, 369, NA, 20, 11, NA,…
+$ n_baseline                   &lt;dbl&gt; 59.50, 25.50, 671.00, 132.75, NA, 559.25,…
+$ n_difference                 &lt;dbl&gt; 19.50, -7.50, -351.00, -61.75, NA, -190.2…
+$ percent_change               &lt;dbl&gt; 32.231405, -28.301887, -52.232143, -46.16…
+$ is_statistically_significant &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ z_score                      &lt;dbl&gt; 2.0148470, -0.6837043, -4.0000000, -1.261…
+$ end_lat                      &lt;dbl&gt; -22.06894, -33.75413, -22.81611, -34.7036…
+$ end_lon                      &lt;dbl&gt; -69.60081, -71.19829, -68.20015, -71.0631…
+$ geometry                     &lt;POINT [°]&gt; POINT (-69.56718 -24.32798), POINT …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>shp_adm <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"./data/shp/adm/gadm41_CHL_3.shp"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_simplify</span>(<span class="at">preserveTopology =</span>T,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">dTolerance =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span>  <span class="co"># 1km</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">st_make_valid</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>( <span class="fu">c</span>(</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    NAME_3, </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    ENGTYPE_3, </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    geometry</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  ) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(crs_default)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>shp_adm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 345 features and 2 fields (with 1 geometry empty)
+Geometry type: GEOMETRY
+Dimension:     XY
+Bounding box:  xmin: -109.4488 ymin: -55.97871 xmax: -66.41821 ymax: -17.49952
+Geodetic CRS:  WGS 84
+# A tibble: 345 × 3
+   NAME_3               ENGTYPE_3                                       geometry
+ * &lt;chr&gt;                &lt;chr&gt;                                      &lt;POLYGON [°]&gt;
+ 1 Antofagasta          Municipality ((-70.60031 -23.4473, -70.60352 -23.46711,…
+ 2 Mejillones           Municipality ((-70.02407 -23.06381, -69.98062 -22.95599…
+ 3 Sierra Gorda         Municipality ((-68.69855 -23.92313, -68.69079 -23.85126…
+ 4 Taltal               Municipality ((-70.4239 -24.61988, -70.56963 -24.55613,…
+ 5 Calama               Municipality ((-68.01055 -22.03307, -68.19283 -21.90586…
+ 6 Ollagüe              Municipality ((-68.05991 -21.77872, -68.18056 -21.60407…
+ 7 San Pedro de Atacama Municipality ((-67.18149 -22.8142, -67.61008 -22.90392,…
+ 8 María Elena          Municipality ((-69.96878 -22.86768, -69.53614 -22.88021…
+ 9 Tocopilla            Municipality ((-70.26542 -22.62504, -69.96545 -22.42489…
+10 Carahue              Municipality ((-73.06431 -38.47689, -73.10936 -38.44577…
+# ℹ 335 more rows</code></pre>
+</div>
+</div>
+<p>Recompute <!--# recompute metrics to preserve the geometry --></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean outflow by area</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>outflows_df <span class="ot">&lt;-</span> df20 <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(start_polygon_name <span class="sc">!=</span> end_polygon_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(start_polygon_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_outflow =</span> <span class="fu">mean</span>(n_crisis, <span class="at">na.rm =</span> T)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># mean inflow by area</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>inflows_df <span class="ot">&lt;-</span> df20 <span class="sc">%&gt;%</span> </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(start_polygon_name <span class="sc">!=</span> end_polygon_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(end_polygon_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_inflow =</span> <span class="fu">mean</span>(n_crisis, <span class="at">na.rm =</span> T)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># combine data frames</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>netflow_df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(outflows_df, inflows_df)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="co"># mean netflow by area</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>netflow_df <span class="ot">&lt;-</span> netflow_df <span class="sc">%&gt;%</span> </span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_netflow =</span> mean_inflow <span class="sc">-</span> mean_outflow</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(start_polygon_name, mean_inflow, mean_outflow, mean_netflow, geometry) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">polygon_name =</span> start_polygon_name</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(netflow_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 4 fields
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -73.58022 ymin: -45.45868 xmax: -69.56718 ymax: -18.71308
+Geodetic CRS:  WGS 84
+  polygon_name mean_inflow mean_outflow mean_netflow
+1  Antofagasta    63.27513     66.00571    -2.730582
+2       Arauco    91.14286     93.48276    -2.339901
+3        Arica    17.44444     20.16379    -2.719349
+4        Aysen    28.47297     27.15385     1.319127
+5      Bío-Bío    77.86880     79.00000    -1.131195
+6    Cachapoal   110.54008    112.71988    -2.179800
+                     geometry
+1 POINT (-69.56718 -24.32798)
+2  POINT (-73.3454 -37.72772)
+3 POINT (-69.85541 -18.71308)
+4 POINT (-73.58022 -45.45868)
+5 POINT (-71.92786 -37.53828)
+6  POINT (-70.7088 -34.28421)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(netflow_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 51</code></pre>
+</div>
+</div>
+<p>Join point-in-polygons</p>
+<!--# The join is wrong - look at the names! -->
+<p>Overlay start points from the mobility dataset over the polygons. Extract start points from the linestring geometry and use that to create the shapefile.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>mob_indicators <span class="ot">&lt;-</span> <span class="fu">st_join</span>(shp_adm, netflow_df)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>mob_indicators</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 345 features and 6 fields (with 1 geometry empty)
+Geometry type: GEOMETRY
+Dimension:     XY
+Bounding box:  xmin: -109.4488 ymin: -55.97871 xmax: -66.41821 ymax: -17.49952
+Geodetic CRS:  WGS 84
+# A tibble: 345 × 7
+   NAME_3           ENGTYPE_3                  geometry polygon_name mean_inflow
+ * &lt;chr&gt;            &lt;chr&gt;                 &lt;POLYGON [°]&gt; &lt;chr&gt;              &lt;dbl&gt;
+ 1 Antofagasta      Municipa… ((-70.60031 -23.4473, -7… Antofagasta         63.3
+ 2 Mejillones       Municipa… ((-70.02407 -23.06381, -… &lt;NA&gt;                NA  
+ 3 Sierra Gorda     Municipa… ((-68.69855 -23.92313, -… &lt;NA&gt;                NA  
+ 4 Taltal           Municipa… ((-70.4239 -24.61988, -7… &lt;NA&gt;                NA  
+ 5 Calama           Municipa… ((-68.01055 -22.03307, -… &lt;NA&gt;                NA  
+ 6 Ollagüe          Municipa… ((-68.05991 -21.77872, -… &lt;NA&gt;                NA  
+ 7 San Pedro de At… Municipa… ((-67.18149 -22.8142, -6… El Loa              93.2
+ 8 María Elena      Municipa… ((-69.96878 -22.86768, -… Tocopilla           36.6
+ 9 Tocopilla        Municipa… ((-70.26542 -22.62504, -… &lt;NA&gt;                NA  
+10 Carahue          Municipa… ((-73.06431 -38.47689, -… &lt;NA&gt;                NA  
+# ℹ 335 more rows
+# ℹ 2 more variables: mean_outflow &lt;dbl&gt;, mean_netflow &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
 <section id="choropleths" class="level3">
 <h3 class="anchored" data-anchor-id="choropleths">Choropleths</h3>
 <p>Choropleths are thematic maps. They are easy to create but also to get wrong. We will look at a set of the principles you can follow to create effective choropleth maps. Here three more questions to consider:</p>
@@ -571,10 +740,11 @@ Note
 <li><p>What is the target audience?</p></li>
 <li><p>What degree of interactivity we want to offer?</p></li>
 </ul>
-<!--# Use rates - need to aggregate the FB for individual months -->
+<p>Map flows - use code from uk migration paper</p>
 <div class="cell">
 
 </div>
+<!--# Use rates - need to aggregate the FB for individual months -->
 </section>
 <section id="interactive-mapping" class="level3">
 <h3 class="anchored" data-anchor-id="interactive-mapping">Interactive mapping</h3>

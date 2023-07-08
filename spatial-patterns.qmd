@@ -30,6 +30,8 @@ library(gganimate)
 
 ## Data
 
+### Meta-Facebook mobility data
+
 Read and describe Meta-Facebook mobility data
 
 Data for April 2020
@@ -86,6 +88,7 @@ p_south <- ggplot(data = bing_grid %>% head(1500) ) +
   ggtitle('South')
 
 p_country | (p_north / p_central / p_south)
+rm(p_country, p_north, p_central, p_south)
 ```
 
 ### Administrative areas
@@ -239,6 +242,86 @@ For colour palettes, we recommend the following resources:
 -   a publication by @crameri2020
 :::
 
+### Handling spatial data
+
+```{r}
+# set crs
+crs_default = "EPSG:4326"
+```
+
+```{r}
+df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>% 
+  st_drop_geometry() %>% 
+  dplyr::filter(country == "CL") %>% 
+  st_as_sf(coords = c("start_lon", "start_lat"), 
+                                      crs = crs_default)
+
+glimpse(df20)
+```
+
+```{r}
+shp_adm <- read_sf("./data/shp/adm/gadm41_CHL_3.shp") %>% 
+  st_simplify(preserveTopology =T,
+              dTolerance = 1000) %>%  # 1km
+  sf::st_make_valid() %>% 
+  dplyr::select( c(
+    NAME_3, 
+    ENGTYPE_3, 
+    geometry
+  ) ) %>% 
+  st_transform(crs_default)
+
+shp_adm
+```
+
+Recompute <!--# recompute metrics to preserve the geometry -->
+
+```{r}
+# mean outflow by area
+outflows_df <- df20 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
+  group_by(start_polygon_name) %>% 
+  dplyr::summarise(
+    mean_outflow = mean(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+# mean inflow by area
+inflows_df <- df20 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
+  group_by(end_polygon_name) %>% 
+  dplyr::summarise(
+    mean_inflow = mean(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup() %>% 
+  st_drop_geometry()
+
+# combine data frames
+netflow_df <- cbind(outflows_df, inflows_df)
+
+# mean netflow by area
+netflow_df <- netflow_df %>% 
+  mutate(
+    mean_netflow = mean_inflow - mean_outflow
+  ) %>% 
+  dplyr::select(start_polygon_name, mean_inflow, mean_outflow, mean_netflow, geometry) %>% 
+  rename(
+    polygon_name = start_polygon_name
+  ) 
+
+head(netflow_df)
+nrow(netflow_df)
+```
+
+Join point-in-polygons
+
+<!--# The join is wrong - look at the names! --> Overlay start points from the mobility dataset over the polygons. Extract start points from the linestring geometry and use that to create the spatial data frame for mobility.
+
+```{r}
+mob_indicators <- st_join(shp_adm, netflow_df)
+mob_indicators
+```
+
 ### Choropleths
 
 Choropleths are thematic maps. They are easy to create but also to get wrong. We will look at a set of the principles you can follow to create effective choropleth maps. Here three more questions to consider:
@@ -249,11 +332,13 @@ Choropleths are thematic maps. They are easy to create but also to get wrong. We
 
 -   What degree of interactivity we want to offer?
 
-<!--# Use rates - need to aggregate the FB for individual months -->
+Map flows - use code from uk migration paper
 
 ```{r}
 
 ```
+
+<!--# Use rates - need to aggregate the FB for individual months -->
 
 ### Interactive mapping
 

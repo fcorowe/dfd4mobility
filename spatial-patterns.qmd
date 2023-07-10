@@ -8,6 +8,9 @@
 #| warning: false
 #| message: false
 
+#clean environment
+rm(list=ls())
+
 # data wrangling
 library(tidyverse)
 #library(fs)
@@ -88,7 +91,7 @@ p_south <- ggplot(data = bing_grid %>% head(1500) ) +
   ggtitle('South')
 
 p_country | (p_north / p_central / p_south)
-rm(p_country, p_north, p_central, p_south)
+rm(p_country, p_north, p_central, p_south, bing_grid)
 ```
 
 ### Administrative areas
@@ -96,25 +99,41 @@ rm(p_country, p_north, p_central, p_south)
 Read and describe administrative areas. Explain spatial data frames: geometry, projection, etc.
 
 ```{r}
-shp_adm <- read_sf("./data/shp/adm/gadm41_CHL_3.shp") %>% 
+#| warning: false
+shp_pro <- read_sf("./data/shp/adm/provincias/Provincias.shp") %>% 
   st_simplify(preserveTopology =T,
               dTolerance = 1000) %>%  # 1km
   sf::st_make_valid() %>% 
   dplyr::select( -c(
-    NL_NAME_1, NL_NAME_2, VARNAME_3, NL_NAME_3, CC_3, HASC_3
-  ) )
+    cir_sena, codregion, st_length_, Region
+  ) ) %>% 
+  st_transform(crs_default)
 
-shp_adm
+# checking for invalid polygons
+st_is_valid(shp_pro)
+
+shp_pro
 ```
 
 ```{r}
 #| echo: false
-ggplot(data = shp_adm) + 
+ggplot(data = shp_pro) + 
   geom_sf(color = "gray60", 
           size = 0.1) +
   theme_void() +
-  ggtitle('Administrative areas')
+  ggtitle('Provinces')
 ```
+```{r}
+#| warning: false
+shp_reg <- read_sf("./data/shp/adm/regiones/Regional.shp") %>% 
+  st_simplify(preserveTopology =T,
+              dTolerance = 1000) %>%  # 1km
+  sf::st_make_valid() %>% 
+  dplyr::select( -c(
+    cir_sena, st_area_sh, st_length_
+  ) )
+```
+
 
 ## Spatial indicators of human mobility
 
@@ -251,7 +270,7 @@ crs_default = "EPSG:4326"
 
 ```{r}
 df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>% 
-  st_drop_geometry() %>% 
+  mutate(GEOMETRY = NULL) %>% 
   dplyr::filter(country == "CL") %>% 
   st_as_sf(coords = c("start_lon", "start_lat"), 
                                       crs = crs_default)
@@ -260,18 +279,20 @@ glimpse(df20)
 ```
 
 ```{r}
-shp_adm <- read_sf("./data/shp/adm/gadm41_CHL_3.shp") %>% 
+#| warning: false
+shp_pro <- read_sf("./data/shp/adm/provincias/Provincias.shp") %>% 
   st_simplify(preserveTopology =T,
               dTolerance = 1000) %>%  # 1km
   sf::st_make_valid() %>% 
-  dplyr::select( c(
-    NAME_3, 
-    ENGTYPE_3, 
-    geometry
+  dplyr::select( -c(
+    cir_sena, codregion, st_length_, Region
   ) ) %>% 
   st_transform(crs_default)
 
-shp_adm
+# checking for invalid polygons
+st_is_valid(shp_pro)
+
+glimpse(shp_pro)
 ```
 
 Recompute <!--# recompute metrics to preserve the geometry -->
@@ -310,17 +331,105 @@ netflow_df <- netflow_df %>%
   ) 
 
 head(netflow_df)
-nrow(netflow_df)
 ```
+
+```{r}
+ggplot() + 
+  geom_sf(data = shp_pro,
+          color = "gray60", 
+          size = 0.1) +
+  geom_point(data = netflow_df,
+    aes(geometry = geometry),
+    stat = "sf_coordinates"
+  ) 
+```
+
+```{r}
+bbox_new <- st_bbox(shp_pro) # current bounding box
+
+xrange <- bbox_new$xmax - bbox_new$xmin # range of x values
+yrange <- bbox_new$ymax - bbox_new$ymin # range of y values
+
+bbox_new[1] <- bbox_new[1] + (0.6 * xrange) # xmin - left
+#bbox_new[3] <- bbox_new[3] + (0.5 * xrange) # xmax - right
+#bbox_new[2] <- bbox_new[2] - (0.5 * yrange) # ymin - bottom
+#bbox_new[4] <- bbox_new[4] + (0.5 * yrange) # ymax - top
+
+bbox_new <- bbox_new %>%  # take the bounding box ...
+  st_as_sfc() # ... and make it a sf polygon
+
+ggplot() + 
+  geom_sf(data = shp_pro,
+          color = "gray60", 
+          size = 0.1) +
+  geom_point(data = netflow_df,
+    aes(geometry = geometry),
+    stat = "sf_coordinates",
+    size = .1
+  ) +
+  coord_sf(xlim = st_coordinates(bbox_new)[c(1,2),1], # min & max of x values
+           ylim = st_coordinates(bbox_new)[c(2,3),2]) + # min & max of y values
+  theme_void()
+
+```
+
+```{r}
+mob_indicators <- st_join(shp_pro, netflow_df)
+
+netflow_df$check <- netflow_df$polygon_name %in% mob_indicators$polygon_name
+
+netflow_df %>% select(polygon_name, check) %>% 
+  filter(check == "FALSE")
+
+```
+
+
+```{r}
+coordinates <- st_coordinates(netflow_df) 
+netflow_df <- cbind(netflow_df, coordinates) %>% 
+  rename(
+    long = X, 
+    lat = Y
+  )
+
+province_name <- c("Valparaíso", "Magallanes")
+
+for (area in 1:2) {
+  long <- netflow_df %>% 
+    st_drop_geometry() %>% 
+    dplyr::filter(polygon_name == province_name[area]) %>% 
+    select(long) %>% 
+    as.numeric()
+  
+  lat <- netflow_df %>% 
+    st_drop_geometry() %>%
+    dplyr::filter(polygon_name == province_name[area]) %>% 
+    select(lat) %>% 
+    as.numeric()
+
+  st_geometry(netflow_df[netflow_df$polygon_name == province_name[area], ]) <-  st_sfc(st_point(c( long * 0.98, lat * 1 )))
+}
+
+```
+
+```{r}
+mob_indicators <- st_join(shp_pro, netflow_df, 
+                          st_intersects)
+
+netflow_df$check <- netflow_df$polygon_name %in% mob_indicators$polygon_name
+
+netflow_df %>% select(polygon_name, check) %>% 
+  filter(check == "FALSE")
+```
+
+
 
 Join point-in-polygons
 
-<!--# The join is wrong - look at the names! --> Overlay start points from the mobility dataset over the polygons. Extract start points from the linestring geometry and use that to create the spatial data frame for mobility.
 
-```{r}
-mob_indicators <- st_join(shp_adm, netflow_df)
-mob_indicators
-```
+Overlay start points from the mobility dataset over the polygons. Extract start points from the linestring geometry and use that to create the spatial data frame for mobility.
+
+
 
 ### Choropleths
 
@@ -335,7 +444,90 @@ Choropleths are thematic maps. They are easy to create but also to get wrong. We
 Map flows - use code from uk migration paper
 
 ```{r}
+# set categories
+mob_indicators <- mob_indicators %>% 
+  mutate(
+    netflow_class = mean_netflow %>% cut(7, dig.lab = 3),
+    inflow_class = mean_inflow %>% cut(7, dig.lab = 3),
+    outflow_class = mean_outflow %>% cut(7, dig.lab = 3)
+  ) 
 
+# adjust labels for netflows
+netflow_labels <- levels(mob_indicators$netflow_class)
+netflow_labels <- gsub("\\(|\\]", "", netflow_labels)
+levels(mob_indicators$netflow_class) <- netflow_labels
+
+# adjust labels for inflows
+inflow_labels <- levels(mob_indicators$inflow_class)
+inflow_labels <- gsub("\\(|\\]", "", inflow_labels)
+levels(mob_indicators$inflow_class) <- inflow_labels
+
+# adjust labels for netflows
+outflow_labels <- levels(mob_indicators$outflow_class)
+outflow_labels <- gsub("\\(|\\]", "", outflow_labels)
+levels(mob_indicators$outflow_class) <- outflow_labels
+
+# change geometry
+shp_reg <- shp_reg %>% st_transform(crs_default)
+```
+
+```{r}
+# map netflows
+netflow_plot <- ggplot(data = mob_indicators, aes(fill = netflow_class)) +
+  geom_sf(col = "white", size = .1) +
+  coord_sf() +
+  scale_fill_brewer(palette = "RdBu", direction = -1) +
+  scale_color_manual(labels = net_classes) +
+  theme_map() +
+  theme(plot.title = element_text(size = 22, face = "bold"),
+        legend.position = "none") +
+  labs(title = "(a) Netflow",
+       fill = "%") +
+  theme_void() + 
+  geom_sf(data = shp_reg,
+          col = "grey70", 
+          size = .5,
+          fill = "transparent") +
+  coord_sf(xlim = st_coordinates(bbox_new)[c(1,2),1], 
+           ylim = st_coordinates(bbox_new)[c(2,3),2]) 
+
+# map inflows
+inflow_plot <- ggplot(data = mob_indicators, aes(fill = inflow_class)) +
+  geom_sf(col = "white", size = .1) +
+  coord_sf() +
+  scale_fill_brewer(palette = "PuRd", direction = 1) +
+  theme_map() +
+  theme(plot.title = element_text(size = 22, face = "bold"),
+        legend.position = "none") +
+  labs(title = "(b) Inflow",
+       fill = "%") +
+  theme_void() + 
+  geom_sf(data = shp_reg,
+          col = "grey70", 
+          size = .5,
+          fill = "transparent") +
+  coord_sf(xlim = st_coordinates(bbox_new)[c(1,2),1], 
+           ylim = st_coordinates(bbox_new)[c(2,3),2]) 
+
+# map outflows
+outflow_plot <- ggplot(data = mob_indicators, aes(fill = outflow_class)) +
+  geom_sf(col = "white", size = .1) +
+  coord_sf() +
+  scale_fill_brewer(palette = "PuBu", direction = 1) +
+  theme_map() +
+  theme(plot.title = element_text(size = 22, face = "bold"),
+        legend.position = "none") +
+  labs(title = "(b) Outflow",
+       fill = "%") +
+  theme_void() +
+    geom_sf(data = shp_reg,
+          col = "grey70", 
+          size = .5,
+          fill = "transparent") +
+  coord_sf(xlim = st_coordinates(bbox_new)[c(1,2),1], 
+           ylim = st_coordinates(bbox_new)[c(2,3),2]) 
+
+netflow_plot + inflow_plot + outflow_plot
 ```
 
 <!--# Use rates - need to aggregate the FB for individual months -->

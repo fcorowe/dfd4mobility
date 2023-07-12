@@ -2,42 +2,51 @@
 
 ## Aims
 
+This session aims to provide an illustration on how to (1) analyse the *spatial* patterns of origin-destination mobility flow data extracted from Meta-Facebook; (2) compute basic area-based indicators of human mobility; (3) handle spatial datasets in R; and, (4) create geospatial visualisations to examine and effectively communicate human mobility patterns. We start by clearing our R environment by running:
+
+```{r}
+#clean environment
+rm(list=ls())
+```
+
 ## Dependencies
+
+We ensure to load the libraries below. A core area of this session is learning to work with spatial data in R. R offers an ecosystem of purposely designed packages for manipulation of spatial data and spatial analysis techniques. These ecosystem is known a [r-spatial](https://r-spatial.org). Various packages exist in [CRAN (The Comprehensive R Archive Network)](https://cran.r-project.org), including **sf** [@sf2018; @R-sf], **stars** [@R-stars], **terra**, **s2** [@R-s2], **lwgeom** [@R-lwgeom], **gstat** [@gstatcg; @R-gstat], **spdep** [@R-spdep], **spatialreg** [@R-spatialreg], **spatstat** [@baddeley2015spatial; @R-spatstat], **tmap** [@tmap; @R-tmap], **mapview** [@R-mapview] and more. A key package is this ecosystem is **sf** [@pebesma2023spatial]. R package **sf** provides a table format for simple features, where feature geometries are stored in a list-column.It appears in 2016 and was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of open source geospatial software stack and allow for integration of R spatial software with the **tidyverse** (Wickham et al. 2019), particularly **ggplot2**, **dplyr**, and **tidyr**.
 
 ```{r}
 #| warning: false
 #| message: false
 
-#clean environment
-rm(list=ls())
-
 # data wrangling
 library(tidyverse)
-#library(fs)
-#library(here)
 
 # spatial data wrangling
 library(sf)
-library(mapdeck)
 
 # data visualisation
 library(viridis) 
-#library(viridisLite)
+
+# format data visualisations
 library(ggthemes)
 library(patchwork)
 library(showtext)
-library(gganimate)
-#library(gifski)
-#library(ggnewscale)
+library(scales)
+
+# create maps
+library(leaflet)
+library(tmap)
+library(mapdeck)
 ```
 
 ## Data
 
+Here we read all the data needed for the analysis. We use two types of data: (1) human mobility derived from Meta-Facebook users; and, administrative boundary data for Chile.
+
 ### Meta-Facebook mobility data
 
-Read and describe Meta-Facebook mobility data
+We use origin-destination mobility flow data between Provinces in Chile. We use data for April 2020. For a detailed description of the Meta-Facebook mobility data, please see the *Meta-Facebook data introduction*. We start by reading the data. We filter only flows occurring within the boundaries of Chile. The dataset contains daily flow counts between provinces that occurred in April 2020 during three windows of time during the day; that is, between 12am, 8am and 4pm.
 
-Data for April 2020
+We have a look at the data frame. We can see that the data contains 20 columns and 29,491 origin-destination interactions capturing counts of people moving between provinces.
 
 ```{r}
 # read
@@ -46,22 +55,45 @@ df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>%
 glimpse(df20)
 ```
 
+We can identify the list of origin and destination provinces for which we can observe movement.
+
 ```{r}
 unique_origins <- unique(df20$start_polygon_name)
 unique_destinations <- unique(df20$end_polygon_name)
 ```
 
-### Bing tiles
+### Meta-Facebook active users population
 
-Read and describe Bing tile grids and how they can be created - reference to our work.
-
-R spatial ecosystem to handle spatial data frames.
+We will also use information on the number of Meta-Facebook active users population. The population Meta-Facebook active users can vary over time reflecting their varying patterns of usage and internet accessibility.
 
 ```{r}
+# read and select observations
+pop20_df <- readRDS("./data/fb/population_adm/2020_04.rds") %>% 
+  dplyr::filter(country == "CL")
+
+# identify polygons
+unique_areas <- unique(pop20_df$polygon_name)
+
+# data overview
+glimpse(pop20_df)
+```
+
+### Bing tiles
+
+Meta-Facebook data captured during the COVID-19 outbreak were available into two formats, at the level of [Bing tiles](https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system) and at the level of administrative areas. While we will be using data at the provincial level, you may be interested in having a peek at the tiles. The Bing Maps Tile System was developed by Microsoft. This system defines a series of grids at different resolution levels over a rectangular projection of the world, comprising 23 different levels of detail [@schwartz2009bing]. Each level is constructed by dividing the previous level into fourths, with the most granular level being Level 1. Meta-Facebook data are typically produced at Bing tile levels 13 through 16, where level 13 results in tiles that are about 4.9 x 4.9 km at the Equator.
+
+::: callout-note
+In our work in the project *RECAST*, we use this tile system and analyse the spatial patterns of human mobility in four Latin American countries, including Argentina, Chile, Colombia and Mexico. We expect to be in a position to share our final results with you soon. If you are interested, please do get in touch. For now, we share some of our share using Meta-Facebook data: @rowe2022, and research on the same line: @gonzález-leonardo2022, @gonzález-leonardo2022a, @gonzález-leonardo2022b, @wang2022 and @rowe2023.
+:::
+
+We now read the shapefile containing the Bing tiles, simplify their boundaries and confirm it is valid. We display the boundaries for Chile and selected regions in the north, central and south of the country, to provide a better understanding of their size and areas of coverage.
+
+```{r}
+# read bing tiles
 bing_grid <- read_sf("./data/shp/grid/chile_grid.shp") %>% 
-  st_simplify(preserveTopology =T,
+  st_simplify(preserveTopology =T, # simplify boundaries
               dTolerance = 1000) %>%  # 1km
-  sf::st_make_valid()
+  sf::st_make_valid() # check the geometry is valid
 ```
 
 ```{r}
@@ -94,24 +126,24 @@ p_country | (p_north / p_central / p_south)
 rm(p_country, p_north, p_central, p_south, bing_grid)
 ```
 
+::: callout-note
+We created the Bing tiles. They are not available as polygons. They are only provided as rasters and not easily accessible.
+:::
+
 ### Administrative areas
 
-Read and describe administrative areas. Explain spatial data frames: geometry, projection, etc.
+We now read the boundaries for Chilean provinces. Provinces are the second administrative level in the country. Provinces are amalgamations of municipalities or comunes, and groupings of provinces are known as regions. Chile is organised around 15 regions, *54 provinces* and 346 municipalities - see [here](https://www.subdere.gov.cl/sites/default/files/documentos/articles-73111_recurso_1.pdf).
+
+Let's stop here and understand the spatial data frame or **sf** object we are reading. We can see it has 56 features (i.e. rows) and 5 fields (columns) within a bounding box which defines the area we can visualise on a map. You can see how the map of provinces below seems off to the right. That is because the bounding box has been set to include Chilean islands off of the coast of the country on the Pacific ocean. We will work on adjusting this at a later point in this session.
+
+The line *CRS* or Coordinate Reference Systems identifies the projection system currently attached to the data. This would be the CRS that will be used if we decided to map the data. The component is incredible important if you intend to combine information from two spatial data frames. Ensure they are on the same CRS! A good idea is to used planar projection systems. @lovelace2019geocomputation provide a good discussion on the various projection systems.
 
 ```{r}
 #| warning: false
-shp_pro <- read_sf("./data/shp/adm/provincias/Provincias.shp") %>% 
+shp_pro <- read_sf("./data/shp/adm/province/PROVINCIAS_2020.shp") %>% 
   st_simplify(preserveTopology =T,
               dTolerance = 1000) %>%  # 1km
-  sf::st_make_valid() %>% 
-  dplyr::select( -c(
-    cir_sena, codregion, st_length_, Region
-  ) ) %>% 
-  st_transform(crs_default)
-
-# checking for invalid polygons
-st_is_valid(shp_pro)
-
+  sf::st_make_valid() 
 shp_pro
 ```
 
@@ -123,21 +155,29 @@ ggplot(data = shp_pro) +
   theme_void() +
   ggtitle('Provinces')
 ```
+
+We will also use the regional boundaries for visualisation purposes. For now, we will just read them.
+
 ```{r}
 #| warning: false
-shp_reg <- read_sf("./data/shp/adm/regiones/Regional.shp") %>% 
+shp_reg <- read_sf("./data/shp/adm/region/REGIONES_2020.shp") %>% 
   st_simplify(preserveTopology =T,
               dTolerance = 1000) %>%  # 1km
-  sf::st_make_valid() %>% 
-  dplyr::select( -c(
-    cir_sena, st_area_sh, st_length_
-  ) )
+  sf::st_make_valid() 
 ```
-
 
 ## Spatial indicators of human mobility
 
+This section focuses on computing various spatial indicators to analyse the patterns of human mobility.
+
 ### Origin-based indicators
+
+We start by computing indicators from the perspective of origin areas. 
+
+Need to use indices
+Differences across indicators
+Key pattern
+
 
 This measure is in relation to a baseline - percentage change and flow
 
@@ -157,7 +197,16 @@ origin_df <- df20 %>%
 tail(origin_df, 10)
 ```
 
+::: {.callout-note icon="false" appearance="simple"}
+## Question 1
+
+Analyse the designation-based indicators and interpret the patterns displayed in Santiago.
+:::
+
 ### Destination-based indicators
+
+Destination perspective
+Key pattern
 
 ```{r}
 destination_df <- df20 %>% 
@@ -177,6 +226,9 @@ tail(destination_df, 10)
 
 ### Intraflows
 
+Intra-province perspective
+Key pattern
+
 ```{r}
 origin_df <- df20 %>% 
   filter(start_polygon_name == end_polygon_name) %>% 
@@ -194,6 +246,9 @@ tail(origin_df, 10)
 ```
 
 ### Netflows
+
+Inflows minus outflows - key winners and losers
+Difficult to identify systematic patterns - we need visualisations.
 
 ```{r}
 # mean outflow by area
@@ -230,13 +285,13 @@ head(netflow_df)
 ```{r}
 #| warning: false
 
-ggplot(data = netflow_df) +
-  geom_density(aes(x = mean_netflow),
+ggplot(data = netflow_df) + # input the data
+  geom_density(aes(x = mean_netflow), # specify type of geom and aesthetics
                alpha=0.5, 
                colour="darkblue", 
                linewidth = 2
                ) +
-  theme_tufte()
+  theme_tufte() # choose the theme
 ```
 
 ## Mapping
@@ -244,7 +299,7 @@ ggplot(data = netflow_df) +
 Colour palettes
 
 ::: {.callout-note icon="false" appearance="simple"}
-## Question 1
+## Question 2
 
 Why to create geovisualisations?
 :::
@@ -280,19 +335,12 @@ glimpse(df20)
 
 ```{r}
 #| warning: false
-shp_pro <- read_sf("./data/shp/adm/provincias/Provincias.shp") %>% 
+shp_pro <- read_sf("./data/shp/adm/province/PROVINCIAS_2020.shp") %>% 
   st_simplify(preserveTopology =T,
               dTolerance = 1000) %>%  # 1km
   sf::st_make_valid() %>% 
-  dplyr::select( -c(
-    cir_sena, codregion, st_length_, Region
-  ) ) %>% 
   st_transform(crs_default)
 
-# checking for invalid polygons
-st_is_valid(shp_pro)
-
-glimpse(shp_pro)
 ```
 
 Recompute <!--# recompute metrics to preserve the geometry -->
@@ -383,7 +431,6 @@ netflow_df %>% select(polygon_name, check) %>%
 
 ```
 
-
 ```{r}
 coordinates <- st_coordinates(netflow_df) 
 netflow_df <- cbind(netflow_df, coordinates) %>% 
@@ -422,14 +469,9 @@ netflow_df %>% select(polygon_name, check) %>%
   filter(check == "FALSE")
 ```
 
-
-
 Join point-in-polygons
 
-
 Overlay start points from the mobility dataset over the polygons. Extract start points from the linestring geometry and use that to create the spatial data frame for mobility.
-
-
 
 ### Choropleths
 
@@ -477,7 +519,7 @@ netflow_plot <- ggplot(data = mob_indicators, aes(fill = netflow_class)) +
   geom_sf(col = "white", size = .1) +
   coord_sf() +
   scale_fill_brewer(palette = "RdBu", direction = -1) +
-  scale_color_manual(labels = net_classes) +
+  scale_color_manual(labels = netflow_labels) +
   theme_map() +
   theme(plot.title = element_text(size = 22, face = "bold"),
         legend.position = "none") +
@@ -527,16 +569,239 @@ outflow_plot <- ggplot(data = mob_indicators, aes(fill = outflow_class)) +
   coord_sf(xlim = st_coordinates(bbox_new)[c(1,2),1], 
            ylim = st_coordinates(bbox_new)[c(2,3),2]) 
 
+# combine plots
 netflow_plot + inflow_plot + outflow_plot
 ```
 
-<!--# Use rates - need to aggregate the FB for individual months -->
+**Flow to Facebook population size**
+
+Little effect
+
+```{r}
+# compute mean population
+mean_fb_pop <- pop20_df %>% group_by(polygon_name) %>% 
+  dplyr::summarise(
+    mean_pop = mean(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+# join to mobility indicators data frame
+mob_indicators <- left_join(mob_indicators, mean_fb_pop, 
+                        by = c("polygon_name" = "polygon_name")) %>% 
+  mutate(
+    outflow_to_pop = (mean_outflow / mean_pop) # compute outflow to population
+  )
+
+# map outflow_to_pop
+ggplot(data = mob_indicators, aes(fill = outflow_to_pop)) +
+  geom_sf(col = "white", size = .1) +
+  coord_sf() +
+  scale_fill_viridis_c() +
+  theme_map() +
+  theme(plot.title = element_text(size = 22, face = "bold"),
+        legend.position = "none") +
+  labs(title = "Flows to population size",
+       fill = "Number of people per 100") +
+  theme_void() +
+    geom_sf(data = shp_reg,
+          col = "grey70", 
+          size = .1,
+          fill = "transparent") +
+  coord_sf(xlim = st_coordinates(bbox_new)[c(1,2),1], 
+           ylim = st_coordinates(bbox_new)[c(2,3),2])
+
+
+```
+
+**Changes over time**
+
+```{r}
+# read April 2022 data
+df22 <- readRDS("./data/fb/movement_adm/2022_04.rds") %>% 
+  mutate(GEOMETRY = NULL) %>% 
+  dplyr::filter(country == "CL") %>% 
+  st_as_sf(coords = c("start_lon", "start_lat"), 
+                                      crs = crs_default)
+
+# mean outflow by area
+outflows_df <- df22 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
+  group_by(start_polygon_name) %>% 
+  dplyr::summarise(
+    mean_outflow = mean(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+# mean inflow by area
+inflows_df <- df22 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
+  group_by(end_polygon_name) %>% 
+  dplyr::summarise(
+    mean_inflow = mean(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup() %>% 
+  st_drop_geometry()
+
+# combine data frames
+netflow_df <- cbind(outflows_df, inflows_df)
+
+# mean netflow by area
+netflow_df <- netflow_df %>% 
+  mutate(
+    mean_netflow = mean_inflow - mean_outflow
+  ) %>% 
+  dplyr::select(start_polygon_name, mean_inflow, mean_outflow, mean_netflow, geometry) %>% 
+  rename(
+    polygon_name = start_polygon_name
+  ) 
+
+# extract coordinates
+coordinates <- st_coordinates(netflow_df) 
+
+# add coordinates
+netflow_df <- cbind(netflow_df, coordinates) %>% 
+  rename(
+    long = X, 
+    lat = Y
+  )
+
+# list province names
+province_name <- c("Valparaíso", "Magallanes")
+
+# loop to replace point geometries
+for (area in 1:2) {
+  long <- netflow_df %>% 
+    st_drop_geometry() %>% 
+    dplyr::filter(polygon_name == province_name[area]) %>% 
+    select(long) %>% 
+    as.numeric()
+  
+  lat <- netflow_df %>% 
+    st_drop_geometry() %>%
+    dplyr::filter(polygon_name == province_name[area]) %>% 
+    select(lat) %>% 
+    as.numeric()
+
+  st_geometry(netflow_df[netflow_df$polygon_name == province_name[area], ]) <-  st_sfc(st_point(c( long * 0.98, lat * 1 )))
+}
+
+# combine indicators with province polygons
+mob_indicators22 <- st_join(shp_pro, netflow_df, 
+                          st_intersects)
+
+# add year to data frame
+mob_indicators$year <- "2020"
+mob_indicators22$year <- "2022"
+
+# combine data frames for 2020 and 2022
+mob_indicators <- mob_indicators %>% select(names(mob_indicators22)) # remove columns to make data frames compatible
+mob_indicators_20.22 <- rbind(mob_indicators, mob_indicators22)
+```
+
+```{r}
+# map netflows
+ggplot(data = mob_indicators_20.22, aes(fill = mean_netflow)) +
+  geom_sf(col = "white", size = .1) +
+  coord_sf() +
+  scale_fill_gradient2(
+    low = muted("blue"),
+    mid = "white",
+    high = "red",
+    midpoint = 0,
+    space = "Lab",
+    na.value = "white",
+    guide = "colourbar",
+    aesthetics = "fill"
+    ) +
+  theme_map() +
+  facet_grid(cols = vars(year)) +
+  theme(plot.title = element_text(size = 22, face = "bold"),
+        legend.position = "none") +
+  labs(title = "Netflow",
+       fill = "Number of people") +
+  theme_void() + 
+  geom_sf(data = shp_reg,
+          col = "grey70", 
+          size = .5,
+          fill = "transparent") +
+  coord_sf(xlim = st_coordinates(bbox_new)[c(1,2),1], 
+           ylim = st_coordinates(bbox_new)[c(2,3),2]) 
+```
 
 ### Interactive mapping
 
+```{r}
+tmap_mode("view")
+tm_shape(mob_indicators22) + 
+    tm_fill("mean_netflow",
+          palette = "RdBu",
+          title = "Netflows")
+```
+
+```{r}
+# switch to other mode: "view"
+ttm()
+```
+
 ### Flow mapping
 
-<!--# Common concepts -->
+```{r}
+#| warning: false
+#| message: false
+
+df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>% 
+  mutate(GEOMETRY = NULL) %>% 
+  dplyr::filter(country == "CL") 
+
+flow_df20 <- df20 %>% 
+  filter(start_polygon_name != end_polygon_name) %>% 
+  group_by(start_polygon_name, end_polygon_name) %>% 
+  dplyr::summarise(
+    mean_flow = mean(n_crisis, na.rm = T)
+    ) %>% 
+  ungroup()
+
+origin_coordinate_df <- df20 %>% 
+  dplyr::select( c(start_polygon_name, start_lat, start_lon)) %>% 
+  distinct()
+
+destination_coordinate_df <- df20 %>% 
+  dplyr::select( c(end_polygon_name, end_lat, end_lon)) %>% 
+  distinct()
+
+flow_df20 <- left_join(flow_df20, origin_coordinate_df, by = c("start_polygon_name" = "start_polygon_name"))
+flow_df20 <- left_join(flow_df20, destination_coordinate_df, by = c("end_polygon_name" = "end_polygon_name"))
+
+```
+
+```{r}
+df_santiago <- flow_df20 %>% dplyr::filter(start_polygon_name == "Santiago")
+
+head(df_santiago)
+```
+
+```{r}
+key <- "pk.eyJ1IjoiZmNvcm93ZSIsImEiOiJja2Jyc2Qxd2QyNngwMndwOTVxa3B2bjBpIn0.vA3y1-WhmI_W3NxCKlILzw" ## put your own token here
+
+flowmap <- mapdeck( token = key, style = mapdeck_style("dark"),
+                location = c(-3.7, 40.4), zoom = 6, pitch = 45) %>%
+  add_arc(
+    data = df_santiago,
+    layer_id = "arc_layer",
+    origin = c("start_lon", "start_lat"),
+    destination = c("end_lon", "end_lat"),
+    # stroke_from = "start_polygon_name",
+    # stroke_to = "end_polygon_name",
+    # stroke_width = "stroke",
+    palette = "reds",
+    legend = list( stroke_from = F, stroke_to = F ),
+  )
+
+# plot the interactive map
+flowmap
+```
+
+Mapbox <!--# Common concepts -->
 
 <!--# There are several concepts relevant to understanding the data sets. First of all, we construct maps using two different methods of identifying locations: tiles and administrative polygons. -->
 

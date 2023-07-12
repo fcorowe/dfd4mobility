@@ -1,4 +1,4 @@
-# Temporal patterns {.unnumbered}
+# Temporal patterns
 
 In this part of the workshop, we explore the temporal patterns displayed by human mobility data from Facebook Meta. The data was collected for Chile in the time period spanning from end of March of 2020 to the end of March 2022.
 

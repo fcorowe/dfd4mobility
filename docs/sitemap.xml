@@ -2,14 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fcorowe.github.io/dfd4mobility/index.html</loc>
-    <lastmod>2023-07-12T09:53:15.261Z</lastmod>
+    <lastmod>2023-07-12T21:33:04.743Z</lastmod>
   </url>
   <url>
     <loc>https://fcorowe.github.io/dfd4mobility/overview.html</loc>
-    <lastmod>2023-07-12T09:53:15.267Z</lastmod>
+    <lastmod>2023-07-12T21:33:04.746Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fcorowe.github.io/dfd4mobility/data-description.html</loc>
+    <lastmod>2023-07-12T21:33:04.748Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fcorowe.github.io/dfd4mobility/temporal-trends.html</loc>
+    <lastmod>2023-07-12T21:33:04.772Z</lastmod>
   </url>
   <url>
     <loc>https://fcorowe.github.io/dfd4mobility/spatial-patterns.html</loc>
-    <lastmod>2023-07-12T09:53:15.297Z</lastmod>
+    <lastmod>2023-07-12T21:33:04.814Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fcorowe.github.io/dfd4mobility/references.html</loc>
+    <lastmod>2023-07-12T21:33:04.817Z</lastmod>
   </url>
 </urlset>

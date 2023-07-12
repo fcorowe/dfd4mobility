@@ -1,4 +1,4 @@
-# Spatial patterns {.unnumbered}
+# Spatial patterns
 
 ## Aims
 
@@ -11,7 +11,7 @@ rm(list=ls())
 
 ## Dependencies
 
-We ensure to load the libraries below. A core area of this session is learning to work with spatial data in R. R offers an ecosystem of purposely designed packages for manipulation of spatial data and spatial analysis techniques. These ecosystem is known a [r-spatial](https://r-spatial.org). Various packages exist in [CRAN (The Comprehensive R Archive Network)](https://cran.r-project.org), including **sf** [@sf2018; @R-sf], **stars** [@R-stars], **terra**, **s2** [@R-s2], **lwgeom** [@R-lwgeom], **gstat** [@gstatcg; @R-gstat], **spdep** [@R-spdep], **spatialreg** [@R-spatialreg], **spatstat** [@baddeley2015spatial; @R-spatstat], **tmap** [@tmap; @R-tmap], **mapview** [@R-mapview] and more. A key package is this ecosystem is **sf** [@pebesma2023spatial]. R package **sf** provides a table format for simple features, where feature geometries are stored in a list-column.It appears in 2016 and was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of open source geospatial software stack and allow for integration of R spatial software with the **tidyverse** (Wickham et al. 2019), particularly **ggplot2**, **dplyr**, and **tidyr**.
+We ensure to load the libraries below. A core area of this session is learning to work with spatial data in R. R offers an ecosystem of purposely designed packages for manipulation of spatial data and spatial analysis techniques. These ecosystem is known a [r-spatial](https://r-spatial.org). Various packages exist in [CRAN (The Comprehensive R Archive Network)](https://cran.r-project.org), including **sf** [@sf2018; @R-sf], **stars** [@R-stars], **terra**, **s2** [@R-s2], **lwgeom** [@R-lwgeom], **gstat** [@pebesma2004; @R-gstat], **spdep** [@R-spdep], **spatialreg** [@R-spatialreg], **spatstat** [@baddeley2015spatial; @R-spatstat], **tmap** [@tmap2018; @R-tmap], **mapview** [@R-mapview] and more. A key package is this ecosystem is **sf** [@pebesma2023spatial]. R package **sf** provides a table format for simple features, where feature geometries are stored in a list-column.It appears in 2016 and was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of open source geospatial software stack and allow for integration of R spatial software with the **tidyverse** (Wickham et al. 2019), particularly **ggplot2**, **dplyr**, and **tidyr**.
 
 ```{r}
 #| warning: false
@@ -46,7 +46,7 @@ Here we read all the data needed for the analysis. We use two types of data: (1)
 
 We use origin-destination mobility flow data between Provinces in Chile. We use data for April 2020. For a detailed description of the Meta-Facebook mobility data, please see the *Meta-Facebook data introduction*. We start by reading the data. We filter only flows occurring within the boundaries of Chile. The dataset contains daily flow counts between provinces that occurred in April 2020 during three windows of time during the day; that is, between 12am, 8am and 4pm.
 
-We have a look at the data frame. We can see that the data contains 20 columns and 29,491 origin-destination interactions capturing counts of people moving between provinces.
+We have a look at the data frame. We can see that the data contains 20 columns and 29,491 origin-destination interactions capturing counts of movements between provinces.
 
 ```{r}
 # read
@@ -168,18 +168,21 @@ shp_reg <- read_sf("./data/shp/adm/region/REGIONES_2020.shp") %>%
 
 ## Spatial indicators of human mobility
 
-This section focuses on computing various spatial indicators to analyse the patterns of human mobility.
+This section focuses on computing various spatial indicators to analyse the patterns of human mobility. A key message to get across here is that digital footprint data do not capture the entire population living and moving in the country. We can capture signals or systematic trends, but there will be considerable amount of fluctuation of volatility. Such volatiblity may partly reflect the short-term variability in the patterns of human mobility and may also echo noise in the way in which the data are capture or process. Hence, we recommend to use indices and these indices should comprise aggregations of data in meaningful ways, based on geographical or temporal units.
 
 ### Origin-based indicators
 
-We start by computing indicators from the perspective of origin areas. 
+We start by computing indicators from the perspective of origin areas. We generate a set of five indicators capturing average and cumulative patterns at the monthly level. We compute the following indicators:
 
-Need to use indices
-Differences across indicators
-Key pattern
+-   **mean_perchange:** is the average percent change in the count of movements from a given origin in relation to the baseline period over a month. It is computed as the average of the ratio of the number of movements from an area at time period *t*, minus the number of movements from an area during the baseline pre-pandemic period over the number of pmovements from an area during the baseline period.
 
+-   **mean_diff_flow:** is the difference in the count of movements from a given origin in relation to the baseline period over a month. It is computed as the difference between the number of movements from an area at time period *t*, minus the number of movements from an area during the baseline pre-pandemic period.
 
-This measure is in relation to a baseline - percentage change and flow
+-   **sum_diff_flow:** is the sum of the difference in the count of movements from a given origin in relation to the baseline period. It is computed as the sum of the difference between the number of movements from an area at time period *t*, minus the number of movements from an area during the baseline pre-pandemic period.
+
+-   **mean_outflow:** is the average count of movements from a given origin at a give time period over a month.
+
+-   **sum_outflow:** is the sum of the count of movements from a given origin at a give time period over a month.
 
 ```{r}
 origin_df <- df20 %>% 
@@ -197,16 +200,23 @@ origin_df <- df20 %>%
 tail(origin_df, 10)
 ```
 
+We observe the observations at the tail of the data frame. We observe that Santiago recorded an average reduction of over 70% in the count of movements from Santiago in April 2020, in relation to the baseline. Yet, the average size of this reduction in outflows seems to have been relatively small, involving 792 and reporting an average outflow of 612 movements.
+
 ::: {.callout-note icon="false" appearance="simple"}
 ## Question 1
 
-Analyse the designation-based indicators and interpret the patterns displayed in Santiago.
+Analyse the origin-based indicators and interpret the patterns displayed for Valparaíso.
 :::
 
 ### Destination-based indicators
 
-Destination perspective
-Key pattern
+Mobility involves the spatial interaction between two areas. Mobility impacts both areas of origins and destinations [@rowe2022a]. We often seek to understand both perspectives. Here we compute similar indicators to those calculated for the areas of origins. What interesting patterns can you see?
+
+::: {.callout-note icon="false" appearance="simple"}
+## Question 2
+
+Analyse the designation-based indicators and interpret the patterns displayed for Santiago.
+:::
 
 ```{r}
 destination_df <- df20 %>% 
@@ -226,8 +236,15 @@ tail(destination_df, 10)
 
 ### Intraflows
 
-Intra-province perspective
-Key pattern
+Meta-Facebook mobility data also allow us to capture short-distance, local movements occurring within areas. Below we compute indicators to measure the extent of movement within Chilean provinces, adopting similar indices to those described above.
+
+A key pattern is an increase in the number of movements within provinces in April 2020. This is likely to have been in response to COVID-19 restrictions constraining the amount of movement over long distances. If people moved, they mostly moved locally to go shopping, parks or for short walks. Yet, we also observe that some provinces report a decline.
+
+::: {.callout-note icon="false" appearance="simple"}
+## Question 3
+
+Why do you think those areas experienced a decline in local mobility in April 2020?
+:::
 
 ```{r}
 origin_df <- df20 %>% 
@@ -247,8 +264,11 @@ tail(origin_df, 10)
 
 ### Netflows
 
-Inflows minus outflows - key winners and losers
-Difficult to identify systematic patterns - we need visualisations.
+An additional key dimension of mobility is its net balance; that is, the extent to which human mobility acts to redistribute population across areas of the country. While some areas report population gains, other experience decline.
+
+During the early stages of COVID-19, photo evidence of empty cities around the world poured over the Internet. Anecdotal evidence suggested the occurrence of an urban exodus, particularly from large cities as people sought more and greener spaces [see some our work on COVID and mobility, e.g. @rowe2022]. At the same time, they sought to avoid high density areas, and they realised the need for bigger housing areas as they become multi-functional spaces for work, study and leisure for entire family units. People were said to have moved to sparsely populated rural areas, suburban spaces and more attractive migration destinations.
+
+Below we compute a measure of the net balance of mobility flows between areas of origin and destination. We use the average number of movements into an areas, minus the number of movements out of that area. We have a look at the head of the data frame and observe that the average net mobility balance is virtually zero. However, at this point, we should recognise that while indicators are useful to measure different dimensions of human mobility, data visualisations are key to identify systematic patterns in the data.
 
 ```{r}
 # mean outflow by area
@@ -282,6 +302,20 @@ netflow_df <- netflow_df %>%
 head(netflow_df)
 ```
 
+Generally a useful graphical representation of the data is histograms or kernel density histograms. They are helpful to easily have an understanding of the distribution of mobility indicators. The histogram below reveals that while most areas report an average net mobility balance of zero, some areas display losses or gains of over 10 or 20 movements, respectively.
+
+::: callout-note
+**ggplot** is a primary tool for data visualisation in R. **ggplot** has a basic structure of three components:
+
+-   The data: *ggplot( data =* data frame*)*
+
+-   Geometries: *geom_xxx( . )*
+
+-   Aesthetic mapping: *aes(x=*variable*, y=*variable*)*
+
+Then you can work on the cosmetics of the figure such as changing the *theme*, *axis*, *labels*, etc.
+:::
+
 ```{r}
 #| warning: false
 
@@ -291,20 +325,24 @@ ggplot(data = netflow_df) + # input the data
                colour="darkblue", 
                linewidth = 2
                ) +
-  theme_tufte() # choose the theme
+  theme_tufte() + # choose the theme
+  theme(axis.text.y = element_text(size = 12), # edit labels format
+        axis.text.x = element_text(size = 12),
+        axis.title=element_text(size=14)
+                    ) + 
+  labs(y = "Density", # label axis
+       x = "Average net movement count")
 ```
 
 ## Mapping
 
-Colour palettes
+Once you get a basic understanding of the data, you may want to have a more insightful representation of mobility indicators and add some context. Geospatial visualisations are great for these purposes, and for this end, cartography is key. A carefully crafted map can be an effective way of communicating complex information. Design issues include poor placement, size and readability of text and careless selection of colors. Have a look the [style guide](https://files.taylorandfrancis.com/TJOM-suppmaterial-quick-guide.pdf) of the Journal of Maps for details, and also at the use of colours for effective communication. We recommend this piece by @crameri2020 and @maceachren1997.
 
 ::: {.callout-note icon="false" appearance="simple"}
-## Question 2
+## Question 4
 
 Why to create geovisualisations?
 :::
-
-For creating maps, cartography is important. A carefully crafted map can be an effective way of communicating complex information. Design issues include poor placement, size and readability of text and careless selection of colors. Have a look the style guide of the Journal of Maps for details.
 
 ::: callout-note
 For colour palettes, we recommend the following resources:
@@ -318,10 +356,14 @@ For colour palettes, we recommend the following resources:
 
 ### Handling spatial data
 
+But, before we get to map some data, there are some key elements we need to cover first. We will show you how to handle spatial data in R. As we indicated earlier in this section, **sf** is versatile R package to handle spatial data frames in R. A first key thing you need to know about spatial data is that they always have attached a CRS and ensuring there is a commonly shared CRS across your data is essential for mapping. We will be using a planar system, as opposed to a spherical system. We set our default CRS.
+
 ```{r}
 # set crs
 crs_default = "EPSG:4326"
 ```
+
+To ensure you get a full understanding of the process of mapping, we will roll back and start from the beginning. We will re-read the data and re-compute the indicators, but this time we will convert our movement dataset into a spatial data frame by using the latitude and longitude of the origins as coordinates. This information will be used to convert our movement data frame into a spatial data frame using the latitude and longitude of the origins as geometry.
 
 ```{r}
 df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>% 
@@ -333,6 +375,8 @@ df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>%
 glimpse(df20)
 ```
 
+We will also re-read our province boundary data and ensure it is on the same CRS.
+
 ```{r}
 #| warning: false
 shp_pro <- read_sf("./data/shp/adm/province/PROVINCIAS_2020.shp") %>% 
@@ -343,7 +387,7 @@ shp_pro <- read_sf("./data/shp/adm/province/PROVINCIAS_2020.shp") %>%
 
 ```
 
-Recompute <!--# recompute metrics to preserve the geometry -->
+Once we have read our input data, we will re-compute a few of mobility indicators.
 
 ```{r}
 # mean outflow by area
@@ -381,18 +425,40 @@ netflow_df <- netflow_df %>%
 head(netflow_df)
 ```
 
+Now let's start mapping our data. Let's do this by stage so you understand the key building blocks of this process. We first drawn the polygons representing the provinces of Chile.
+
 ```{r}
-ggplot() + 
+#| warning: false
+p <- ggplot() + 
   geom_sf(data = shp_pro,
           color = "gray60", 
-          size = 0.1) +
+          size = 0.1)
+last_plot()
+```
+
+Let's add the centroids of the origins based on our movement data.
+
+```{r}
+#| warning: false
+p <- p +
   geom_point(data = netflow_df,
     aes(geometry = geometry),
     stat = "sf_coordinates"
   ) 
+last_plot()
 ```
 
+Then we can remove the axes or background here:
+
 ```{r}
+#| warning: false
+p + theme_void()
+```
+
+The map is placed towards the right. We can centre the map by adjusting the bounding box of the shapefile. We can do this by obtaining the current bounding box and adjusting the x left limit.
+
+```{r}
+#| warning: false
 bbox_new <- st_bbox(shp_pro) # current bounding box
 
 xrange <- bbox_new$xmax - bbox_new$xmin # range of x values
@@ -421,26 +487,33 @@ ggplot() +
 
 ```
 
+Something to note at this point is that two of the centroids lie outside the provincial polygons. This is difficult to visualise from the current map. We will find out this in a different way. We run a spatial join of the provincial polygons and our movement data frame, and check the provinces which were not matched. Below we can observe the result of this process. The provinces of Magallanes and Valparaíso were unmatched. That is because their centroids lie outside the polygon area. In the case of Valparaiso, islands attached to this province force the centroid to be position on the Pacific. In the case of Magallanes, the unusual shape of the province surrounded by fjords forces the centroid to be on the Pacific as well.
+
 ```{r}
+# spatial join
 mob_indicators <- st_join(shp_pro, netflow_df)
-
+# check if all polygons are matched
 netflow_df$check <- netflow_df$polygon_name %in% mob_indicators$polygon_name
-
+# identify unmatched polygons
 netflow_df %>% select(polygon_name, check) %>% 
   filter(check == "FALSE")
 
 ```
 
+We therefore adjust these centriods and force them to be within the polygons of provinces.
+
 ```{r}
+# get coordinates
 coordinates <- st_coordinates(netflow_df) 
+# combine data frames
 netflow_df <- cbind(netflow_df, coordinates) %>% 
   rename(
     long = X, 
     lat = Y
   )
-
+# list province to be adjusted
 province_name <- c("Valparaíso", "Magallanes")
-
+# adjust the centroid
 for (area in 1:2) {
   long <- netflow_df %>% 
     st_drop_geometry() %>% 
@@ -459,6 +532,8 @@ for (area in 1:2) {
 
 ```
 
+We re-join the polygon boundary data and our movement data frame and check the results. We can now see that all spatial units were matched.
+
 ```{r}
 mob_indicators <- st_join(shp_pro, netflow_df, 
                           st_intersects)
@@ -469,13 +544,11 @@ netflow_df %>% select(polygon_name, check) %>%
   filter(check == "FALSE")
 ```
 
-Join point-in-polygons
-
-Overlay start points from the mobility dataset over the polygons. Extract start points from the linestring geometry and use that to create the spatial data frame for mobility.
+So far, we have only wrangled the data so we can start out mapping and spatial analysis.
 
 ### Choropleths
 
-Choropleths are thematic maps. They are easy to create but also to get wrong. We will look at a set of the principles you can follow to create effective choropleth maps. Here three more questions to consider:
+We first try choropleths. Choropleths are thematic maps. They are easy to create but also to get wrong. We will look at a set of the principles you can follow to create effective choropleth maps. Here three more questions to consider:
 
 -   What is being plotted?
 
@@ -483,7 +556,7 @@ Choropleths are thematic maps. They are easy to create but also to get wrong. We
 
 -   What degree of interactivity we want to offer?
 
-Map flows - use code from uk migration paper
+We will create maps of netflows, inflows and outflows. We will divide the data into categories. Categorising the data often facilites the identification of spatial patterns. There are different forms of organising these categories using quantiles, natural break points or more sophisticated clustering approaches. We will keep this simple and use seven categories. Feel free to explore the impacts on the map as these categories change.
 
 ```{r}
 # set categories
@@ -513,7 +586,11 @@ levels(mob_indicators$outflow_class) <- outflow_labels
 shp_reg <- shp_reg %>% st_transform(crs_default)
 ```
 
+Below we use **ggplot** to create our maps.
+
 ```{r}
+#| warning: false
+
 # map netflows
 netflow_plot <- ggplot(data = mob_indicators, aes(fill = netflow_class)) +
   geom_sf(col = "white", size = .1) +
@@ -524,7 +601,7 @@ netflow_plot <- ggplot(data = mob_indicators, aes(fill = netflow_class)) +
   theme(plot.title = element_text(size = 22, face = "bold"),
         legend.position = "none") +
   labs(title = "(a) Netflow",
-       fill = "%") +
+       fill = "Net count of moves") +
   theme_void() + 
   geom_sf(data = shp_reg,
           col = "grey70", 
@@ -542,7 +619,7 @@ inflow_plot <- ggplot(data = mob_indicators, aes(fill = inflow_class)) +
   theme(plot.title = element_text(size = 22, face = "bold"),
         legend.position = "none") +
   labs(title = "(b) Inflow",
-       fill = "%") +
+       fill = "Count of moves") +
   theme_void() + 
   geom_sf(data = shp_reg,
           col = "grey70", 
@@ -560,7 +637,7 @@ outflow_plot <- ggplot(data = mob_indicators, aes(fill = outflow_class)) +
   theme(plot.title = element_text(size = 22, face = "bold"),
         legend.position = "none") +
   labs(title = "(b) Outflow",
-       fill = "%") +
+       fill = "Count of moves") +
   theme_void() +
     geom_sf(data = shp_reg,
           col = "grey70", 
@@ -573,11 +650,15 @@ outflow_plot <- ggplot(data = mob_indicators, aes(fill = outflow_class)) +
 netflow_plot + inflow_plot + outflow_plot
 ```
 
+The maps display the average count of movement across provinces in Chile. In relative terms, they indicate that some of central provinces experienced larger losses compared to northern and southern provinces. Central provinces also display the largest average counts of movement. This is expected as these areas concentrate most of the Chilean population, and larger population centres are expected to generate more movement.
+
 **Flow to Facebook population size**
 
-Little effect
+When using digital footprint data, a key concern is whether the data are biased or representative of the local populations [@rowe2023a]. In the context of mobility, for instance, we would expect that we would observe more movement where we observe a larger number of Meta-Facebook active users. To explore this, we could analyse the ratio of movement over the number of Meta-Facebook active users by area. High spatial variability in this ratio would be evidence of biases in the Meta-Facebook data capturing mobility. We compute the average number of outflow movement over the average Meta-Facebook active user population by province. The results are quite revealing, showing remarkable little variation across provinces. This suggests very little evidence of biases in the Meta-Facebook data to capture mobility. Of course, this evidence only applies for Chile. But this analysis could be easily implemented on data for other countries.
 
 ```{r}
+#| warning: false
+
 # compute mean population
 mean_fb_pop <- pop20_df %>% group_by(polygon_name) %>% 
   dplyr::summarise(
@@ -601,7 +682,7 @@ ggplot(data = mob_indicators, aes(fill = outflow_to_pop)) +
   theme(plot.title = element_text(size = 22, face = "bold"),
         legend.position = "none") +
   labs(title = "Flows to population size",
-       fill = "Number of people per 100") +
+       fill = "Number of movements per 100") +
   theme_void() +
     geom_sf(data = shp_reg,
           col = "grey70", 
@@ -615,7 +696,17 @@ ggplot(data = mob_indicators, aes(fill = outflow_to_pop)) +
 
 **Changes over time**
 
+Maps are also an effective way of analysing spatial patterns over time. Below we show us how you can analyse the average count of net movement for April 2020 and April 2022 using **ggplot**. Different from the maps above, here we use a continous scale to map the data. We can see slight variations in the net balance of movement.
+
+::: {.callout-note icon="false" appearance="simple"}
+## Question 5
+
+What interesting patterns do you see?
+:::
+
 ```{r}
+#| warning: false
+
 # read April 2022 data
 df22 <- readRDS("./data/fb/movement_adm/2022_04.rds") %>% 
   mutate(GEOMETRY = NULL) %>% 
@@ -698,7 +789,13 @@ mob_indicators <- mob_indicators %>% select(names(mob_indicators22)) # remove co
 mob_indicators_20.22 <- rbind(mob_indicators, mob_indicators22)
 ```
 
+::: callout-note
+We note that *facet_grid(.)* is a useful function to know if you intend to produce figures by layers and these layers are defined by a different variable / column in your data frame. In our example, this is year.
+:::
+
 ```{r}
+#| warning: false
+
 # map netflows
 ggplot(data = mob_indicators_20.22, aes(fill = mean_netflow)) +
   geom_sf(col = "white", size = .1) +
@@ -718,7 +815,7 @@ ggplot(data = mob_indicators_20.22, aes(fill = mean_netflow)) +
   theme(plot.title = element_text(size = 22, face = "bold"),
         legend.position = "none") +
   labs(title = "Netflow",
-       fill = "Number of people") +
+       fill = "Number of movements") +
   theme_void() + 
   geom_sf(data = shp_reg,
           col = "grey70", 
@@ -730,13 +827,24 @@ ggplot(data = mob_indicators_20.22, aes(fill = mean_netflow)) +
 
 ### Interactive mapping
 
+An alternative way to analyse the data is using interactive maps. Interactive maps provide greater flexibility to explore the data by adding a base map for greater context. We use **tmap** for this task. **tmap** is a great package for mapping and you should probably add it to your toolbox if you are working on geographic information systems using R.
+
+We map the average net count of movement for April 2022. We first enable interactivity by running `tmap_mode("view")` and then create the map. Using the menu on the left top of the map below, we can zoom in and out to explore the map and also change the base layer. We can also display or hide the colouring layers of our indicator. This allows to see the names of the areas experiencing net gains and losses of moves.
+
 ```{r}
-tmap_mode("view")
-tm_shape(mob_indicators22) + 
-    tm_fill("mean_netflow",
+#| warning: false
+
+# create a map
+tmap_mode("view") # enable interactivity
+tm_shape(mob_indicators22) + # input data
+    tm_fill("mean_netflow", # draw and fill polygons
           palette = "RdBu",
           title = "Netflows")
 ```
+
+::: callout-note
+We use **ttm()** to switch off the interactive functionality of tmap.
+:::
 
 ```{r}
 # switch to other mode: "view"
@@ -745,14 +853,20 @@ ttm()
 
 ### Flow mapping
 
+An additional key dimension of the analysis of origin-destination flow data is visually understanding the relationship between origins and destinations. This helps understanding the extent of interaction of individual areas with the rest of the country, and also informs how changes in a specific area may impact others - see for example @rowe2020 and @rowe2022b. Flow maps are often used to visualise the complex network of mobility flows between areas. A recently developed tool for this end is [mapbox](https://www.mapbox.com). If you want to use mapbox you need to sign up. You can create an account for free to use some basic products. We can use mapbox through the [mapdeck](https://cran.r-project.org/web/packages/mapdeck/vignettes/mapdeck.html) package in R.
+
+So you have a start-to-end understanding of the process, we will begin from loading the input movement data. We compute the average count by origin-destination pair for April 2020, and prepare a data frame containing origin and destination coordinates.
+
 ```{r}
 #| warning: false
 #| message: false
 
+# read data
 df20 <- readRDS("./data/fb/movement_adm/2020_04.rds") %>% 
   mutate(GEOMETRY = NULL) %>% 
   dplyr::filter(country == "CL") 
 
+# compute mean move by origin-destination pair
 flow_df20 <- df20 %>% 
   filter(start_polygon_name != end_polygon_name) %>% 
   group_by(start_polygon_name, end_polygon_name) %>% 
@@ -761,18 +875,23 @@ flow_df20 <- df20 %>%
     ) %>% 
   ungroup()
 
+# create a coordinate data frame for origins
 origin_coordinate_df <- df20 %>% 
   dplyr::select( c(start_polygon_name, start_lat, start_lon)) %>% 
   distinct()
 
+# create a coordinate data frame for destinations
 destination_coordinate_df <- df20 %>% 
   dplyr::select( c(end_polygon_name, end_lat, end_lon)) %>% 
   distinct()
 
+# join coordinates for origins and destinations
 flow_df20 <- left_join(flow_df20, origin_coordinate_df, by = c("start_polygon_name" = "start_polygon_name"))
 flow_df20 <- left_join(flow_df20, destination_coordinate_df, by = c("end_polygon_name" = "end_polygon_name"))
 
 ```
+
+For our illustration, we will focus on the province of Santiago.
 
 ```{r}
 df_santiago <- flow_df20 %>% dplyr::filter(start_polygon_name == "Santiago")
@@ -781,7 +900,17 @@ head(df_santiago)
 ```
 
 ```{r}
-key <- "pk.eyJ1IjoiZmNvcm93ZSIsImEiOiJja2Jyc2Qxd2QyNngwMndwOTVxa3B2bjBpIn0.vA3y1-WhmI_W3NxCKlILzw" ## put your own token here
+#| echo: false
+my_key <- "pk.eyJ1IjoiZmNvcm93ZSIsImEiOiJja2Jyc2Qxd2QyNngwMndwOTVxa3B2bjBpIn0.vA3y1-WhmI_W3NxCKlILzw"
+```
+
+To use mapbox, you will need to sign up for an account on the [mapbox](https://www.mapbox.com) website. For this workshop, we have generated a key to share but we strongly suggest to create an account as the key will last for a certain period of time. The map generated is interactive. If you can explore it by clicking on it and moving your mouse. If you can also zoom in and out by double-clicking.
+
+A striking pattern of the map below is the high degree of connectivity of Santiago with the rest of the country. Flows from Santiago not only extend to proximate and adjacent provinces but extend to far provinces in the north and south of the country.
+
+```{r}
+#| warning: false
+key <- my_key ## put your own token here
 
 flowmap <- mapdeck( token = key, style = mapdeck_style("dark"),
                 location = c(-3.7, 40.4), zoom = 6, pitch = 45) %>%
@@ -801,10 +930,8 @@ flowmap <- mapdeck( token = key, style = mapdeck_style("dark"),
 flowmap
 ```
 
-Mapbox <!--# Common concepts -->
+::: {.callout-note icon="false" appearance="simple"}
+## Question 6
 
-<!--# There are several concepts relevant to understanding the data sets. First of all, we construct maps using two different methods of identifying locations: tiles and administrative polygons. -->
-
-<!--#  The Bing Maps Tile System defines a series of grids at different resolution levels over a rectangular projection of the world (Schwartz 2018). Each level is constructed by dividing the previous level into fourths. We typically use Bing tile levels 13 through 16, where level 13 results in tiles that are about 4.9 x 4.9 km at the Equator. The other method we use for identifying a location is administrative polygons, which define the political and geographic boundaries of countries, states, provinces, counties, cities, and more. -->
-
-<!--#  When generating a map for a crisis event, we specify a rectangular bounding box around the most directly affected area. The different map calculations, described in the following sections, are done relative to this region, and, for most of the maps, only data within this region is included. Most of the map types are based on counting events that occur within a time interval, which is frequently 8 or 24 hours. The time interval determines what data is included in a calculation as well as the minimum frequency with which new maps are generated.  -->
+Create a flow map for your province of interest.
+:::

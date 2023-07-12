@@ -54,6 +54,11 @@ Once you have installed R, you will need to install some R extensions, known as 
 -   `sp`
 -   `stringr`
 -   `RColorBrewer`
+-   `showtext`
+-   `scales`
+-   `leaflet`
+-   `tmap`
+-   `mapdeck`
 
 To install the packages, open RStudio. On the console window (normally at the bottom left), write the following command: install.packages("name of package"). Make sure you replace "name of package" by the actual name of the package that you want to install e.g. install.packages("tidyverse"). Then, press enter and repeat this process until you have installed all the packages in the list.
 

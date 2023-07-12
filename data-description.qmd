@@ -40,7 +40,7 @@ The data sets also include a 'quality' score indicating the number of standard d
 
 <!-- Then, we classified the Bing tiles into 10 discrete categories of population density, hence obtaining a categorisation of Bing tiles a lot more detailed than the traditional binary rural/urban classification (Fielding, 1989). -->
 
-### Methodology for data set desing
+### Methodology for data set design
 
 Prior to releasing the above-mentioned data sets, Meta applies three techniques to ensure privacy and anonymisation. First, a small undisclosed amount of random noise is added to ensure that precise location cannot be identified for small population counts in sparsely populated areas. While removing small counts may lead to an underrepresentation of the population in these places, the geographic distribution of population is still reflected in the data. Second, spatial smoothing is applied to produce a smooth population count surface using inverse distance-weighted averaging. Third, any remaining population counts of less than 10 are removed from the final data set (see Maas et al. [@Maas19] for details).
 

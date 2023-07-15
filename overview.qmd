@@ -41,7 +41,7 @@ You will also need to download RStudio Desktop (or simply RStudio), which is an 
 
 Download Quarto from this [website](https://quarto.org/docs/get-started/). Quarto is a publishing system that will allow you to open and work on the computational notebooks for the workshop. On 'Step 1' on the website, download the version of Quarto that matches your Operating System. Open the installer file, run it and follow the prompts.
 
-**R libraries**
+**R packages**
 
 Once you have installed R, you will need to install some R extensions, known as packages, that will be useful for the applications explored in this workshop. The packages you need to install are:
 

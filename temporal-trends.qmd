@@ -2,17 +2,23 @@
 
 In this part of the workshop, we explore the temporal patterns displayed by human mobility data from Facebook Meta. The data was collected for Chile in the time period spanning from end of March of 2020 to the end of March 2022.
 
-```{r echo=T, results='hide'}
-#Before getting started, please run the code below to avoid getting warnings and messages when executing the rest of the workbook:
+```{r}
+#clean environment
+rm(list=ls())
 ```
 
-```{r setup, include=FALSE}
+::: {.callout-note}
+Before getting started, run the code below to avoid getting warnings and messages when executing the rest of the workbook.
+:::
+
+```{r}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
 
+
 ## Dependencies
 
-To analyse the data, we need R and the following R packages (see installation instructions [here](R%20libraries)\*). Once installed, you can use the R packages by loading them as libraries:
+To analyse the data, we need R and the following R packages (see installation instructions on [R packages]). Once installed, you can use the R packages by loading them as libraries:
 
 ```{r}
 #| warning: false

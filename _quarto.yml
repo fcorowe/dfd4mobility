@@ -19,6 +19,8 @@ book:
   repo-url: https://github.com/fcorowe/dfd4mobility
 
 bibliography: references.bib
+margin-header: |
+  ![](/margin-header2.png)
 
 format:
   html:

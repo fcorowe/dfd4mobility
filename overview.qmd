@@ -129,6 +129,11 @@ for(lib in deps){library(lib, character.only = TRUE)}
 We might ask you to install more packages on the day that this workshop is taking place.
 :::
 
+
+::: {.callout-important}
+Instructions by email will be sent before the workshop to download the Github repository and data which will be used during the workshop. Please ensure you have downloaded the repository and data *before* the workshop.
+:::
+
 ## During the workshop
 
 All the workshop material will be made available on this [website](https://fcorowe.github.io/dfd4mobility/) which is currently under construction. Further instructions on how to download the material will be given during the workshop.

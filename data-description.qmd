@@ -1,7 +1,7 @@
 # Meta-Facebook data introduction
 
 ::: callout-note
-Download presentation [here](./slides/un-celade_dfd-mobility.pdf)
+Download presentation [here](./slides/un-celade_dfd-mobility_training.pdf)
 :::
 
 ## Introduction to digital footprint data

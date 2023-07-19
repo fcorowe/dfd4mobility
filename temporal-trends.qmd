@@ -7,7 +7,7 @@ In this part of the workshop, we explore the temporal patterns displayed by huma
 rm(list=ls())
 ```
 
-::: {.callout-note}
+::: callout-note
 Before getting started, run the code below to avoid getting warnings and messages when executing the rest of the workbook.
 :::
 
@@ -15,10 +15,9 @@ Before getting started, run the code below to avoid getting warnings and message
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
 
-
 ## Dependencies
 
-To analyse the data, we need R and the following R packages (see installation instructions on [R packages]). Once installed, you can use the R packages by loading them as libraries:
+To analyse the data, we need R and the following R packages (see installation instructions on \[R packages\]). Once installed, you can use the R packages by loading them as libraries:
 
 ```{r}
 #| warning: false
@@ -29,9 +28,6 @@ library(tidyverse)
 
 # Load the zoo package for working with time series data
 library(zoo)
-
-# Load the tools package for various utility functions
-library(tools)
 
 # Load the mice package for multiple imputation of missing data
 library(mice)
@@ -225,19 +221,19 @@ ggplot() +
   scale_y_continuous(labels = scales::number_format(big.mark = "")) 
 ```
 
-::: {.callout-note icon="false"}
+::: {.callout-note icon="false" appearance="simple"}
 **Question 1**
 
 The patterns during the crisis period, display an overall trend and some shorter-term oscillations. What do these oscillations correspond to?
 :::
 
-::: {.callout-note icon="false"}
+::: {.callout-note icon="false" appearance="simple"}
 **Question 2**
 
 Does the observed overall trend in the 5-month period starting in May 2020 agree with what you expected? You may answer this question based on your knowledge on the evolution of the COVID-19 pandemic in Chile.
 :::
 
-::: {.callout-note icon="false"}
+::: {.callout-note icon="false" icon="false" appearance="simple"}
 **Question 3**
 
 Why do you think the number of movements is generally higher during the crisis period than during the baseline period?
@@ -453,13 +449,13 @@ ggplot() +
 Does the overall trend in the internal movements involving Santiago province agree with your intuition?
 :::
 
-::: {.callout-note icon="false"}
+::: {.callout-note icon="false" appearance="simple"}
 **Question 5**
 
 Can you observe any differences in the shorter-term oscillations corresponding to movements to and from Santiago province? To answer this question, it might be helpful to complete the Exercise below.
 :::
 
-::: {.callout-warning icon="false"}
+::: {.callout-warning icon="false" appearance="simple"}
 **Exercise 1**
 
 Create a plot analogous to Figure 5, but comparing the baseline movements instead of the movements during the crisis period.
@@ -550,19 +546,19 @@ ggplot() +
 
 ```
 
-::: {.callout-note icon="false"}
+::: {.callout-note icon="false" appearance="simple"}
 **Question 6**
 
 Does the overall trend in the internal movements from Santiago to Valparaíso in this time period agree with your intuition?
 :::
 
-::: {.callout-warning icon="false"}
+::: {.callout-warning icon="false" appearance="simple"}
 **Exercise 2**
 
 Create a plot analogous to Figure 6, but comparing the movements from Valparaíso to Santiago during the crisis and baseline period.
 :::
 
-::: {.callout-warning icon="false"}
+::: {.callout-warning icon="false" appearance="simple"}
 **Exercise 3**
 
 Compare the trends in movements from Santiago to Valparaíso and from Valparaíso to Santiago. Are the overall trends similar? Are there differentces in the shorter-term fluctuations?

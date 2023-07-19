@@ -48,7 +48,6 @@ Once you have installed R, you will need to install some R extensions, known as 
 -   `tidyverse`
 -   `ggthemes`
 -   `zoo`
--   `tools`
 -   `mice`
 -   `patchwork`
 -   `viridis`
@@ -73,7 +72,6 @@ list.of.packages.cran <- c(
    "tidyverse",
    "ggthemes",
    "zoo",
-   "tools",
    "mice",
    "patchwork",
    "viridis",
@@ -106,7 +104,6 @@ deps <- list(
    "tidyverse",
    "ggthemes",
    "zoo",
-   "tools",
    "mice",
    "patchwork",
    "viridis",

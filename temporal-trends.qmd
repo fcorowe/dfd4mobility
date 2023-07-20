@@ -233,11 +233,6 @@ The patterns during the crisis period, display an overall trend and some shorter
 Does the observed overall trend in the 5-month period starting in May 2020 agree with what you expected? You may answer this question based on your knowledge on the evolution of the COVID-19 pandemic in Chile.
 :::
 
-::: {.callout-note icon="false" icon="false" appearance="simple"}
-**Question 3**
-
-Why do you think the number of movements is generally higher during the crisis period than during the baseline period?
-:::
 
 ## Santiago: Internal movements
 
@@ -444,13 +439,13 @@ ggplot() +
 ```
 
 ::: {.callout-note icon="false" appearance="simple"}
-## Question 4
+**Question 3**
 
 Does the overall trend in the internal movements involving Santiago province agree with your intuition?
 :::
 
 ::: {.callout-note icon="false" appearance="simple"}
-**Question 5**
+**Question 4**
 
 Can you observe any differences in the shorter-term oscillations corresponding to movements to and from Santiago province? To answer this question, it might be helpful to complete the Exercise below.
 :::
@@ -547,7 +542,7 @@ ggplot() +
 ```
 
 ::: {.callout-note icon="false" appearance="simple"}
-**Question 6**
+**Question 5**
 
 Does the overall trend in the internal movements from Santiago to Valparaíso in this time period agree with your intuition?
 :::
